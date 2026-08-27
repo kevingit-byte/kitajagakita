@@ -1,9 +1,15 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 // Aliased: the default export is the map component, and it would otherwise
 // shadow the built-in `Map` constructor used below for the event lookup.
-import MapGL, { Source, Layer, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
+import MapGL, {
+  Source,
+  Layer,
+  type MapLayerMouseEvent,
+  type MapRef,
+  type ErrorEvent,
+} from "react-map-gl/maplibre";
 import type { CircleLayerSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { DisasterEvent } from "@/lib/types";
@@ -81,6 +87,7 @@ export default function DisasterMap({ events, onSelectEvent }: DisasterMapProps)
   const mapRef = useRef<MapRef>(null);
   const eventsById = useMemo(() => new Map(events.map((e) => [e.id, e])), [events]);
   const geojson = useMemo(() => toFeatureCollection(events), [events]);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   function handleClick(e: MapLayerMouseEvent) {
     const feature = e.features?.[0];
@@ -91,19 +98,37 @@ export default function DisasterMap({ events, onSelectEvent }: DisasterMapProps)
     }
   }
 
+  // MapLibre reports failed style/source/tile loads as a non-throwing
+  // `error` event, not a JS exception - a React error boundary around this
+  // component can't catch that. Surfacing it explicitly is the only way a
+  // basemap or vector-tile failure doesn't look identical to "loaded fine,
+  // just rendering nothing".
+  function handleError(e: ErrorEvent) {
+    console.error("MapLibre error:", e.error);
+    setLoadError(e.error?.message ?? "Terjadi kesalahan saat memuat peta.");
+  }
+
   return (
-    <MapGL
-      ref={mapRef}
-      initialViewState={INDONESIA_VIEW}
-      mapStyle={CARTO_DARK_STYLE}
-      style={{ width: "100%", height: "100%" }}
-      interactiveLayerIds={[EVENTS_LAYER_ID]}
-      onClick={handleClick}
-      cursor="default"
-    >
-      <Source id="events" type="geojson" data={geojson}>
-        <Layer {...circleLayer} />
-      </Source>
-    </MapGL>
+    <div className="relative h-full w-full">
+      {loadError && (
+        <div className="absolute top-2 left-2 right-2 z-10 bg-red-950/90 border border-red-800 rounded-lg px-3 py-2 text-xs text-red-200">
+          ⚠️ Sebagian data peta gagal dimuat: {loadError}
+        </div>
+      )}
+      <MapGL
+        ref={mapRef}
+        initialViewState={INDONESIA_VIEW}
+        mapStyle={CARTO_DARK_STYLE}
+        style={{ width: "100%", height: "100%" }}
+        interactiveLayerIds={[EVENTS_LAYER_ID]}
+        onClick={handleClick}
+        onError={handleError}
+        cursor="default"
+      >
+        <Source id="events" type="geojson" data={geojson}>
+          <Layer {...circleLayer} />
+        </Source>
+      </MapGL>
+    </div>
   );
 }
