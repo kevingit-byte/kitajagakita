@@ -8,9 +8,10 @@ import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/lab
 const ALL_TYPES: DisasterType[] = ["gempa", "karhutla", "gunungapi", "banjir", "longsor", "cuaca", "lainnya"];
 const ALL_STATUSES: EventStatus[] = ["aktif", "mereda", "selesai", "tidak-diketahui"];
 const TIME_RANGES: { value: TimeRange; label: string }[] = [
-  { value: "24h", label: "24 Jam" },
-  { value: "7d", label: "7 Hari" },
-  { value: "30d", label: "30 Hari" },
+  { value: "today", label: "Hari ini" },
+  { value: "3d", label: "3 hari" },
+  { value: "7d", label: "7 hari" },
+  { value: "30d", label: "30 hari" },
 ];
 
 function toggle<T>(list: T[], value: T): T[] {
@@ -60,8 +61,14 @@ export default function FilterBar({ filters, onChange }: FilterBarProps) {
       {expanded && (
         <div className="flex flex-col gap-3 px-3 pb-3">
           <div>
-            <div className="text-neutral-400 text-xs mb-1.5">Jenis Bencana</div>
+            <div className="text-neutral-400 text-xs mb-1.5">⚠️ Jenis kejadian</div>
             <div className="flex flex-wrap gap-1.5">
+              <button
+                onClick={() => onChange({ ...filters, types: [] })}
+                className={chipClass(filters.types.length === 0)}
+              >
+                Semua
+              </button>
               {ALL_TYPES.map((type) => {
                 const active = filters.types.length === 0 || filters.types.includes(type);
                 return (
@@ -83,6 +90,12 @@ export default function FilterBar({ filters, onChange }: FilterBarProps) {
           <div>
             <div className="text-neutral-400 text-xs mb-1.5">Status</div>
             <div className="flex flex-wrap gap-1.5">
+              <button
+                onClick={() => onChange({ ...filters, statuses: [] })}
+                className={chipClass(filters.statuses.length === 0)}
+              >
+                Semua
+              </button>
               {ALL_STATUSES.map((status) => {
                 const active = filters.statuses.length === 0 || filters.statuses.includes(status);
                 return (
@@ -100,7 +113,7 @@ export default function FilterBar({ filters, onChange }: FilterBarProps) {
 
           <div className="flex flex-wrap gap-4 items-end">
             <div>
-              <div className="text-neutral-400 text-xs mb-1.5">Rentang Waktu</div>
+              <div className="text-neutral-400 text-xs mb-1.5">🗓️ Waktu</div>
               <div className="flex gap-1.5">
                 {TIME_RANGES.map((tr) => (
                   <button

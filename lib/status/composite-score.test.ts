@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeCompositeScore } from "./composite-score";
+import { computeCompositeScore, summarizeNearbyEvents } from "./composite-score";
 import type { DisasterEvent } from "../types";
 
 function makeEvent(overrides: Partial<DisasterEvent>): DisasterEvent {
@@ -63,5 +63,33 @@ describe("computeCompositeScore", () => {
   it("always returns a full factor breakdown, never a bare score", () => {
     const result = computeCompositeScore(JAKARTA, [], 120);
     expect(result.factors.every((f) => f.label && f.detail)).toBe(true);
+  });
+});
+
+describe("summarizeNearbyEvents", () => {
+  it("groups nearby events from the last 7 days by type", () => {
+    const now = new Date("2026-08-27T00:00:00Z");
+    const events = [
+      makeEvent({ type: "banjir", lat: -6.21, lon: 106.82, occurredAt: "2026-08-25T00:00:00Z" }),
+      makeEvent({ type: "banjir", lat: -6.22, lon: 106.83, occurredAt: "2026-08-26T00:00:00Z" }),
+      makeEvent({ type: "cuaca", lat: -6.19, lon: 106.81, occurredAt: "2026-08-24T00:00:00Z" }),
+    ];
+    const result = summarizeNearbyEvents(JAKARTA, events, now);
+    expect(result).toEqual([
+      { type: "banjir", count: 2 },
+      { type: "cuaca", count: 1 },
+    ]);
+  });
+
+  it("excludes events older than 7 days", () => {
+    const now = new Date("2026-08-27T00:00:00Z");
+    const oldEvent = makeEvent({ type: "banjir", lat: -6.21, lon: 106.82, occurredAt: "2026-08-01T00:00:00Z" });
+    expect(summarizeNearbyEvents(JAKARTA, [oldEvent], now)).toEqual([]);
+  });
+
+  it("excludes events outside the 100km radius", () => {
+    const now = new Date("2026-08-27T00:00:00Z");
+    const farEvent = makeEvent({ type: "banjir", lat: 10, lon: 120, occurredAt: "2026-08-26T00:00:00Z" });
+    expect(summarizeNearbyEvents(JAKARTA, [farEvent], now)).toEqual([]);
   });
 });

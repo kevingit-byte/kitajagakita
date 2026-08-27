@@ -1,6 +1,6 @@
 import type { DisasterEvent, DisasterType, EventStatus, Severity } from "./types";
 
-export type TimeRange = "24h" | "7d" | "30d";
+export type TimeRange = "today" | "3d" | "7d" | "30d";
 
 export type EventFilters = {
   types: DisasterType[]; // empty = all types
@@ -16,14 +16,19 @@ export const DEFAULT_FILTERS: EventFilters = {
   minSeverity: 1,
 };
 
-const TIME_RANGE_MS: Record<TimeRange, number> = {
-  "24h": 24 * 60 * 60 * 1000,
-  "7d": 7 * 24 * 60 * 60 * 1000,
-  "30d": 30 * 24 * 60 * 60 * 1000,
-};
+/** "today" is the start of the current calendar day (local time), not a rolling 24h window. */
+function cutoffForRange(range: TimeRange, now: Date): number {
+  if (range === "today") {
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+    return startOfDay.getTime();
+  }
+  const days = { "3d": 3, "7d": 7, "30d": 30 }[range];
+  return now.getTime() - days * 24 * 60 * 60 * 1000;
+}
 
 export function filterEvents(events: DisasterEvent[], filters: EventFilters, now: Date = new Date()): DisasterEvent[] {
-  const cutoff = now.getTime() - TIME_RANGE_MS[filters.timeRange];
+  const cutoff = cutoffForRange(filters.timeRange, now);
 
   return events.filter((event) => {
     if (filters.types.length > 0 && !filters.types.includes(event.type)) return false;

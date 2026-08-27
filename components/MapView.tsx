@@ -2,10 +2,11 @@
 
 import dynamic from "next/dynamic";
 import type { DisasterEvent } from "@/lib/types";
+import MapErrorBoundary from "./MapErrorBoundary";
 
-// Leaflet touches `window` at import time, so it must never be pulled into
-// the server bundle - dynamic import with ssr:false is required, not
-// optional, per the spec.
+// MapLibre GL JS touches `window`/WebGL at import time, so it must never be
+// pulled into the server bundle - dynamic import with ssr:false is
+// required, not optional.
 const DisasterMap = dynamic(() => import("./DisasterMap"), {
   ssr: false,
   loading: () => <MapSkeleton />,
@@ -13,19 +14,8 @@ const DisasterMap = dynamic(() => import("./DisasterMap"), {
 
 function MapSkeleton() {
   return (
-    <div
-      style={{
-        height: "100%",
-        width: "100%",
-        background: "#1a1a1a",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#888",
-        fontSize: 14,
-      }}
-    >
-      Memuat peta...
+    <div className="h-full w-full bg-neutral-900 animate-pulse flex items-center justify-center">
+      <span className="text-neutral-600 text-sm">Menyiapkan peta...</span>
     </div>
   );
 }
@@ -36,5 +26,9 @@ type MapViewProps = {
 };
 
 export default function MapView({ events, onSelectEvent }: MapViewProps) {
-  return <DisasterMap events={events} onSelectEvent={onSelectEvent} />;
+  return (
+    <MapErrorBoundary>
+      <DisasterMap events={events} onSelectEvent={onSelectEvent} />
+    </MapErrorBoundary>
+  );
 }

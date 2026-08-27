@@ -126,3 +126,38 @@ export function computeCompositeScore(
     activeEventsWithin100km,
   };
 }
+
+const SUMMARY_RADIUS_KM = 100;
+const SUMMARY_WINDOW_DAYS = 7;
+
+export type NearbyTypeCount = { type: DisasterEvent["type"]; count: number };
+
+/**
+ * "Dalam 7 hari terakhir" summary for the Sekitar Saya card - all events
+ * (any status, not just aktif) within radius and time window, grouped by
+ * type. Separate from the composite score's aktif-only nearest-event logic:
+ * this answers "what's been happening nearby lately", not "what's the
+ * current risk level".
+ */
+export function summarizeNearbyEvents(
+  location: { lat: number; lon: number },
+  allEvents: DisasterEvent[],
+  now: Date = new Date(),
+): NearbyTypeCount[] {
+  const cutoff = now.getTime() - SUMMARY_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+
+  const nearby = allEvents.filter((e) => {
+    const withinTime = new Date(e.occurredAt).getTime() >= cutoff;
+    const withinDistance = haversineDistanceKm(location.lat, location.lon, e.lat, e.lon) <= SUMMARY_RADIUS_KM;
+    return withinTime && withinDistance;
+  });
+
+  const counts = new Map<DisasterEvent["type"], number>();
+  for (const event of nearby) {
+    counts.set(event.type, (counts.get(event.type) ?? 0) + 1);
+  }
+
+  return Array.from(counts.entries())
+    .map(([type, count]) => ({ type, count }))
+    .sort((a, b) => b.count - a.count);
+}

@@ -1,25 +1,76 @@
 "use client";
 
-import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { useMemo, useRef } from "react";
+// Aliased: the default export is the map component, and it would otherwise
+// shadow the built-in `Map` constructor used below for the event lookup.
+import MapGL, { Source, Layer, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
+import type { CircleLayerSpecification } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 import type { DisasterEvent } from "@/lib/types";
-import { DISASTER_TYPE_COLOR, DISASTER_TYPE_LABEL, STATUS_LABEL } from "@/lib/labels";
+import { DISASTER_TYPE_COLOR } from "@/lib/labels";
 
-// CARTO Dark Matter - free, no API key. The spec's stack section names
-// "CARTO light tiles" as the default, but the UI section separately
-// requires a dark map with high-contrast markers; CARTO's dark_all variant
-// satisfies both (same free, no-key CARTO family) rather than picking one
-// requirement over the other.
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
-const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+// CARTO's free vector basemap style (MapLibre GL, no API key) - replaces the
+// old raster-tile approach. CARTO themselves recommend vector basemaps over
+// raster now: sharper at any zoom, no legacy watermark constraints, and
+// this dark-matter style is the same free CARTO family the raster tiles
+// were, just the modern delivery format. Confirmed HTTP 200 with no auth
+// before switching, same verification discipline as every data source here.
+const CARTO_DARK_STYLE = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 
-const INDONESIA_CENTER: [number, number] = [-2.5, 118];
-const INDONESIA_ZOOM = 5;
+const INDONESIA_VIEW = { longitude: 118, latitude: -2.5, zoom: 4.2 };
 
-function radiusForSeverity(severity: number): number {
-  return 5 + severity * 2.5;
+const EVENTS_LAYER_ID = "disaster-events";
+
+function toFeatureCollection(events: DisasterEvent[]): GeoJSON.FeatureCollection {
+  return {
+    type: "FeatureCollection",
+    features: events.map((event) => ({
+      type: "Feature",
+      id: event.id,
+      geometry: { type: "Point", coordinates: [event.lon, event.lat] },
+      properties: {
+        id: event.id,
+        type: event.type,
+        severity: event.severity,
+        faded: event.status === "selesai" ? 1 : 0,
+      },
+    })),
+  };
 }
+
+// Rendered as a single GPU-composited circle layer rather than one DOM
+// marker per event: this app's karhutla layer alone can carry 1000+
+// clustered points (real event volume, confirmed in production), and
+// per-marker DOM elements would make the map unusably slow at that count.
+const circleLayer: CircleLayerSpecification = {
+  id: EVENTS_LAYER_ID,
+  type: "circle",
+  source: "events",
+  paint: {
+    "circle-color": [
+      "match",
+      ["get", "type"],
+      "gempa",
+      DISASTER_TYPE_COLOR.gempa,
+      "karhutla",
+      DISASTER_TYPE_COLOR.karhutla,
+      "gunungapi",
+      DISASTER_TYPE_COLOR.gunungapi,
+      "banjir",
+      DISASTER_TYPE_COLOR.banjir,
+      "longsor",
+      DISASTER_TYPE_COLOR.longsor,
+      "cuaca",
+      DISASTER_TYPE_COLOR.cuaca,
+      DISASTER_TYPE_COLOR.lainnya,
+    ],
+    "circle-radius": ["+", 5, ["*", ["get", "severity"], 2.2]],
+    "circle-opacity": ["case", ["==", ["get", "faded"], 1], 0.25, 0.8],
+    "circle-stroke-width": 1.2,
+    "circle-stroke-color": "#0b0f14",
+    "circle-stroke-opacity": ["case", ["==", ["get", "faded"], 1], 0.3, 0.9],
+  },
+};
 
 type DisasterMapProps = {
   events: DisasterEvent[];
@@ -27,41 +78,32 @@ type DisasterMapProps = {
 };
 
 export default function DisasterMap({ events, onSelectEvent }: DisasterMapProps) {
+  const mapRef = useRef<MapRef>(null);
+  const eventsById = useMemo(() => new Map(events.map((e) => [e.id, e])), [events]);
+  const geojson = useMemo(() => toFeatureCollection(events), [events]);
+
+  function handleClick(e: MapLayerMouseEvent) {
+    const feature = e.features?.[0];
+    const id = feature?.properties?.id as string | undefined;
+    if (id) {
+      const event = eventsById.get(id);
+      if (event) onSelectEvent?.(event);
+    }
+  }
+
   return (
-    <MapContainer
-      center={INDONESIA_CENTER}
-      zoom={INDONESIA_ZOOM}
-      style={{ height: "100%", width: "100%", background: "#1a1a1a" }}
-      preferCanvas
+    <MapGL
+      ref={mapRef}
+      initialViewState={INDONESIA_VIEW}
+      mapStyle={CARTO_DARK_STYLE}
+      style={{ width: "100%", height: "100%" }}
+      interactiveLayerIds={[EVENTS_LAYER_ID]}
+      onClick={handleClick}
+      cursor="default"
     >
-      <TileLayer url={TILE_URL} attribution={TILE_ATTRIBUTION} />
-      {events.map((event) => (
-        <CircleMarker
-          key={event.id}
-          center={[event.lat, event.lon]}
-          radius={radiusForSeverity(event.severity)}
-          pathOptions={{
-            color: DISASTER_TYPE_COLOR[event.type],
-            fillColor: DISASTER_TYPE_COLOR[event.type],
-            fillOpacity: event.status === "selesai" ? 0.25 : 0.75,
-            opacity: event.status === "selesai" ? 0.4 : 1,
-            weight: 1.5,
-          }}
-          eventHandlers={{ click: () => onSelectEvent?.(event) }}
-        >
-          <Popup>
-            <strong>{event.title}</strong>
-            <br />
-            {DISASTER_TYPE_LABEL[event.type]} - {STATUS_LABEL[event.status]}
-            <br />
-            Tingkat keparahan: {event.severityLabel}
-            <br />
-            <span style={{ fontSize: "0.85em", color: "#555" }}>
-              Sumber: {event.sourceName}
-            </span>
-          </Popup>
-        </CircleMarker>
-      ))}
-    </MapContainer>
+      <Source id="events" type="geojson" data={geojson}>
+        <Layer {...circleLayer} />
+      </Source>
+    </MapGL>
   );
 }

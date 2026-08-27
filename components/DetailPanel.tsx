@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import useSWR from "swr";
 import type { DisasterEvent, NewsLink } from "@/lib/types";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/labels";
+import { levelFromEventSeverity } from "@/lib/human-severity";
+import { shortPlaceName, keyStatLine, formatRelativeTime } from "@/lib/format";
+import { GUIDANCE, OFFICIAL_SOURCES_URL } from "@/lib/guidance";
 
 type NewsResponse = { news: NewsLink[]; query: string | null; note?: string; error?: string };
 
@@ -37,25 +41,25 @@ const STATUS_BADGE_CLASS: Record<string, string> = {
   "tidak-diketahui": "bg-neutral-800 text-neutral-500",
 };
 
-const SEVERITY_BADGE_CLASS: Record<number, string> = {
-  1: "bg-emerald-950 text-emerald-300",
-  2: "bg-yellow-950 text-yellow-300",
-  3: "bg-orange-950 text-orange-300",
-  4: "bg-red-950 text-red-300",
-  5: "bg-red-950 text-red-200 ring-1 ring-red-700",
-};
-
 export default function DetailPanel({ event, onClose }: { event: DisasterEvent; onClose: () => void }) {
   const { data: newsData, isLoading: newsLoading } = useSWR(buildNewsUrl(event), fetchNews);
+  const [showTechnical, setShowTechnical] = useState(false);
+
+  const level = levelFromEventSeverity(event.severity, event.status);
+  const isOngoing = event.status === "aktif" || event.status === "mereda";
 
   return (
-    <div className="panel-slide-in absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 bg-neutral-900 border-t sm:border-t-0 sm:border-l border-neutral-800 flex flex-col max-h-[70vh] sm:max-h-none shadow-2xl">
+    <div className="panel-slide-in absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 bg-neutral-900 border-t sm:border-t-0 sm:border-l border-neutral-800 flex flex-col max-h-[85vh] sm:max-h-none shadow-2xl">
       <div className="flex items-start justify-between p-4 border-b border-neutral-800">
-        <div>
-          <h2 className="font-semibold text-lg leading-tight">{event.title}</h2>
-          <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
+        <div className="min-w-0">
+          <h2 className="font-semibold text-lg leading-tight flex items-center gap-1.5">
             <span aria-hidden>{DISASTER_TYPE_ICON[event.type]}</span>
-            {DISASTER_TYPE_LABEL[event.type]}
+            <span className="truncate">
+              {DISASTER_TYPE_LABEL[event.type]} — {shortPlaceName(event)}
+            </span>
+          </h2>
+          <p className="text-xs text-neutral-500 mt-1">
+            {keyStatLine(event)} · 🕐 {formatRelativeTime(event.occurredAt)}
           </p>
         </div>
         <button
@@ -68,31 +72,72 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
       </div>
 
       <div className="overflow-y-auto p-4 flex flex-col gap-4 text-sm">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${level.badgeClass}`}>
+            {level.icon} {level.label}
+          </span>
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_BADGE_CLASS[event.status]}`}>
             {STATUS_LABEL[event.status]}
-          </span>
-          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${SEVERITY_BADGE_CLASS[event.severity]}`}>
-            {event.severityLabel}
           </span>
         </div>
 
         <div>
-          <div className="text-neutral-500 text-xs mb-1">Mengapa status ini?</div>
+          <div className="text-neutral-500 text-xs mb-1">Dampak / Mengapa status ini?</div>
           <p className="text-neutral-200">{event.statusReason}</p>
         </div>
 
-        <div className="text-xs text-neutral-500 flex flex-col gap-0.5">
-          <span>Terjadi: {new Date(event.occurredAt).toLocaleString("id-ID")}</span>
-          <span>Diperbarui: {new Date(event.lastUpdatedAt).toLocaleString("id-ID")}</span>
-          {event.province && <span>Provinsi: {event.province}</span>}
-        </div>
+        {isOngoing && (
+          <div className="bg-neutral-800/50 border border-neutral-800 rounded-lg p-3">
+            <div className="text-neutral-200 font-medium text-sm mb-2 flex items-center gap-1.5">
+              <span aria-hidden>✅</span>
+              Yang sebaiknya dilakukan
+            </div>
+            <ul className="flex flex-col gap-1.5">
+              {GUIDANCE[event.type].map((step, i) => (
+                <li key={i} className="flex items-start gap-2 text-xs text-neutral-300">
+                  <span aria-hidden className="shrink-0">
+                    {step.icon}
+                  </span>
+                  {step.text}
+                </li>
+              ))}
+            </ul>
+            <a href={OFFICIAL_SOURCES_URL} className="text-xs text-blue-400 underline inline-block mt-2">
+              Sumber informasi resmi →
+            </a>
+          </div>
+        )}
 
-        <div className="text-xs text-neutral-500 border-t border-neutral-800 pt-3">
+        <div className="text-xs text-neutral-500">
           Sumber:{" "}
           <a href={event.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">
             {event.sourceName}
           </a>
+        </div>
+
+        <div className="border-t border-neutral-800 pt-3">
+          <button
+            onClick={() => setShowTechnical((v) => !v)}
+            className="text-xs text-neutral-500 hover:text-neutral-300 flex items-center gap-1"
+          >
+            {showTechnical ? "▲" : "▼"} Detail teknis
+          </button>
+          {showTechnical && (
+            <dl className="mt-2 grid grid-cols-[100px_1fr] gap-x-2 gap-y-1 text-[11px] text-neutral-500">
+              <dt>Koordinat</dt>
+              <dd className="text-neutral-400">
+                {event.lat.toFixed(4)}, {event.lon.toFixed(4)}
+              </dd>
+              <dt>Tingkat</dt>
+              <dd className="text-neutral-400">{event.severity} dari 5 ({event.severityLabel})</dd>
+              <dt>Terjadi</dt>
+              <dd className="text-neutral-400">{new Date(event.occurredAt).toLocaleString("id-ID")}</dd>
+              <dt>Diperbarui</dt>
+              <dd className="text-neutral-400">{new Date(event.lastUpdatedAt).toLocaleString("id-ID")}</dd>
+              <dt>ID Kejadian</dt>
+              <dd className="text-neutral-400 break-all">{event.id}</dd>
+            </dl>
+          )}
         </div>
 
         <div className="border-t border-neutral-800 pt-3">
