@@ -1,0 +1,3301 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-08-27T03:44:26Z",
+    "timestamp_areas_base": "2026-08-26T03:11:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 59073041,
+  "lat": -7.9420691,
+  "lon": 112.9529769,
+  "tags": {
+    "alt_name": "Brama",
+    "description": "Last eruption in 2004.",
+    "ele": "2329",
+    "image": "https://photos.app.goo.gl/z3JErGtwt5Y5p7hSA",
+    "last_eruption": "2016",
+    "name": "Gunung Bromo",
+    "name:en": "Mount Bromo",
+    "natural": "volcano",
+    "tourism": "attraction",
+    "url": "https://youtu.be/Db4wK3lY0Tw?si=znHpP05yK4tAjmOV&t=240",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "website": "https://bromo-tour-package.blogspot.com",
+    "wheelchair": "no",
+    "wikidata": "Q679590",
+    "wikimedia_commons": "Category:Mount Bromo",
+    "wikipedia": "en:Mount Bromo"
+  }
+},
+{
+  "type": "node",
+  "id": 262266194,
+  "lat": -6.6700897,
+  "lon": 111.5119397,
+  "tags": {
+    "created_by": "Potlatch 0.8c",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 262268929,
+  "lat": -7.4524377,
+  "lon": 110.4408198,
+  "tags": {
+    "ele": "3145",
+    "last_eruption": "1797",
+    "name": "Gunung Merbabu",
+    "name:en": "Mount Merbabu",
+    "name:id": "Gunung Merbabu",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q598893",
+    "wikimedia_commons": "Category:Mount Merbabu",
+    "wikipedia": "en:Mount Merbabu"
+  }
+},
+{
+  "type": "node",
+  "id": 262268947,
+  "lat": -7.3818933,
+  "lon": 110.0758185,
+  "tags": {
+    "ele": "3320",
+    "last_eruption": "1730",
+    "name": "Gunung Sumbing",
+    "name:en": "Mount Sumbing",
+    "name:id": "Gunung Sumbing",
+    "natural": "volcano",
+    "prominence": "2560",
+    "source:prominence": "3320-760 (Col at the NW of Danasari)",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1677690",
+    "wikimedia_commons": "Category:Mount Sumbing (Java)",
+    "wikipedia": "id:Gunung Sumbing"
+  }
+},
+{
+  "type": "node",
+  "id": 262268965,
+  "lat": -7.3011387,
+  "lon": 109.9966992,
+  "tags": {
+    "alt_name": "Gunung Sundoro",
+    "alt_name:en": "Mount Sundoro",
+    "ele": "3136",
+    "last_eruption": "1971",
+    "name": "Gunung Sindoro",
+    "name:en": "Mount Sindoro",
+    "name:id": "Gunung Sindoro",
+    "natural": "volcano",
+    "prominence": "1761",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2038462",
+    "wikimedia_commons": "Category:Mount Sindoro",
+    "wikipedia": "id:Gunung Sindoro"
+  }
+},
+{
+  "type": "node",
+  "id": 292801401,
+  "lat": -8.2394154,
+  "lon": 115.3779603,
+  "tags": {
+    "alt_name": "巴都尔火山",
+    "alt_name:zh": "巴都尔火山",
+    "alt_name:zh-Hans": "巴都尔火山",
+    "alt_name:zh-Hant": "巴都爾火山",
+    "description": "The 1963-64 eruption was one of the world's largest of the 20th century.",
+    "ele": "1717",
+    "last_eruption": "2000",
+    "name": "Gunung Batur",
+    "name:en": "Mount Batur",
+    "name:id": "Gunung Batur",
+    "name:ms": "Gunung Batur",
+    "name:ru": "вулкан Батур",
+    "name:zh": "京打马尼火山",
+    "name:zh-Hans": "京打马尼火山",
+    "name:zh-Hant": "京打馬尼火山",
+    "natural": "volcano",
+    "ref": "264010",
+    "volcano:status": "active",
+    "volcano:type": "caldera",
+    "wikidata": "Q43876",
+    "wikimedia_commons": "Category:Mount Batur",
+    "wikipedia": "en:Mount Batur"
+  }
+},
+{
+  "type": "node",
+  "id": 295339756,
+  "lat": 5.8210620,
+  "lon": 95.2933037,
+  "tags": {
+    "ele": "617",
+    "name": "Pulau Weh",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 448446512,
+  "lat": -6.1029497,
+  "lon": 105.4221761,
+  "tags": {
+    "alt_name": "Krakatau;Anak Krakatau;Anak Krakatoa;Son of Krakatau",
+    "check_date": "2025-04-24",
+    "ele": "110",
+    "name": "Anak Krakatau",
+    "name:en": "Krakatoa",
+    "name:es": "Krakatoa",
+    "name:id": "Krakatau",
+    "name:pt": "Krakatoa",
+    "name:sk": "Krakatoa",
+    "natural": "volcano",
+    "source": "ESDM",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "website": "https://magma.vsi.esdm.go.id",
+    "wikidata": "Q82613",
+    "wikipedia": "en:Krakatoa"
+  }
+},
+{
+  "type": "node",
+  "id": 448464302,
+  "lat": -0.5247662,
+  "lon": 127.5025749,
+  "tags": {
+    "ele": "1030",
+    "name": "Bukit Amasing",
+    "name:en": "Amasing Hill",
+    "name:id": "Bukit Amasing",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano",
+    "wikipedia": "en:Amasing Hill"
+  }
+},
+{
+  "type": "node",
+  "id": 449697393,
+  "lat": -7.7342623,
+  "lon": 112.5749939,
+  "tags": {
+    "alt_name": "Mount Penanggungan",
+    "ele": "3339",
+    "name": "Arjuno-Welirang",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q665399",
+    "wikimedia_commons": "Category:Arjuno-Welirang",
+    "wikipedia": "en:Arjuno-Welirang"
+  }
+},
+{
+  "type": "node",
+  "id": 449702647,
+  "lat": -7.9389217,
+  "lon": 112.3052492,
+  "tags": {
+    "last_eruption": "2014",
+    "name": "Gunung Kelud",
+    "name:en": "Mount Kelud",
+    "natural": "volcano",
+    "note": "for elevation see peak to northeast",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q513216",
+    "wikimedia_commons": "Category:Mount Kelud",
+    "wikipedia": "id:Gunung Kelud"
+  }
+},
+{
+  "type": "node",
+  "id": 449713444,
+  "lat": -8.1078426,
+  "lon": 112.9224800,
+  "tags": {
+    "alt_name": "Mahameru",
+    "ele": "3676",
+    "int_name": "Semeru",
+    "name": "Gunung Semeru",
+    "name:en": "Mount Semeru",
+    "name:id": "Gunung Semeru",
+    "natural": "volcano",
+    "prominence": "3676",
+    "source": "gunungbagging.com",
+    "source:prominence": "Highest peak on the island of Java",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q270158",
+    "wikimedia_commons": "Category:Semeru",
+    "wikipedia": "en:Semeru"
+  }
+},
+{
+  "type": "node",
+  "id": 449714633,
+  "lat": -8.0773636,
+  "lon": 112.9228324,
+  "tags": {
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 534692944,
+  "lat": 1.6329078,
+  "lon": 124.6969799,
+  "tags": {
+    "name": "Gunung Manado Tua",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 541998915,
+  "lat": 1.3641984,
+  "lon": 124.7992274,
+  "tags": {
+    "ele": "1109",
+    "last_eruption": "2012",
+    "name": "Gunung Lokon",
+    "name:en": "Mount Lokon",
+    "natural": "volcano",
+    "type": "strato",
+    "wikidata": "Q265585"
+  }
+},
+{
+  "type": "node",
+  "id": 542000028,
+  "lat": 1.3745440,
+  "lon": 124.8032366,
+  "tags": {
+    "ele": "1340",
+    "last_eruption": "2003",
+    "name": "Gunung Empung",
+    "name:en": "Mount Empung",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 542000030,
+  "lat": 1.3531645,
+  "lon": 124.8628914,
+  "tags": {
+    "ele": "1331",
+    "last_eruption": "1977",
+    "name": "Gunung Mahawu",
+    "name:en": "Mount Mahawu",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 545640131,
+  "lat": 1.4779558,
+  "lon": 99.2099312,
+  "tags": {
+    "ele": "1886",
+    "loc_name": "Dolok Lubuk Raya",
+    "name": "Gunung Lubuk Raya",
+    "name:en": "Mount Lubukraya",
+    "natural": "volcano",
+    "old_name": "Dolok Lubukraya",
+    "source": "AMS T503 NA 47-11",
+    "type": "strato",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1087336"
+  }
+},
+{
+  "type": "node",
+  "id": 545640257,
+  "lat": -0.3911126,
+  "lon": 100.4571432,
+  "tags": {
+    "alt_name": "Merapi;Berapi",
+    "ele": "2891",
+    "name": "Gunung Marapi",
+    "name:en": "Mount Marapi",
+    "natural": "volcano",
+    "prominence": "2111",
+    "source:prominence": "2891-780 (Padang Panjang)",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1960702"
+  }
+},
+{
+  "type": "node",
+  "id": 545640366,
+  "lat": 3.8540249,
+  "lon": 97.6638498,
+  "tags": {
+    "ele": "2245",
+    "name": "Kembar",
+    "name:en": "Mount Kembar",
+    "natural": "volcano",
+    "volcano:type": "shield",
+    "wikidata": "Q537391"
+  }
+},
+{
+  "type": "node",
+  "id": 545640617,
+  "lat": -4.0155065,
+  "lon": 103.1279874,
+  "tags": {
+    "ele": "3173",
+    "name": "Gunung Dempo",
+    "name:en": "Mount Dempo",
+    "natural": "volcano",
+    "prominence": "2453",
+    "source:prominence": "3173-720 (Col at the NW of Kepahiang)",
+    "type": "strato",
+    "wikidata": "Q1186618",
+    "wikimedia_commons": "Category:Mount Dempo",
+    "wikipedia": "en:Mount Dempo"
+  }
+},
+{
+  "type": "node",
+  "id": 545641232,
+  "lat": 4.9093950,
+  "lon": 96.3251830,
+  "tags": {
+    "ele": "2801",
+    "last_eruption": "2000",
+    "name": "Gunung Puet Sague",
+    "name:en": "Peuet Sague",
+    "natural": "volcano",
+    "type": "complex",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q3958173"
+  }
+},
+{
+  "type": "node",
+  "id": 545690183,
+  "lat": 3.2393517,
+  "lon": 98.5047584,
+  "tags": {
+    "alt_name": "Deleng Sibayak",
+    "ele": "2212",
+    "last_eruption": "1881",
+    "name": "Gunung Sibayak",
+    "name:en": "Mount Sibayak",
+    "name:id": "Gunung Sibayak",
+    "name:ru": "Сибаяк",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2302908",
+    "wikipedia": "id:Gunung Sibayak"
+  }
+},
+{
+  "type": "node",
+  "id": 545691848,
+  "lat": 1.5503432,
+  "lon": 99.2590122,
+  "tags": {
+    "ele": "1819",
+    "name": "Dolok Sibualbuali",
+    "name:en": "Sibualbuali",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 545696097,
+  "lat": -0.3936932,
+  "lon": 100.3331149,
+  "tags": {
+    "ele": "2877",
+    "name": "Gunung Singgalang",
+    "name:en": "Mount Singgalang",
+    "name:min": "Gunuang Singgalang",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "dormant",
+    "wikidata": "Q2188825"
+  }
+},
+{
+  "type": "node",
+  "id": 545697898,
+  "lat": 0.6832528,
+  "lon": 99.5410360,
+  "tags": {
+    "ele": "2145",
+    "last_eruption": "1986-07",
+    "name": "Gunugn Sorikmarapi",
+    "name:en": "Sorikmarapi",
+    "natural": "volcano",
+    "type": "strato",
+    "wikidata": "Q29559"
+  }
+},
+{
+  "type": "node",
+  "id": 545722693,
+  "lat": 0.0791980,
+  "lon": 99.9832475,
+  "tags": {
+    "ele": "2919",
+    "name": "Gunung Ophir",
+    "name:en": "Mount Talakmau",
+    "natural": "volcano",
+    "prominence": "2329",
+    "source:prominence": "2919-590 (Col between Panggulangan and Simandalu)",
+    "type": "complex"
+  }
+},
+{
+  "type": "node",
+  "id": 545724319,
+  "lat": -0.9790245,
+  "lon": 100.6799549,
+  "tags": {
+    "alt_name": "塔朗火山",
+    "alt_name:zh": "塔朗火山",
+    "alt_name:zh-Hans": "塔朗火山",
+    "alt_name:zh-Hant": "塔朗火山",
+    "ele": "2597",
+    "last_eruption": "2007",
+    "name": "Gunung Talang",
+    "name:en": "Mount Talang",
+    "name:id": "Gunung Talang",
+    "name:ms": "Gunung Talang",
+    "name:zh": "龙牙加儿山",
+    "name:zh-Hans": "龙牙加儿山",
+    "name:zh-Hant": "龍牙加兒山",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2155367"
+  }
+},
+{
+  "type": "node",
+  "id": 545736009,
+  "lat": -0.4311723,
+  "lon": 100.3194218,
+  "tags": {
+    "ele": "2438",
+    "last_eruption": "1924",
+    "name": "Gunung Tandikat",
+    "name:en": "Mount Tandikat",
+    "name:id": "Gunung Tandikat",
+    "name:min": "Gunuang Tandikek",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "dormant",
+    "wikidata": "Q40692"
+  }
+},
+{
+  "type": "node",
+  "id": 545747274,
+  "lat": -1.6971814,
+  "lon": 101.2646538,
+  "tags": {
+    "ele": "3805",
+    "isolation": "1905",
+    "last_eruption": "2004",
+    "name": "Gunung Kerinci",
+    "name:en": "Mount Kerinci",
+    "natural": "volcano",
+    "note": "Modify date: 1998-10-22",
+    "prominence": "3805",
+    "source": "NGA-GNS",
+    "source:prominence": "Highest peak of Sumatra",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q827728",
+    "wikipedia": "en:Mount Kerinci"
+  }
+},
+{
+  "type": "node",
+  "id": 545751064,
+  "lat": -3.5122567,
+  "lon": 102.6232252,
+  "tags": {
+    "alt_name": "Gunung Kaba",
+    "ele": "1938",
+    "last_eruption": "2000",
+    "name": "Bukit Kaba",
+    "name:en": "Mount Kaba",
+    "natural": "volcano",
+    "source": "OpenTopoMap",
+    "source:name": "AMS T618 sheet 3532",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 545786074,
+  "lat": 1.3790723,
+  "lon": 127.5322812,
+  "tags": {
+    "alt_name": "Gamkonora",
+    "ele": "1571",
+    "last_eruption": "2007",
+    "name": "Gunung Gamkonora",
+    "name:en": "Mount Gamkonora",
+    "name:id": "Gunung Gamkonora",
+    "natural": "volcano",
+    "prominence": "1571",
+    "source": "gunungbagging.com",
+    "type": "strato",
+    "volcano:status": "active",
+    "wikidata": "Q1493157",
+    "wikipedia": "en:Mount Gamkonora"
+  }
+},
+{
+  "type": "node",
+  "id": 545804372,
+  "lat": 0.8979228,
+  "lon": 127.3184691,
+  "tags": {
+    "ele": "630",
+    "name": "Gunung Hiri",
+    "name:en": "Mount Hiri",
+    "name:id": "Gunung Hiri",
+    "natural": "volcano",
+    "wikidata": "Q4175400"
+  }
+},
+{
+  "type": "node",
+  "id": 545808767,
+  "lat": 0.8098795,
+  "lon": 127.3323425,
+  "tags": {
+    "alt_name:en": "Ternate Mountain",
+    "alt_name:id": "Gunung Ternate",
+    "ele": "1715",
+    "last_eruption": "2018",
+    "name": "Gunung Gamalama",
+    "name:en": "Mount Gamalama",
+    "name:id": "Gunung Gamalama",
+    "natural": "volcano",
+    "prominence": "1715",
+    "source": "gunungbagging.com",
+    "type": "strato",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1467910"
+  }
+},
+{
+  "type": "node",
+  "id": 545812291,
+  "lat": 0.6620598,
+  "lon": 127.4024109,
+  "tags": {
+    "ele": "1750",
+    "name": "Gunung Kiematabu",
+    "name:en": "Mount Kiematubu",
+    "name:id": "Gunung Kiematabu",
+    "natural": "volcano",
+    "old_name:en": "Mount Kiemataboe;Mount Kiematoeboe;Mount Kiëmatoeboe",
+    "prominence": "1750",
+    "source": "http://www.gunungbagging.com/"
+  }
+},
+{
+  "type": "node",
+  "id": 545939215,
+  "lat": 1.0794305,
+  "lon": 127.4384966,
+  "tags": {
+    "ele": "1130",
+    "name": "Gunung Jailolo",
+    "name:en": "Jailolo",
+    "name:id": "Gunung Jailolo",
+    "natural": "volcano",
+    "type": "strato",
+    "wikidata": "Q4180889"
+  }
+},
+{
+  "type": "node",
+  "id": 545970160,
+  "lat": 0.5753212,
+  "lon": 127.3977684,
+  "tags": {
+    "ele": "308",
+    "name": "Gunung Mare",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 545988808,
+  "lat": 0.4585828,
+  "lon": 127.4080681,
+  "tags": {
+    "ele": "950",
+    "name": "Gunung Moti",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 545994996,
+  "lat": 0.3317366,
+  "lon": 127.3919306,
+  "tags": {
+    "ele": "1357",
+    "last_eruption": "1988",
+    "name": "Gunung Kiebesi",
+    "name:en": "Mount Kiebesi",
+    "name:id": "Gunung Kiebesi",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 546036004,
+  "lat": 1.8301688,
+  "lon": 127.8277639,
+  "tags": {
+    "ele": "318",
+    "name": "Gunung Tarakan Lamo",
+    "natural": "volcano",
+    "type": "pyroclastic",
+    "volcano:type": "scoria",
+    "wikidata": "Q6924047"
+  }
+},
+{
+  "type": "node",
+  "id": 546074865,
+  "lat": 1.6341691,
+  "lon": 127.6707162,
+  "tags": {
+    "ele": "1035",
+    "name": "Gunung Tobaru",
+    "name:en": "Mount Tobaru",
+    "name:id": "Gunung Tobaru",
+    "natural": "volcano",
+    "wikidata": "Q7811550"
+  }
+},
+{
+  "type": "node",
+  "id": 546079687,
+  "lat": 1.6989490,
+  "lon": 127.8791239,
+  "tags": {
+    "ele": "1335",
+    "last_eruption": "2009",
+    "name": "Gunung Dukono",
+    "name:en": "Dukono",
+    "name:id": "Gunung Dukono",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2340739"
+  }
+},
+{
+  "type": "node",
+  "id": 546091266,
+  "lat": 1.7838480,
+  "lon": 127.9203488,
+  "tags": {
+    "ele": "750",
+    "name": "Gunung Mamuya",
+    "name:en": "Mount Mamuya",
+    "name:id": "Gunung Mamuya",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 546391084,
+  "lat": 1.2240852,
+  "lon": 127.4564388,
+  "tags": {
+    "ele": "979",
+    "name": "Gunung Todoko-Ranu",
+    "name:en": "Todoko-Ranu",
+    "name:id": "Gunung Todoko-Ranu",
+    "natural": "volcano",
+    "type": "caldera",
+    "wikidata": "Q4180752"
+  }
+},
+{
+  "type": "node",
+  "id": 546415220,
+  "lat": -8.0579332,
+  "lon": 114.2430975,
+  "tags": {
+    "ele": "2769",
+    "geological": "volcanic_vent",
+    "last_eruption": "2002",
+    "name": "Gunung Ijen",
+    "name:en": "Ijen",
+    "name:ru": "Иджен",
+    "natural": "volcano",
+    "old_name": "Idjen",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q548489",
+    "wikimedia_commons": "Category:Ijen",
+    "wikipedia": "en:Ijen"
+  }
+},
+{
+  "type": "node",
+  "id": 546451027,
+  "lat": -8.1196360,
+  "lon": 114.0550250,
+  "tags": {
+    "ele": "3332",
+    "int_name": "Raung",
+    "last_eruption": "2015",
+    "name": "Gunung Raung",
+    "natural": "volcano",
+    "prominence": "3063",
+    "source:prominence": "3332-270 (Col between Gunung Kini and Gunung Pakem)",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2033748",
+    "wikimedia_commons": "Category:Mount Raung",
+    "wikipedia": "en:Raung"
+  }
+},
+{
+  "type": "node",
+  "id": 546511093,
+  "lat": -7.2561523,
+  "lon": 108.0760925,
+  "tags": {
+    "ele": "2168",
+    "last_eruption": "1982",
+    "name": "Gunung Galunggung",
+    "name:en": "Mount Galunggung",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "active",
+    "wikidata": "Q911748",
+    "wikimedia_commons": "Category:Galunggung",
+    "wikipedia": "en:Galunggung"
+  }
+},
+{
+  "type": "node",
+  "id": 546519996,
+  "lat": -6.7878411,
+  "lon": 106.9817166,
+  "tags": {
+    "ele": "2958",
+    "last_eruption": "1957",
+    "name": "Gunung Gede",
+    "name:en": "Mount Gede",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "active",
+    "wikidata": "Q1145123",
+    "wikimedia_commons": "Category:Mount Gede",
+    "wikipedia": "en:Mount Gede"
+  }
+},
+{
+  "type": "node",
+  "id": 546562831,
+  "lat": -6.7293192,
+  "lon": 106.6504902,
+  "tags": {
+    "ele": "1511",
+    "last_eruption": "1939",
+    "name": "Gunung Kiaraberes-Gagak",
+    "name:en": "Mount Kiaraberes-Gagak",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q4271911",
+    "wikipedia": "id:Gunung Kiaraberes-Gagak"
+  }
+},
+{
+  "type": "node",
+  "id": 546584947,
+  "lat": -7.9806266,
+  "lon": 113.3417023,
+  "tags": {
+    "alt_name": "Gunung Tarub",
+    "ele": "1667",
+    "gns:dsg": "MT",
+    "last_eruption": "1898",
+    "name": "Gunung Lemongan Tarub",
+    "name:en": "Mount Lemongan",
+    "name:id": "Gunung Lemongan",
+    "natural": "volcano",
+    "note": "Modify date: 1994-01-29;Modify date: 2008-09-12",
+    "source": "NGA-GNS;gunungbagging.com",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 547829787,
+  "lat": -7.1597554,
+  "lon": 107.4180591,
+  "tags": {
+    "name": "Gunung Patuha II",
+    "name:en": "Mount Patuha II",
+    "name:id": "Gunung Patuha II",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 547834427,
+  "lat": -7.6156599,
+  "lon": 112.6200569,
+  "tags": {
+    "ele": "1653",
+    "name": "Gunung Penanggungan",
+    "name:en": "Mount Penanggungan",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2171115",
+    "wikimedia_commons": "Category:Mount Penanggungan",
+    "wikipedia": "en:Mount Penanggungan"
+  }
+},
+{
+  "type": "node",
+  "id": 547843884,
+  "lat": -6.7136069,
+  "lon": 106.7385402,
+  "tags": {
+    "ele": "2211",
+    "last_eruption": "1938",
+    "name": "Gunung Salak",
+    "name:en": "Mount Salak",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q669559",
+    "wikimedia_commons": "Category:Mount Salak",
+    "wikipedia": "en:Mount Salak"
+  }
+},
+{
+  "type": "node",
+  "id": 547878299,
+  "lat": -7.8205850,
+  "lon": 111.7571632,
+  "tags": {
+    "ele": "2563",
+    "name": "Gunung Wilis",
+    "name:en": "Mount Wilis",
+    "natural": "volcano",
+    "type": "strato",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q956331",
+    "wikimedia_commons": "Category:Mount Wilis",
+    "wikipedia": "en:Mount Wilis"
+  }
+},
+{
+  "type": "node",
+  "id": 547903342,
+  "lat": -4.5225918,
+  "lon": 129.8798487,
+  "tags": {
+    "alt_name": "Vuurberg",
+    "ele": "640",
+    "last_eruption": "1988",
+    "name": "Gunung Api (Banda)",
+    "natural": "volcano",
+    "prominence": "640",
+    "source": "gunungbagging.com",
+    "type": "caldera",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q806237"
+  }
+},
+{
+  "type": "node",
+  "id": 547905001,
+  "lat": -7.7906463,
+  "lon": 123.5865811,
+  "tags": {
+    "alt_name": "Gunung Batutara",
+    "ele": "748",
+    "last_eruption": "2015",
+    "name": "Gunung Batu Tara",
+    "name:en": "Batu Tara",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q811048",
+    "wikipedia": "id:Gunung Batutara"
+  }
+},
+{
+  "type": "node",
+  "id": 547907212,
+  "lat": -8.8154836,
+  "lon": 121.1913726,
+  "tags": {
+    "ele": "2124",
+    "name": "Ebulobo",
+    "natural": "volcano",
+    "volcano:last_eruption": "1969",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2382787"
+  }
+},
+{
+  "type": "node",
+  "id": 547910568,
+  "lat": -8.6780954,
+  "lon": 122.4541256,
+  "tags": {
+    "alt_name": "Gunung Namang",
+    "ele": "1703",
+    "image": "http://3.bp.blogspot.com/_y0LzUe91Lds/TMrvSItll9I/AAAAAAAABAM/U9rj3EU3cBM/s1600/GN+BATUR-KINTAMANI+BALI.jpg",
+    "last_eruption": "2005",
+    "name": "Gunung Egon",
+    "name:en": "Mount Egon",
+    "natural": "volcano",
+    "type": "strato",
+    "wikidata": "Q385596",
+    "wikipedia": "en:Mount Egon",
+    "wikipedia:de": "Egon_(Vulkan)"
+  }
+},
+{
+  "type": "node",
+  "id": 547913707,
+  "lat": -6.6355633,
+  "lon": 126.6603426,
+  "tags": {
+    "ele": "282",
+    "last_eruption": "1699",
+    "name": "Gunungapi Wetar",
+    "natural": "volcano",
+    "prominence": "282",
+    "type": "strato",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1899342"
+  }
+},
+{
+  "type": "node",
+  "id": 547924523,
+  "lat": -8.5467747,
+  "lon": 123.3836049,
+  "tags": {
+    "alt_name": "Ili Labalekan;Ile Labalekan;Ili Labalekang;Ile Labalekang",
+    "ele": "1621",
+    "name": "Ililabalekan",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548114565,
+  "lat": -8.4951480,
+  "lon": 122.6835313,
+  "tags": {
+    "ele": "1100",
+    "name": "Ilimuda",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 548117569,
+  "lat": -8.5516928,
+  "lon": 122.7806473,
+  "tags": {
+    "ele": "1703",
+    "last_eruption": "2003",
+    "name": "Ili Lewotobi Perempuan",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548134213,
+  "lat": -8.7223286,
+  "lon": 120.9756621,
+  "tags": {
+    "alt_name": "Gunung Ine Lika",
+    "ele": "1559",
+    "last_eruption": "2001",
+    "name": "Wolo Inelika",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "complex",
+    "wikidata": "Q2352524",
+    "wikipedia": "id:Gunung Ine Lika"
+  }
+},
+{
+  "type": "node",
+  "id": 548134215,
+  "lat": -8.5320499,
+  "lon": 123.5734584,
+  "tags": {
+    "GNS:dsg_code": "VLC",
+    "GNS:id": "11641928",
+    "alt_name": "Ile Adowajo",
+    "ele": "1018",
+    "last_eruption": "1999",
+    "name": "Ili Werung",
+    "natural": "volcano",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2483640"
+  }
+},
+{
+  "type": "node",
+  "id": 548140561,
+  "lat": -8.8782152,
+  "lon": 120.9557748,
+  "tags": {
+    "name": "Inerie",
+    "name:en": "Inerie",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548146394,
+  "lat": -8.8918133,
+  "lon": 121.6410971,
+  "tags": {
+    "alt_name": "Gunung Api;Gunung Ija;Gunung Iya;Iya",
+    "ele": "637",
+    "last_eruption": "1969",
+    "name": "Iya",
+    "name:en": "Iya",
+    "name:id": "Gunung Iya",
+    "natural": "volcano",
+    "old_name": "Goenoeng Api",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2236900"
+  }
+},
+{
+  "type": "node",
+  "id": 548151997,
+  "lat": -8.7651702,
+  "lon": 121.8133427,
+  "tags": {
+    "ele": "1639",
+    "last_eruption": "1968",
+    "name": "Gunung Kelimutu",
+    "name:en": "Kelimutu",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1738211"
+  }
+},
+{
+  "type": "node",
+  "id": 548160370,
+  "lat": -8.3513763,
+  "lon": 122.8502397,
+  "tags": {
+    "alt_name:en": "Lereboleng",
+    "ele": "1117",
+    "last_eruption": "2003",
+    "name": "Gunung Leroboleng",
+    "name:en": "Leroboleng",
+    "natural": "volcano",
+    "type": "complex",
+    "wikidata": "Q2396057"
+  }
+},
+{
+  "type": "node",
+  "id": 548161868,
+  "lat": -8.2727646,
+  "lon": 123.5067385,
+  "tags": {
+    "alt_name": "Ile Ape;Ili Api;Ili Waliran;Ili Wariran",
+    "ele": "1423",
+    "last_eruption": "2020",
+    "name": "Ili Lewotolok",
+    "name:en": "Lewotolok",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1911044",
+    "wikipedia": "id:Gunung Lewotolo"
+  }
+},
+{
+  "type": "node",
+  "id": 548173550,
+  "lat": -5.5456694,
+  "lon": 130.3059645,
+  "tags": {
+    "ele": "282",
+    "name": "Gunung Manuk",
+    "name:en": "Mount Manuk",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 548192198,
+  "lat": -6.7408892,
+  "lon": 129.5136471,
+  "tags": {
+    "alt_name:en": "Mount Nila",
+    "alt_name:id": "Gunung Nila",
+    "ele": "781",
+    "last_eruption": "1968",
+    "name": "Laworkawra",
+    "name:en": "Mount Laworkawra",
+    "natural": "volcano",
+    "prominence": "781",
+    "source": "gunungbagging.com",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2432393",
+    "wikipedia": "id:Gunung Nila"
+  }
+},
+{
+  "type": "node",
+  "id": 548198393,
+  "lat": -8.6694787,
+  "lon": 120.4590573,
+  "tags": {
+    "ele": "1675",
+    "name": "Gunung Poco Leok",
+    "name:en": "Poco Leok",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548201380,
+  "lat": -8.6338092,
+  "lon": 120.5323856,
+  "tags": {
+    "alt_name": "Namparnos",
+    "ele": "2247",
+    "last_eruption": "1991",
+    "name": "Anak Ranakah",
+    "natural": "volcano",
+    "type": "lava domes",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548213956,
+  "lat": -8.4114050,
+  "lon": 116.4225175,
+  "tags": {
+    "description": "Last erupted 2004 (as of 2008)",
+    "ele": "2292",
+    "name": "Gunung Barujari",
+    "name:en": "Mount Barujari",
+    "name:id": "Gunung Barujari",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikipedia": "en:Mount Rinjani"
+  }
+},
+{
+  "type": "node",
+  "id": 548217566,
+  "lat": -8.3338621,
+  "lon": 121.7103708,
+  "tags": {
+    "alt_name": "Gunung Paluweh",
+    "ele": "875",
+    "last_eruption": "11.8.2013",
+    "name": "Gunung Rokatenda",
+    "name:en": "Rokatenda",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548234725,
+  "lat": -6.3123344,
+  "lon": 130.0170294,
+  "tags": {
+    "alt_name": "Gunung Serua",
+    "alt_name:en": "Mount Serua",
+    "alt_name:id": "Gunung Serua",
+    "ele": "641",
+    "last_eruption": "1921",
+    "name": "Wuarlapna",
+    "name:en": "Mount Wuarlapna",
+    "name:id": "Gunung Wuarlapna",
+    "natural": "volcano",
+    "prominence": "641",
+    "source": "gunungbagging.com",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1083948",
+    "wikipedia": "id:Serua"
+  }
+},
+{
+  "type": "node",
+  "id": 548239934,
+  "lat": -8.4995530,
+  "lon": 124.1279785,
+  "tags": {
+    "alt_name:it": "Sirung",
+    "ele": "862",
+    "last_eruption": "2012",
+    "name": "Gunung Sirung",
+    "name:en": "Mount Sirung",
+    "natural": "volcano",
+    "type": "complex",
+    "volcano:status": "active",
+    "wikidata": "Q1322666"
+  }
+},
+{
+  "type": "node",
+  "id": 548604567,
+  "lat": -6.9700205,
+  "lon": 129.1450352,
+  "tags": {
+    "alt_name": "Gunung Serawerna",
+    "ele": "655",
+    "last_eruption": "1904",
+    "name": "Gunung Teon",
+    "name:en": "Mount Teon",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2190351",
+    "wikipedia": "id:Teon"
+  }
+},
+{
+  "type": "node",
+  "id": 548612367,
+  "lat": -8.7395548,
+  "lon": 120.0176826,
+  "tags": {
+    "ele": "903",
+    "name": "Gunung Wai Sano",
+    "name:en": "Wai Sano",
+    "natural": "volcano",
+    "type": "caldera",
+    "wikidata": "Q2433163",
+    "wikipedia": "en:Wai Sano"
+  }
+},
+{
+  "type": "node",
+  "id": 548617400,
+  "lat": -7.1218701,
+  "lon": 128.6735194,
+  "tags": {
+    "GNS:dsg_code": "MT",
+    "GNS:id": "-2703413",
+    "alt_name": "Gunung Damar;Gunung Wuwapla",
+    "ele": "868",
+    "last_eruption": "1892",
+    "name": "Gunung Wurlali",
+    "name:en": "Mount Wurlali",
+    "natural": "volcano",
+    "prominence": "868",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 548631314,
+  "lat": 2.7775257,
+  "lon": 125.4060634,
+  "tags": {
+    "ele": "1827",
+    "last_eruption": "2008",
+    "name": "Gunung Karangetang",
+    "name:en": "Karangetang Volcano",
+    "name:es": "Volcán Karangetang",
+    "natural": "volcano",
+    "prominence": "1827",
+    "source:prominence": "Highest peak of Siau Island",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "website": "https://volcanianoficial.com/karangetang/"
+  }
+},
+{
+  "type": "node",
+  "id": 548647873,
+  "lat": 3.6813063,
+  "lon": 125.4534798,
+  "tags": {
+    "alt_name": "Awu",
+    "ele": "920",
+    "last_eruption": "2004",
+    "name": "Gunung Awu Crater",
+    "name:en": "Mount Awu Crater",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q791817",
+    "wikipedia": "en:Mount Awu"
+  }
+},
+{
+  "type": "node",
+  "id": 549710252,
+  "lat": 2.3048520,
+  "lon": 125.3665476,
+  "tags": {
+    "ele": "725",
+    "int_name": "Ruang",
+    "last_eruption": "2024",
+    "name": "Gunung Ruang",
+    "name:en": "Mount Ruang",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2094734",
+    "wikipedia": "en:Mount Ruang"
+  }
+},
+{
+  "type": "node",
+  "id": 549710962,
+  "lat": 1.1359470,
+  "lon": 124.7516971,
+  "tags": {
+    "ele": "1549",
+    "name": "Gunung Sempu",
+    "name:en": "Mount Sempu",
+    "natural": "volcano",
+    "volcano:type": "caldera",
+    "wikidata": "Q2162588"
+  }
+},
+{
+  "type": "node",
+  "id": 549722632,
+  "lat": -5.4240011,
+  "lon": 104.6755310,
+  "tags": {
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 549726263,
+  "lat": -6.7430442,
+  "lon": 106.6975485,
+  "tags": {
+    "ele": "1699",
+    "name": "Gunung Perbakti",
+    "name:en": "Mount Perbakti",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1087270",
+    "wikipedia": "id:Gunung Perbakti"
+  }
+},
+{
+  "type": "node",
+  "id": 549915006,
+  "lat": -0.1623854,
+  "lon": 121.6010796,
+  "tags": {
+    "ele": "445",
+    "last_eruption": "1983",
+    "name": "Gunung Colo",
+    "name:en": "Mount Colo",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 549918071,
+  "lat": 0.7556170,
+  "lon": 124.4130796,
+  "tags": {
+    "ele": "1795",
+    "last_eruption": "1850",
+    "name": "Gunung Ambang",
+    "name:en": "Ambang",
+    "natural": "volcano",
+    "type": "complex",
+    "wikidata": "Q456619"
+  }
+},
+{
+  "type": "node",
+  "id": 590594393,
+  "lat": 0.4767553,
+  "lon": 99.6507356,
+  "tags": {
+    "alt_name": "Gunung Malingtan",
+    "gns:dsg": "MT",
+    "name": "Gunung Malintang",
+    "natural": "volcano",
+    "note": "Modify date: 1994-01-29",
+    "source": "NGA-GNS"
+  }
+},
+{
+  "type": "node",
+  "id": 604694609,
+  "lat": -8.0005297,
+  "lon": 114.2378729,
+  "tags": {
+    "ele": "2107",
+    "name": "Gunung Kukusan",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 703855928,
+  "lat": -7.9644018,
+  "lon": 113.5663316,
+  "tags": {
+    "alt_name": "Iyang-Argapura;Gunung Argapura;Yang-Argapura;Yang Argapura",
+    "alt_name:en": "Mount Argapura;Mount Argopuro",
+    "ele": "3088",
+    "loc_name": "Iyang Argapura",
+    "name": "Gunung Argopuro",
+    "natural": "volcano",
+    "prominence": "2745",
+    "source": "gunungbagging.com",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2549314",
+    "wikimedia_commons": "Category:Iyang-Argapura",
+    "wikipedia": "en:Iyang-Argapura"
+  }
+},
+{
+  "type": "node",
+  "id": 912984986,
+  "lat": -7.3225130,
+  "lon": 107.8598651,
+  "tags": {
+    "ele": "2821",
+    "gns:dsg": "MT",
+    "name": "Gunung Cikuray",
+    "name:en": "Mount Cikuray",
+    "natural": "volcano",
+    "prominence": "2105",
+    "source": "gunungbagging.com",
+    "wikidata": "Q7343871"
+  }
+},
+{
+  "type": "node",
+  "id": 959182494,
+  "lat": -8.5374531,
+  "lon": 122.7675791,
+  "tags": {
+    "name": "Lewotobi laki laki",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 1070157207,
+  "lat": -8.3428923,
+  "lon": 115.5072076,
+  "tags": {
+    "alt_name": "Piek Van Bali;Piek of Bali",
+    "ele": "3014",
+    "name": "Gunung Agung",
+    "name:ban": "ᬕᬸᬦᬸᬂ​ᬅᬕᬸᬂ",
+    "name:en": "Mount Agung",
+    "name:id": "Gunung Agung",
+    "name:ru": "Вулкан Агунг",
+    "natural": "volcano",
+    "source": "NGA-GNS;gunungbagging.com",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q158470",
+    "wikimedia_commons": "Category:Mount Agung",
+    "wikipedia": "en:Mount Agung"
+  }
+},
+{
+  "type": "node",
+  "id": 1070164666,
+  "lat": -5.9543025,
+  "lon": 105.4827817,
+  "tags": {
+    "ele": "844",
+    "gns:dsg": "MT",
+    "name": "Gunung Sebesi",
+    "name:en": "Mount Sebesi",
+    "name:id": "Gunung Sebesi",
+    "name:ms": "Gunung Sebesi",
+    "name:zh": "塞贝西山",
+    "name:zh-Hans": "塞贝西山",
+    "name:zh-Hant": "塞貝西山",
+    "natural": "volcano",
+    "prominence": "844",
+    "wikidata": "Q24842119"
+  }
+},
+{
+  "type": "node",
+  "id": 1070169446,
+  "lat": -8.1958638,
+  "lon": 119.0697891,
+  "tags": {
+    "alt_name": "Gunung Api;Sangeang Api",
+    "ele": "1949",
+    "gns:dsg": "MT",
+    "name": "Sangeang",
+    "natural": "volcano",
+    "prominence": "1949",
+    "source": "NGA-GNS;gunungbagging.com",
+    "type": "complex",
+    "volcano:last_eruption": "2014",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2573663",
+    "wikipedia": "en:Sangeang Api"
+  }
+},
+{
+  "type": "node",
+  "id": 1070169668,
+  "lat": 0.0693060,
+  "lon": 127.4246060,
+  "tags": {
+    "ele": "422",
+    "gns:dsg": "MT",
+    "name": "Gunung Api Tigalalu",
+    "name:en": "Volcano Tigalalu",
+    "name:id": "Gunung Api Tigalalu",
+    "natural": "volcano",
+    "note": "Modify date: 1994-01-29",
+    "source": "NGA-GNS",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q4178015"
+  }
+},
+{
+  "type": "node",
+  "id": 1070170146,
+  "lat": 5.4475000,
+  "lon": 95.6554000,
+  "tags": {
+    "ele": "1810",
+    "gns:dsg": "MT",
+    "last_eruption": "1839",
+    "name": "Cot Seulawah Agam",
+    "natural": "volcano",
+    "note": "Modify date: 2008-02-07",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q29595"
+  }
+},
+{
+  "type": "node",
+  "id": 1070170823,
+  "lat": -8.0649013,
+  "lon": 114.1615901,
+  "tags": {
+    "gns:dsg": "MT",
+    "name": "Gunung Genteng",
+    "natural": "volcano",
+    "note": "Modify date: 2009-06-10",
+    "source": "NGA-GNS"
+  }
+},
+{
+  "type": "node",
+  "id": 1070172240,
+  "lat": -7.6273820,
+  "lon": 111.1943158,
+  "tags": {
+    "alt_name": "Hargo Dumilah",
+    "ele": "3265",
+    "gns:dsg": "MT",
+    "last_eruption": "1885",
+    "name": "Gunung Lawu",
+    "name:id": "Gunung Lawu",
+    "name:pl": "Lawu",
+    "natural": "volcano",
+    "note": "Modify date: 2007-02-22",
+    "prominence": "3118",
+    "source": "NGA-GNS;gunungbagging.com",
+    "tourism": "viewpoint",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q3219949",
+    "wikipedia": "id:Gunung Lawu"
+  }
+},
+{
+  "type": "node",
+  "id": 1070172279,
+  "lat": 3.1709534,
+  "lon": 98.3920481,
+  "tags": {
+    "ele": "2460",
+    "gns:dsg": "MT",
+    "name": "Gunung Sinabung",
+    "natural": "volcano",
+    "note": "Modify date: 2020-09-13",
+    "source": "NGA-GNS",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q207678"
+  }
+},
+{
+  "type": "node",
+  "id": 1070173500,
+  "lat": -6.7698136,
+  "lon": 106.9640294,
+  "tags": {
+    "ele": "3019",
+    "gns:dsg": "MT",
+    "name": "Gunung Pangrango",
+    "name:en": "Pangrango",
+    "name:id": "Gunung Pangrango",
+    "name:uk": "Панґранґо",
+    "natural": "volcano",
+    "prominence": "2426",
+    "source": "gunungbagging.com",
+    "wikidata": "Q11222863",
+    "wikimedia_commons": "Category:Mount Pangrango",
+    "wikipedia": "en:Mount Pangrango"
+  }
+},
+{
+  "type": "node",
+  "id": 1070175100,
+  "lat": -7.7654442,
+  "lon": 112.5906469,
+  "tags": {
+    "ele": "3339",
+    "gns:dsg": "MT",
+    "name": "Gunung Arjuno",
+    "natural": "volcano",
+    "prominence": "2799",
+    "source:prominence": "3339-540 (Singosari)"
+  }
+},
+{
+  "type": "node",
+  "id": 1070175945,
+  "lat": -5.3468257,
+  "lon": 119.9317864,
+  "tags": {
+    "ele": "2874",
+    "gns:dsg": "MT",
+    "name": "Moncong Lompobattang",
+    "natural": "volcano",
+    "prominence": "2854",
+    "source": "NGA-GNS",
+    "source:prominence": "2874-20 (Col at the N)",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q6898536",
+    "wikipedia": "en:Moncong Lompobattang"
+  }
+},
+{
+  "type": "node",
+  "id": 1070176383,
+  "lat": -7.7326000,
+  "lon": 112.5747000,
+  "tags": {
+    "ele": "3245",
+    "gns:dsg": "MT",
+    "name": "Gunung Welirang",
+    "natural": "volcano",
+    "note": "Modify date: 2008-09-11",
+    "source": "NGA-GNS"
+  }
+},
+{
+  "type": "node",
+  "id": 1070177048,
+  "lat": -8.2135579,
+  "lon": 123.7757081,
+  "tags": {
+    "alt_name": "Goenoeng Kedang,Ile Ujelewungkedang,Ili Oedjol Woeng,Ili Oedjolewoeng,Ili Udjolewung",
+    "ele": "1523",
+    "gns:dsg": "MT",
+    "name": "Ili Ujolewung",
+    "natural": "volcano",
+    "old_name:en": "Mount Oedjoeewoeng",
+    "prominence": "1246",
+    "source": "NGA-GNS;gunungbagging.com",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q56391543",
+    "wikipedia": "id:Gunung Uyelewun"
+  }
+},
+{
+  "type": "node",
+  "id": 1070177697,
+  "lat": -5.5132924,
+  "lon": 105.0951235,
+  "tags": {
+    "ele": "1682",
+    "gns:dsg": "MT",
+    "man_made": "survey_point",
+    "name": "Gunung Ratai",
+    "natural": "volcano",
+    "prominence": "1265",
+    "source": "gunungbagging.com",
+    "wikidata": "Q12484818"
+  }
+},
+{
+  "type": "node",
+  "id": 1070178337,
+  "lat": -8.6517091,
+  "lon": 120.4480023,
+  "tags": {
+    "ele": "2367",
+    "gns:dsg": "MT",
+    "name": "Poco Ngandonalu",
+    "natural": "volcano",
+    "note": "Modify date: 2010-04-05",
+    "prominence": "2367",
+    "source": "NGA-GNS;gunungbagging.com",
+    "wikidata": "Q26725193"
+  }
+},
+{
+  "type": "node",
+  "id": 1070182218,
+  "lat": -6.8928759,
+  "lon": 108.4068229,
+  "tags": {
+    "ele": "3078",
+    "gns:dsg": "MT",
+    "name": "Gunung Cereme",
+    "natural": "volcano",
+    "prominence": "2792",
+    "source": "gunungbagging.com",
+    "volcano:status": "active",
+    "wikidata": "Q507179"
+  }
+},
+{
+  "type": "node",
+  "id": 1070182885,
+  "lat": -8.5710000,
+  "lon": 122.6549000,
+  "tags": {
+    "alt_name": "Ili Wukoh",
+    "ele": "1431",
+    "gns:dsg": "MT",
+    "gns:id": "10800016",
+    "name": "Ile Wukoh",
+    "natural": "volcano",
+    "note": "Modify date: 2010-06-07",
+    "prominence": "1046",
+    "source": "NGA-GNS;gunungbagging.com",
+    "wikidata": "Q56391586",
+    "wikipedia": "id:Gunung Ile Wukoh"
+  }
+},
+{
+  "type": "node",
+  "id": 1070183867,
+  "lat": -7.2290872,
+  "lon": 109.9225151,
+  "tags": {
+    "gns:dsg": "MT",
+    "name": "Gunung Pakuwaja",
+    "natural": "volcano",
+    "note": "Modify date: 2007-02-28",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 1070186421,
+  "lat": -8.3348867,
+  "lon": 115.0882836,
+  "tags": {
+    "ele": "2276",
+    "gns:dsg": "MT",
+    "name": "Gunung Batukaru",
+    "natural": "volcano",
+    "prominence": "1088",
+    "source": "NGA-GNS;gunungbagging.com"
+  }
+},
+{
+  "type": "node",
+  "id": 1070187538,
+  "lat": -8.4117272,
+  "lon": 116.4581059,
+  "tags": {
+    "ele": "3726",
+    "gns:dsg": "MT",
+    "isolation": "1601",
+    "name": "Rinjani",
+    "name:id": "Gunung Rinjani",
+    "name:zh": "林加尼火山",
+    "natural": "volcano",
+    "note": "Modify date: 2010-05-27",
+    "prominence": "3726",
+    "source": "NGA-GNS",
+    "source:isolation": "peakbagger.com",
+    "source:prominence": "Highest peak of Lombok Island",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q847323",
+    "wikimedia_commons": "Category:Mount Rinjani",
+    "wikipedia": "en:Mount Rinjani"
+  }
+},
+{
+  "type": "node",
+  "id": 1070188152,
+  "lat": -4.2572731,
+  "lon": 103.3058845,
+  "tags": {
+    "ele": "2852",
+    "name": "Gunung Patah",
+    "natural": "volcano",
+    "source": "OpenTopoMap",
+    "source:name": "AMS T503 sheet SB 48-1",
+    "volcano:status": "dormant"
+  }
+},
+{
+  "type": "node",
+  "id": 1070195603,
+  "lat": -7.9347675,
+  "lon": 112.9472895,
+  "tags": {
+    "ele": "2470",
+    "gns:dsg": "MT",
+    "image": "https://photos.app.goo.gl/58fjWJjbQAYRa4fA9",
+    "name": "Gunung Batok",
+    "name:en": "Mount Batok",
+    "natural": "volcano",
+    "note": "Modify date: 2008-05-30",
+    "source": "NGA-GNS",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 1070196349,
+  "lat": -6.6162470,
+  "lon": 110.8903011,
+  "tags": {
+    "ele": "1625",
+    "gns:dsg": "MT",
+    "name": "Gunung Muria",
+    "name:en": "Mount Muria",
+    "name:jv": "ꦒꦸꦤꦸꦁꦩꦸꦫꦶꦪ",
+    "natural": "volcano",
+    "note": "Modify date: 2008-03-27",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q3217435",
+    "wikimedia_commons": "Category:Mount Muria",
+    "wikipedia": "en:Mount Muria"
+  }
+},
+{
+  "type": "node",
+  "id": 1898058589,
+  "lat": 1.5082298,
+  "lon": 125.2193095,
+  "tags": {
+    "gns:dsg": "MT",
+    "name": "Gunung Batuangus",
+    "name:en": "Batu Angus",
+    "natural": "volcano",
+    "note": "Modify date: 2008-03-26",
+    "source": "NGA-GNS"
+  }
+},
+{
+  "type": "node",
+  "id": 1898062616,
+  "lat": 1.5123118,
+  "lon": 125.1952429,
+  "tags": {
+    "ele": "1149",
+    "gns:dsg": "MT",
+    "last_eruption": "1880",
+    "name": "Gunung Tangkoko",
+    "name:en": "Mount Tangkoko",
+    "natural": "volcano",
+    "note": "Modify date: 2008-03-24",
+    "source": "NGA-GNS",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q3120328"
+  }
+},
+{
+  "type": "node",
+  "id": 2144506200,
+  "lat": 1.0393525,
+  "lon": 127.4212691,
+  "tags": {
+    "name": "Kailupa Cone",
+    "name:en": "Cone of Jailolo",
+    "name:id": "Kailupa Cone",
+    "natural": "volcano",
+    "type": "strato"
+  }
+},
+{
+  "type": "node",
+  "id": 2267961372,
+  "lat": -8.4901128,
+  "lon": 118.7939810,
+  "tags": {
+    "name": "Doro Mboha di",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 2764591712,
+  "lat": -7.5269209,
+  "lon": 112.7114657,
+  "tags": {
+    "alt_name": "Lusi",
+    "name": "Lapindo",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano",
+    "wikipedia": "id:Banjir lumpur panas Sidoarjo",
+    "wikipedia:en": "en:Sidoarjo mud flow"
+  }
+},
+{
+  "type": "node",
+  "id": 3172175514,
+  "lat": -7.1888650,
+  "lon": 109.8534932,
+  "tags": {
+    "name": "Kawah Candradimuka",
+    "natural": "volcano",
+    "volcano:status": "active"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185609,
+  "lat": -0.5300000,
+  "lon": 127.4800000,
+  "tags": {
+    "name": "Amasing",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185610,
+  "lat": 0.7500000,
+  "lon": 124.4200000,
+  "tags": {
+    "name": "Ambang",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185615,
+  "lat": 3.1455176,
+  "lon": 125.4425432,
+  "tags": {
+    "ele": "-5",
+    "name": "Banua Wuhu",
+    "natural": "volcano",
+    "wikidata": "Q807010"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185618,
+  "lat": -4.4300000,
+  "lon": 103.6700000,
+  "tags": {
+    "name": "Besar",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185619,
+  "lat": -0.7700000,
+  "lon": 127.7200000,
+  "tags": {
+    "name": "Bibinoi",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185622,
+  "lat": 4.7689979,
+  "lon": 96.8209924,
+  "tags": {
+    "name": "Burni Telong",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185635,
+  "lat": 4.8130000,
+  "lon": 96.8200000,
+  "tags": {
+    "name": "Geureudong",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "wikidata": "Q40981"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185636,
+  "lat": -7.1550155,
+  "lon": 107.8512432,
+  "tags": {
+    "name": "Guntur",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "wikidata": "Q2735753",
+    "wikimedia_commons": "Category:Mount Guntur",
+    "wikipedia": "en:Mount Guntur"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185639,
+  "lat": -5.3500000,
+  "lon": 104.6000000,
+  "tags": {
+    "name": "Hulubelu",
+    "natural": "volcano",
+    "wikidata": "Q8523823",
+    "wikipedia": "en:Hulubelu"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185641,
+  "lat": 1.4907438,
+  "lon": 127.6305401,
+  "tags": {
+    "ele": "1377",
+    "last_eruption": "05/2024",
+    "name": "Ibu",
+    "name:en": "Mount Ibu",
+    "name:id": "Gunung Ibu",
+    "natural": "volcano",
+    "prominence": "1090",
+    "source": "gunungbagging.com",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2573469",
+    "wikipedia": "en:Mount Ibu"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185644,
+  "lat": -8.3017219,
+  "lon": 122.9058413,
+  "tags": {
+    "ele": "871",
+    "name": "Ilikedeka",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "wikidata": "Q2381562"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185646,
+  "lat": -8.4780000,
+  "lon": 122.6710000,
+  "tags": {
+    "name": "Ilimuda",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185648,
+  "lat": 2.1580000,
+  "lon": 98.9300000,
+  "tags": {
+    "name": "Imun",
+    "natural": "volcano",
+    "wikidata": "Q8523728"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185653,
+  "lat": 5.8037890,
+  "lon": 95.3238481,
+  "tags": {
+    "name": "Jaboi",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185654,
+  "lat": 1.0817744,
+  "lon": 127.4177357,
+  "tags": {
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891185656,
+  "lat": -7.1250000,
+  "lon": 107.8000000,
+  "tags": {
+    "ele": "1730",
+    "name": "Kamojang, Kawah",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2181214",
+    "wikimedia_commons": "Category:Kamojang",
+    "wikipedia": "en:Kamojang"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186263,
+  "lat": -7.2300000,
+  "lon": 107.7200000,
+  "tags": {
+    "ele": "2608",
+    "name": "Kendang",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q675072",
+    "wikimedia_commons": "Category:Mount Kendang",
+    "wikipedia": "en:Mount Kendang"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186265,
+  "lat": 1.4540540,
+  "lon": 125.0307044,
+  "tags": {
+    "name": "Klabat",
+    "natural": "volcano",
+    "volcano:type": "stratovolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186267,
+  "lat": -2.2759189,
+  "lon": 101.4895553,
+  "tags": {
+    "alt_name": "Belirang",
+    "ele": "2151",
+    "name": "Gunung Kunyit",
+    "natural": "volcano",
+    "source": "T503 Sheet 47-12",
+    "wikidata": "Q2580533"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186273,
+  "lat": 1.3696533,
+  "lon": 124.8010885,
+  "tags": {
+    "name": "Lokon-Empung",
+    "natural": "volcano",
+    "type": "complex",
+    "wikidata": "Q6668748"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186275,
+  "lat": -4.2200000,
+  "lon": 103.6200000,
+  "tags": {
+    "name": "Lumut Balai, Bukit",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186276,
+  "lat": -7.7300000,
+  "lon": 113.5800000,
+  "tags": {
+    "name": "Lurus",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "wikidata": "Q383862",
+    "wikipedia": "en:Mount Lurus"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186278,
+  "lat": 0.3200000,
+  "lon": 127.4000000,
+  "tags": {
+    "name": "Makian",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186279,
+  "lat": -7.1337903,
+  "lon": 107.6382673,
+  "tags": {
+    "ele": "2343",
+    "name": "Malabar",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q670643",
+    "wikimedia_commons": "Category:Mount Malabar",
+    "wikipedia": "en:Mount Malabar"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186280,
+  "lat": -8.0200000,
+  "lon": 112.6800000,
+  "tags": {
+    "ele": "680",
+    "name": "Malang Plain",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "wikidata": "Q2786660",
+    "wikipedia": "en:Malang Plain"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186281,
+  "lat": 0.4700000,
+  "lon": 99.6700000,
+  "tags": {
+    "name": "Malintang",
+    "natural": "volcano",
+    "wikidata": "Q23925862"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186282,
+  "lat": -5.5300000,
+  "lon": 130.2920000,
+  "tags": {
+    "name": "Manuk",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186284,
+  "lat": 0.5700000,
+  "lon": 127.4000000,
+  "tags": {
+    "name": "Mare",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186287,
+  "lat": 0.4500000,
+  "lon": 127.4000000,
+  "tags": {
+    "name": "Moti",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186290,
+  "lat": -8.3200000,
+  "lon": 121.7080000,
+  "tags": {
+    "name": "Paluweh",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186291,
+  "lat": -7.3253041,
+  "lon": 107.7364120,
+  "tags": {
+    "ele": "2623",
+    "name": "Papandayan",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "wikidata": "Q1073134",
+    "wikimedia_commons": "Category:Mount Papandayan",
+    "wikipedia": "en:Mount Papandayan"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186293,
+  "lat": -7.1610219,
+  "lon": 107.4000215,
+  "tags": {
+    "ele": "2434",
+    "name": "Gunung Patuha",
+    "name:en": "Mount Patuha",
+    "name:id": "Gunung Patuha",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q1373835",
+    "wikimedia_commons": "Category:Mount Patuha",
+    "wikipedia": "en:Mount Patuha"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186298,
+  "lat": -8.6800000,
+  "lon": 120.4800000,
+  "tags": {
+    "ele": "1675",
+    "name": "Poco Leok",
+    "natural": "volcano",
+    "wikidata": "Q2328794"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186302,
+  "lat": -4.8300000,
+  "lon": 103.9200000,
+  "tags": {
+    "name": "Ranau",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186309,
+  "lat": 0.0800000,
+  "lon": 100.2000000,
+  "tags": {
+    "name": "Sarik-Gajah",
+    "natural": "volcano",
+    "wikidata": "Q7424073"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186310,
+  "lat": -5.0942656,
+  "lon": 104.3192231,
+  "tags": {
+    "ele": "1719",
+    "name": "Sekincau Belirang",
+    "natural": "volcano",
+    "wikidata": "Q4180786",
+    "wikipedia": "en:Mount Sekincau"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186316,
+  "lat": 1.5560000,
+  "lon": 99.2550000,
+  "tags": {
+    "name": "Sibualbuali",
+    "natural": "volcano",
+    "wikidata": "Q1087355"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186320,
+  "lat": 1.1152111,
+  "lon": 124.7372661,
+  "tags": {
+    "gns:dsg": "MT",
+    "name": "Gunung Soputan",
+    "natural": "volcano",
+    "note": "Modify date: 2004-05-07",
+    "source": "NGA-GNS",
+    "wikidata": "Q781529"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186322,
+  "lat": -8.7920000,
+  "lon": 121.7700000,
+  "tags": {
+    "ele": "1500",
+    "name": "Sukaria Caldera",
+    "natural": "volcano",
+    "wikidata": "Q2105492"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186327,
+  "lat": -7.2108100,
+  "lon": 108.0649360,
+  "tags": {
+    "alt_name": "Talagabodas",
+    "ele": "2201",
+    "name": "Gunung Telagabodas",
+    "name:en": "Telagabodas",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q126717",
+    "wikimedia_commons": "Category:Mount Talagabodas",
+    "wikipedia": "en:Talagabodas"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186330,
+  "lat": -8.2479401,
+  "lon": 117.9951291,
+  "tags": {
+    "last_eruption": "1967",
+    "name": "Tambora",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q168714",
+    "wikimedia_commons": "Category:Mount Tambora",
+    "wikipedia": "en:Mount Tambora"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186331,
+  "lat": -6.7644599,
+  "lon": 107.9604070,
+  "tags": {
+    "ele": "1684",
+    "name": "Tampomas",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2020545",
+    "wikimedia_commons": "Category:Mount Tampomas",
+    "wikipedia": "en:Mount Tampomas"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186341,
+  "lat": 2.5800000,
+  "lon": 98.8300000,
+  "tags": {
+    "name": "Toba Supervolcano",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "volcano:type": "supervolcano"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186344,
+  "lat": 1.2300000,
+  "lon": 124.8300000,
+  "tags": {
+    "ele": "1202",
+    "name": "Tondano Caldera",
+    "natural": "volcano",
+    "wikidata": "Q2933735"
+  }
+},
+{
+  "type": "node",
+  "id": 3891186347,
+  "lat": -7.2112783,
+  "lon": 107.6398169,
+  "tags": {
+    "ele": "2198",
+    "name": "Wayang-Windu",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "wikidata": "Q2854575",
+    "wikimedia_commons": "Category:Wayang-Windu",
+    "wikipedia": "en:Mount Wayang-Windu"
+  }
+},
+{
+  "type": "node",
+  "id": 3948049114,
+  "lat": 0.7235224,
+  "lon": 127.4250854,
+  "tags": {
+    "name": "Sabale",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 4458884349,
+  "lat": -8.3127495,
+  "lon": 122.9675799,
+  "tags": {
+    "alt_name": "Ile Mandiri",
+    "name": "Ili Mandiri",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 4512725255,
+  "lat": -7.5412887,
+  "lon": 110.4462006,
+  "tags": {
+    "ele": "2930",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Mount_Merapi_in_2014.jpg",
+    "name": "Gunung Merapi",
+    "name:es": "Monte Merapi",
+    "name:id": "Gunung Merapi",
+    "natural": "volcano",
+    "prominence": "1356",
+    "source": "gunungbagging.com",
+    "volcano:status": "active",
+    "wikidata": "Q134108",
+    "wikipedia": "es:Monte Merapi"
+  }
+},
+{
+  "type": "node",
+  "id": 5283610837,
+  "lat": -8.7407093,
+  "lon": 120.9766806,
+  "tags": {
+    "name": "Wawomudha",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 5289475148,
+  "lat": -8.7490525,
+  "lon": 121.8301310,
+  "tags": {
+    "name": "Kawah Panas",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 5390039039,
+  "lat": -7.1975800,
+  "lon": 109.8409613,
+  "tags": {
+    "name": "Kawah Timbang",
+    "natural": "volcano",
+    "volcano:status": "active"
+  }
+},
+{
+  "type": "node",
+  "id": 5443930275,
+  "lat": -5.7806020,
+  "lon": 105.6312928,
+  "tags": {
+    "ele": "1281",
+    "name": "Rajabasa",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q42174",
+    "wikimedia_commons": "Category:Mount Rajabasa",
+    "wikipedia": "en:Rajabasa"
+  }
+},
+{
+  "type": "node",
+  "id": 5819827218,
+  "lat": -0.7370252,
+  "lon": 127.5243634,
+  "tags": {
+    "alt_name:id": "Gunung Bukusibela;Gunung Sibela;Bukit Sibela",
+    "ele": "2111",
+    "name": "Buku Sibela",
+    "name:id": "Gunung Buku Sibela",
+    "natural": "volcano",
+    "old_name": "Boekit Sibela;Boekoe Sibela",
+    "prominence": "2111",
+    "source": "http://www.gunungbagging.com/"
+  }
+},
+{
+  "type": "node",
+  "id": 5829583205,
+  "lat": -8.3430617,
+  "lon": 123.2529401,
+  "tags": {
+    "alt_name": "Ile Boleng",
+    "ele": "1658",
+    "last_eruption": "1993",
+    "name": "Ili Boleng",
+    "natural": "volcano",
+    "prominence": "1658",
+    "source:prominence": "Highest peak of Adonara Island",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2364075",
+    "wikipedia": "id:Gunung Iliboleng"
+  }
+},
+{
+  "type": "node",
+  "id": 5829780010,
+  "lat": -8.7650802,
+  "lon": 119.6815774,
+  "tags": {
+    "alt_name": "Dora Ora;Golo Ora",
+    "ele": "735",
+    "name": "Doro Ora",
+    "natural": "volcano",
+    "old_name": "Hagedissen Berg",
+    "prominence": "735",
+    "source": "gunungbagging.com"
+  }
+},
+{
+  "type": "node",
+  "id": 5829780012,
+  "lat": -8.5803042,
+  "lon": 117.1224093,
+  "tags": {
+    "alt_name:en": "Mount Ngenges",
+    "alt_name:id": "Puncak Ngengas",
+    "ele": "1840",
+    "loc_name": "Puncak Ngenges",
+    "name": "Olet Sangenges",
+    "natural": "volcano",
+    "prominence": "1773",
+    "source": "gunungbagging.com"
+  }
+},
+{
+  "type": "node",
+  "id": 5846266477,
+  "lat": -7.8361947,
+  "lon": 114.3779400,
+  "tags": {
+    "ele": "1247",
+    "name": "Baluran",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q571805",
+    "wikimedia_commons": "Category:Mount Baluran",
+    "wikipedia": "en:Baluran"
+  }
+},
+{
+  "type": "node",
+  "id": 5846266478,
+  "lat": -8.1255672,
+  "lon": 114.0466651,
+  "tags": {
+    "ele": "3332",
+    "name": "Raung",
+    "name:en": "Mount Raung",
+    "name:id": "Gunung Raung",
+    "natural": "volcano",
+    "prominence": "3069",
+    "source": "gunungbagging.com;opentopomap.com",
+    "wikipedia": "en:Raung"
+  }
+},
+{
+  "type": "node",
+  "id": 5963919037,
+  "lat": -7.2414693,
+  "lon": 109.2149699,
+  "tags": {
+    "ele": "3428",
+    "name": "Gunung Slamet",
+    "name:en": "Slamet",
+    "name:id": "Gunung Slamet",
+    "natural": "volcano",
+    "prominence": "3284",
+    "source": "gunungbagging.com",
+    "volcano:status": "active",
+    "wikidata": "Q580131",
+    "wikimedia_commons": "Category:Mount Slamet",
+    "wikipedia": "en:Mount Slamet"
+  }
+},
+{
+  "type": "node",
+  "id": 5963919041,
+  "lat": -7.8243116,
+  "lon": 111.7514920,
+  "tags": {
+    "ele": "2563",
+    "name": "Liman",
+    "name:id": "Gunung Liman",
+    "natural": "volcano",
+    "prominence": "2130",
+    "source": "gunungbagging.com"
+  }
+},
+{
+  "type": "node",
+  "id": 5964072248,
+  "lat": -6.3416586,
+  "lon": 105.9783375,
+  "tags": {
+    "ele": "1346",
+    "name": "Gunung Pulosari",
+    "natural": "volcano",
+    "prominence": "890",
+    "source": "gunungbagging.com",
+    "volcano:status": "active",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q42118",
+    "wikimedia_commons": "Category:Pulosari",
+    "wikipedia": "en:Pulosari (volcano)"
+  }
+},
+{
+  "type": "node",
+  "id": 6737701339,
+  "lat": -5.7519977,
+  "lon": 105.6344037,
+  "tags": {
+    "name": "Way Belerang Simpur",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 8007703213,
+  "lat": 4.8999782,
+  "lon": 96.8941850,
+  "tags": {
+    "fixme": "volcano?",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 9258618410,
+  "lat": -6.2731994,
+  "lon": 106.0468065,
+  "tags": {
+    "ele": "1778",
+    "name": "Gunung Karang",
+    "name:en": "Mount Karang",
+    "name:id": "Gunung Karang",
+    "name:ms": "Gunung Karang",
+    "name:zh": "卡朗火山",
+    "name:zh-Hans": "卡朗火山",
+    "name:zh-Hant": "卡朗火山",
+    "natural": "volcano",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q2344869",
+    "wikimedia_commons": "Category:Gunung Karang",
+    "wikipedia": "en:Gunung Karang"
+  }
+},
+{
+  "type": "node",
+  "id": 10108296103,
+  "lat": -7.6377600,
+  "lon": 111.1901818,
+  "tags": {
+    "name": "Kawah Candradimuka Gunung Lawu",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 10186542120,
+  "lat": -7.3611092,
+  "lon": 110.3999576,
+  "tags": {
+    "ele": "1894",
+    "gns:dsg": "MT",
+    "name": "Gunung Telomoyo",
+    "name:en": "Mount Telomoyo",
+    "natural": "volcano",
+    "source": "gunungbagging.com",
+    "volcano:status": "extinct",
+    "volcano:type": "stratovolcano",
+    "wikidata": "Q123157",
+    "wikimedia_commons": "Category:Mount Telomoyo",
+    "wikipedia": "en:Mount Telomoyo"
+  }
+},
+{
+  "type": "node",
+  "id": 10262940959,
+  "lat": -8.2303064,
+  "lon": 124.0818214,
+  "tags": {
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 10262940960,
+  "lat": -8.3024196,
+  "lon": 124.3424034,
+  "tags": {
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 10265083397,
+  "lat": -6.6162680,
+  "lon": 124.2187643,
+  "tags": {
+    "ele": "-2850",
+    "name": "Emperor of China",
+    "natural": "volcano",
+    "wikidata": "Q4175840"
+  }
+},
+{
+  "type": "node",
+  "id": 10265083398,
+  "lat": -6.6112376,
+  "lon": 124.6604918,
+  "tags": {
+    "ele": "-2285",
+    "name": "Nieuwerkerk",
+    "natural": "volcano",
+    "volcano:status": "dormant",
+    "wikidata": "Q2237908"
+  }
+},
+{
+  "type": "node",
+  "id": 10265119254,
+  "lat": -8.8624080,
+  "lon": 121.6558063,
+  "tags": {
+    "name": "Kezi Pui",
+    "name:induk_idn": "Gunung Meja",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 10266106283,
+  "lat": -7.5296593,
+  "lon": 123.9511442,
+  "tags": {
+    "ele": "-3800",
+    "fixme": "position",
+    "name": "Yersey",
+    "natural": "volcano",
+    "wikidata": "Q2470142"
+  }
+},
+{
+  "type": "node",
+  "id": 10670079954,
+  "lat": 1.2546430,
+  "lon": 127.4823471,
+  "tags": {
+    "name": "Rano",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 10682953496,
+  "lat": 1.8457915,
+  "lon": 127.8192115,
+  "tags": {
+    "ele": "205",
+    "name": "Gunung Tarakan Itji",
+    "natural": "volcano",
+    "volcano:type": "scoria"
+  }
+},
+{
+  "type": "node",
+  "id": 10844002009,
+  "lat": -7.1856195,
+  "lon": 110.3470896,
+  "tags": {
+    "ele": "2050",
+    "name": "Gunung Ungaran",
+    "natural": "volcano",
+    "volcano:status": "dormant"
+  }
+},
+{
+  "type": "node",
+  "id": 12049009001,
+  "lat": -7.1442681,
+  "lon": 107.8401525,
+  "tags": {
+    "name": "Kawah Masigit",
+    "natural": "volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532921,
+  "lat": -7.3372085,
+  "lon": 112.7823937,
+  "tags": {
+    "name": "Lumpur Gunung Anyar",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532924,
+  "lat": -7.1337015,
+  "lon": 111.1190859,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532925,
+  "lat": -7.1325727,
+  "lon": 111.1200347,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532926,
+  "lat": -7.1325699,
+  "lon": 111.1198799,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532927,
+  "lat": -7.1330784,
+  "lon": 111.1195589,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532928,
+  "lat": -7.1329024,
+  "lon": 111.1199052,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532929,
+  "lat": -7.1328298,
+  "lon": 111.1199503,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532930,
+  "lat": -7.1327543,
+  "lon": 111.1199109,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532931,
+  "lat": -7.1329667,
+  "lon": 111.1199784,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532932,
+  "lat": -7.1325113,
+  "lon": 111.1195673,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532933,
+  "lat": -7.1310585,
+  "lon": 111.1187790,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532934,
+  "lat": -7.1019047,
+  "lon": 111.1399321,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532957,
+  "lat": -7.0987980,
+  "lon": 111.1457178,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532958,
+  "lat": -7.0990508,
+  "lon": 111.1460745,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532959,
+  "lat": -7.0989177,
+  "lon": 111.1465171,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532960,
+  "lat": -7.0990109,
+  "lon": 111.1468416,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532961,
+  "lat": -7.0985717,
+  "lon": 111.1479896,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532962,
+  "lat": -7.0984386,
+  "lon": 111.1471394,
+  "tags": {
+    "name": "Bledug Kramesan",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532963,
+  "lat": -7.1189196,
+  "lon": 111.1097065,
+  "tags": {
+    "name": "Bledug Cangkring",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532964,
+  "lat": -7.1178816,
+  "lon": 111.1205667,
+  "tags": {
+    "name": "Bledug Kuwu",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532965,
+  "lat": -7.1175595,
+  "lon": 111.1234099,
+  "tags": {
+    "name": "Bledug Kuwu",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532966,
+  "lat": -7.1177033,
+  "lon": 111.1216825,
+  "tags": {
+    "name": "Bledug Kuwu",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532982,
+  "lat": -7.1549633,
+  "lon": 111.2426743,
+  "tags": {
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 13387532983,
+  "lat": -7.1552294,
+  "lon": 111.2542319,
+  "tags": {
+    "name": "Bledug Kesongo",
+    "natural": "volcano",
+    "volcano:type": "mud_volcano"
+  }
+},
+{
+  "type": "node",
+  "id": 14056941078,
+  "lat": -5.2396890,
+  "lon": 104.2628070,
+  "tags": {
+    "name": "Kawah Kopi Susu",
+    "name:en": "Kopi Susu Crater",
+    "name:id": "Kawah Kopi Susu",
+    "name:ru": "Кратер Копи Сусу",
+    "natural": "volcano",
+    "volcano:status": "active",
+    "volcano:type": "maar"
+  }
+}
+
+  ]
+}

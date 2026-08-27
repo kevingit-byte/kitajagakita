@@ -1,0 +1,982 @@
+[
+  {
+    "name": "Amasing",
+    "lat": -0.53,
+    "lon": 127.48
+  },
+  {
+    "name": "Ambang",
+    "lat": 0.75,
+    "lon": 124.42
+  },
+  {
+    "name": "Anak Krakatau",
+    "lat": -6.1029497,
+    "lon": 105.4221761
+  },
+  {
+    "name": "Anak Ranakah",
+    "lat": -8.6338092,
+    "lon": 120.5323856
+  },
+  {
+    "name": "Arjuno-Welirang",
+    "lat": -7.7342623,
+    "lon": 112.5749939
+  },
+  {
+    "name": "Baluran",
+    "lat": -7.8361947,
+    "lon": 114.37794
+  },
+  {
+    "name": "Banua Wuhu",
+    "lat": 3.1455176,
+    "lon": 125.4425432
+  },
+  {
+    "name": "Besar",
+    "lat": -4.43,
+    "lon": 103.67
+  },
+  {
+    "name": "Bibinoi",
+    "lat": -0.77,
+    "lon": 127.72
+  },
+  {
+    "name": "Bledug Cangkring",
+    "lat": -7.1189196,
+    "lon": 111.1097065
+  },
+  {
+    "name": "Bledug Kesongo",
+    "lat": -7.1552294,
+    "lon": 111.2542319
+  },
+  {
+    "name": "Bledug Kramesan",
+    "lat": -7.0984386,
+    "lon": 111.1471394
+  },
+  {
+    "name": "Bledug Kuwu",
+    "lat": -7.1178816,
+    "lon": 111.1205667
+  },
+  {
+    "name": "Bukit Amasing",
+    "lat": -0.5247662,
+    "lon": 127.5025749
+  },
+  {
+    "name": "Bukit Kaba",
+    "lat": -3.5122567,
+    "lon": 102.6232252
+  },
+  {
+    "name": "Buku Sibela",
+    "lat": -0.7370252,
+    "lon": 127.5243634
+  },
+  {
+    "name": "Burni Telong",
+    "lat": 4.7689979,
+    "lon": 96.8209924
+  },
+  {
+    "name": "Cot Seulawah Agam",
+    "lat": 5.4475,
+    "lon": 95.6554
+  },
+  {
+    "name": "Dolok Sibualbuali",
+    "lat": 1.5503432,
+    "lon": 99.2590122
+  },
+  {
+    "name": "Doro Mboha di",
+    "lat": -8.4901128,
+    "lon": 118.793981
+  },
+  {
+    "name": "Doro Ora",
+    "lat": -8.7650802,
+    "lon": 119.6815774
+  },
+  {
+    "name": "Ebulobo",
+    "lat": -8.8154836,
+    "lon": 121.1913726
+  },
+  {
+    "name": "Emperor of China",
+    "lat": -6.616268,
+    "lon": 124.2187643
+  },
+  {
+    "name": "Geureudong",
+    "lat": 4.813,
+    "lon": 96.82
+  },
+  {
+    "name": "Guntur",
+    "lat": -7.1550155,
+    "lon": 107.8512432
+  },
+  {
+    "name": "Gunugn Sorikmarapi",
+    "lat": 0.6832528,
+    "lon": 99.541036
+  },
+  {
+    "name": "Gunung Agung",
+    "lat": -8.3428923,
+    "lon": 115.5072076
+  },
+  {
+    "name": "Gunung Ambang",
+    "lat": 0.755617,
+    "lon": 124.4130796
+  },
+  {
+    "name": "Gunung Api (Banda)",
+    "lat": -4.5225918,
+    "lon": 129.8798487
+  },
+  {
+    "name": "Gunung Api Tigalalu",
+    "lat": 0.069306,
+    "lon": 127.424606
+  },
+  {
+    "name": "Gunung Argopuro",
+    "lat": -7.9644018,
+    "lon": 113.5663316
+  },
+  {
+    "name": "Gunung Arjuno",
+    "lat": -7.7654442,
+    "lon": 112.5906469
+  },
+  {
+    "name": "Gunung Awu Crater",
+    "lat": 3.6813063,
+    "lon": 125.4534798
+  },
+  {
+    "name": "Gunung Barujari",
+    "lat": -8.411405,
+    "lon": 116.4225175
+  },
+  {
+    "name": "Gunung Batok",
+    "lat": -7.9347675,
+    "lon": 112.9472895
+  },
+  {
+    "name": "Gunung Batu Tara",
+    "lat": -7.7906463,
+    "lon": 123.5865811
+  },
+  {
+    "name": "Gunung Batuangus",
+    "lat": 1.5082298,
+    "lon": 125.2193095
+  },
+  {
+    "name": "Gunung Batukaru",
+    "lat": -8.3348867,
+    "lon": 115.0882836
+  },
+  {
+    "name": "Gunung Batur",
+    "lat": -8.2394154,
+    "lon": 115.3779603
+  },
+  {
+    "name": "Gunung Bromo",
+    "lat": -7.9420691,
+    "lon": 112.9529769
+  },
+  {
+    "name": "Gunung Cereme",
+    "lat": -6.8928759,
+    "lon": 108.4068229
+  },
+  {
+    "name": "Gunung Cikuray",
+    "lat": -7.322513,
+    "lon": 107.8598651
+  },
+  {
+    "name": "Gunung Colo",
+    "lat": -0.1623854,
+    "lon": 121.6010796
+  },
+  {
+    "name": "Gunung Dempo",
+    "lat": -4.0155065,
+    "lon": 103.1279874
+  },
+  {
+    "name": "Gunung Dukono",
+    "lat": 1.698949,
+    "lon": 127.8791239
+  },
+  {
+    "name": "Gunung Egon",
+    "lat": -8.6780954,
+    "lon": 122.4541256
+  },
+  {
+    "name": "Gunung Empung",
+    "lat": 1.374544,
+    "lon": 124.8032366
+  },
+  {
+    "name": "Gunung Galunggung",
+    "lat": -7.2561523,
+    "lon": 108.0760925
+  },
+  {
+    "name": "Gunung Gamalama",
+    "lat": 0.8098795,
+    "lon": 127.3323425
+  },
+  {
+    "name": "Gunung Gamkonora",
+    "lat": 1.3790723,
+    "lon": 127.5322812
+  },
+  {
+    "name": "Gunung Gede",
+    "lat": -6.7878411,
+    "lon": 106.9817166
+  },
+  {
+    "name": "Gunung Genteng",
+    "lat": -8.0649013,
+    "lon": 114.1615901
+  },
+  {
+    "name": "Gunung Hiri",
+    "lat": 0.8979228,
+    "lon": 127.3184691
+  },
+  {
+    "name": "Gunung Ijen",
+    "lat": -8.0579332,
+    "lon": 114.2430975
+  },
+  {
+    "name": "Gunung Jailolo",
+    "lat": 1.0794305,
+    "lon": 127.4384966
+  },
+  {
+    "name": "Gunung Karang",
+    "lat": -6.2731994,
+    "lon": 106.0468065
+  },
+  {
+    "name": "Gunung Karangetang",
+    "lat": 2.7775257,
+    "lon": 125.4060634
+  },
+  {
+    "name": "Gunung Kelimutu",
+    "lat": -8.7651702,
+    "lon": 121.8133427
+  },
+  {
+    "name": "Gunung Kelud",
+    "lat": -7.9389217,
+    "lon": 112.3052492
+  },
+  {
+    "name": "Gunung Kerinci",
+    "lat": -1.6971814,
+    "lon": 101.2646538
+  },
+  {
+    "name": "Gunung Kiaraberes-Gagak",
+    "lat": -6.7293192,
+    "lon": 106.6504902
+  },
+  {
+    "name": "Gunung Kiebesi",
+    "lat": 0.3317366,
+    "lon": 127.3919306
+  },
+  {
+    "name": "Gunung Kiematabu",
+    "lat": 0.6620598,
+    "lon": 127.4024109
+  },
+  {
+    "name": "Gunung Kukusan",
+    "lat": -8.0005297,
+    "lon": 114.2378729
+  },
+  {
+    "name": "Gunung Kunyit",
+    "lat": -2.2759189,
+    "lon": 101.4895553
+  },
+  {
+    "name": "Gunung Lawu",
+    "lat": -7.627382,
+    "lon": 111.1943158
+  },
+  {
+    "name": "Gunung Lemongan Tarub",
+    "lat": -7.9806266,
+    "lon": 113.3417023
+  },
+  {
+    "name": "Gunung Leroboleng",
+    "lat": -8.3513763,
+    "lon": 122.8502397
+  },
+  {
+    "name": "Gunung Lokon",
+    "lat": 1.3641984,
+    "lon": 124.7992274
+  },
+  {
+    "name": "Gunung Lubuk Raya",
+    "lat": 1.4779558,
+    "lon": 99.2099312
+  },
+  {
+    "name": "Gunung Mahawu",
+    "lat": 1.3531645,
+    "lon": 124.8628914
+  },
+  {
+    "name": "Gunung Malintang",
+    "lat": 0.4767553,
+    "lon": 99.6507356
+  },
+  {
+    "name": "Gunung Mamuya",
+    "lat": 1.783848,
+    "lon": 127.9203488
+  },
+  {
+    "name": "Gunung Manado Tua",
+    "lat": 1.6329078,
+    "lon": 124.6969799
+  },
+  {
+    "name": "Gunung Manuk",
+    "lat": -5.5456694,
+    "lon": 130.3059645
+  },
+  {
+    "name": "Gunung Marapi",
+    "lat": -0.3911126,
+    "lon": 100.4571432
+  },
+  {
+    "name": "Gunung Mare",
+    "lat": 0.5753212,
+    "lon": 127.3977684
+  },
+  {
+    "name": "Gunung Merapi",
+    "lat": -7.5412887,
+    "lon": 110.4462006
+  },
+  {
+    "name": "Gunung Merbabu",
+    "lat": -7.4524377,
+    "lon": 110.4408198
+  },
+  {
+    "name": "Gunung Moti",
+    "lat": 0.4585828,
+    "lon": 127.4080681
+  },
+  {
+    "name": "Gunung Muria",
+    "lat": -6.616247,
+    "lon": 110.8903011
+  },
+  {
+    "name": "Gunung Ophir",
+    "lat": 0.079198,
+    "lon": 99.9832475
+  },
+  {
+    "name": "Gunung Pakuwaja",
+    "lat": -7.2290872,
+    "lon": 109.9225151
+  },
+  {
+    "name": "Gunung Pangrango",
+    "lat": -6.7698136,
+    "lon": 106.9640294
+  },
+  {
+    "name": "Gunung Patah",
+    "lat": -4.2572731,
+    "lon": 103.3058845
+  },
+  {
+    "name": "Gunung Patuha",
+    "lat": -7.1610219,
+    "lon": 107.4000215
+  },
+  {
+    "name": "Gunung Patuha II",
+    "lat": -7.1597554,
+    "lon": 107.4180591
+  },
+  {
+    "name": "Gunung Penanggungan",
+    "lat": -7.6156599,
+    "lon": 112.6200569
+  },
+  {
+    "name": "Gunung Perbakti",
+    "lat": -6.7430442,
+    "lon": 106.6975485
+  },
+  {
+    "name": "Gunung Poco Leok",
+    "lat": -8.6694787,
+    "lon": 120.4590573
+  },
+  {
+    "name": "Gunung Puet Sague",
+    "lat": 4.909395,
+    "lon": 96.325183
+  },
+  {
+    "name": "Gunung Pulosari",
+    "lat": -6.3416586,
+    "lon": 105.9783375
+  },
+  {
+    "name": "Gunung Ratai",
+    "lat": -5.5132924,
+    "lon": 105.0951235
+  },
+  {
+    "name": "Gunung Raung",
+    "lat": -8.119636,
+    "lon": 114.055025
+  },
+  {
+    "name": "Gunung Rokatenda",
+    "lat": -8.3338621,
+    "lon": 121.7103708
+  },
+  {
+    "name": "Gunung Ruang",
+    "lat": 2.304852,
+    "lon": 125.3665476
+  },
+  {
+    "name": "Gunung Salak",
+    "lat": -6.7136069,
+    "lon": 106.7385402
+  },
+  {
+    "name": "Gunung Sebesi",
+    "lat": -5.9543025,
+    "lon": 105.4827817
+  },
+  {
+    "name": "Gunung Semeru",
+    "lat": -8.1078426,
+    "lon": 112.92248
+  },
+  {
+    "name": "Gunung Sempu",
+    "lat": 1.135947,
+    "lon": 124.7516971
+  },
+  {
+    "name": "Gunung Sibayak",
+    "lat": 3.2393517,
+    "lon": 98.5047584
+  },
+  {
+    "name": "Gunung Sinabung",
+    "lat": 3.1709534,
+    "lon": 98.3920481
+  },
+  {
+    "name": "Gunung Sindoro",
+    "lat": -7.3011387,
+    "lon": 109.9966992
+  },
+  {
+    "name": "Gunung Singgalang",
+    "lat": -0.3936932,
+    "lon": 100.3331149
+  },
+  {
+    "name": "Gunung Sirung",
+    "lat": -8.499553,
+    "lon": 124.1279785
+  },
+  {
+    "name": "Gunung Slamet",
+    "lat": -7.2414693,
+    "lon": 109.2149699
+  },
+  {
+    "name": "Gunung Soputan",
+    "lat": 1.1152111,
+    "lon": 124.7372661
+  },
+  {
+    "name": "Gunung Sumbing",
+    "lat": -7.3818933,
+    "lon": 110.0758185
+  },
+  {
+    "name": "Gunung Talang",
+    "lat": -0.9790245,
+    "lon": 100.6799549
+  },
+  {
+    "name": "Gunung Tandikat",
+    "lat": -0.4311723,
+    "lon": 100.3194218
+  },
+  {
+    "name": "Gunung Tangkoko",
+    "lat": 1.5123118,
+    "lon": 125.1952429
+  },
+  {
+    "name": "Gunung Tarakan Itji",
+    "lat": 1.8457915,
+    "lon": 127.8192115
+  },
+  {
+    "name": "Gunung Tarakan Lamo",
+    "lat": 1.8301688,
+    "lon": 127.8277639
+  },
+  {
+    "name": "Gunung Telagabodas",
+    "lat": -7.21081,
+    "lon": 108.064936
+  },
+  {
+    "name": "Gunung Telomoyo",
+    "lat": -7.3611092,
+    "lon": 110.3999576
+  },
+  {
+    "name": "Gunung Teon",
+    "lat": -6.9700205,
+    "lon": 129.1450352
+  },
+  {
+    "name": "Gunung Tobaru",
+    "lat": 1.6341691,
+    "lon": 127.6707162
+  },
+  {
+    "name": "Gunung Todoko-Ranu",
+    "lat": 1.2240852,
+    "lon": 127.4564388
+  },
+  {
+    "name": "Gunung Ungaran",
+    "lat": -7.1856195,
+    "lon": 110.3470896
+  },
+  {
+    "name": "Gunung Wai Sano",
+    "lat": -8.7395548,
+    "lon": 120.0176826
+  },
+  {
+    "name": "Gunung Welirang",
+    "lat": -7.7326,
+    "lon": 112.5747
+  },
+  {
+    "name": "Gunung Wilis",
+    "lat": -7.820585,
+    "lon": 111.7571632
+  },
+  {
+    "name": "Gunung Wurlali",
+    "lat": -7.1218701,
+    "lon": 128.6735194
+  },
+  {
+    "name": "Gunungapi Wetar",
+    "lat": -6.6355633,
+    "lon": 126.6603426
+  },
+  {
+    "name": "Hulubelu",
+    "lat": -5.35,
+    "lon": 104.6
+  },
+  {
+    "name": "Ibu",
+    "lat": 1.4907438,
+    "lon": 127.6305401
+  },
+  {
+    "name": "Ile Wukoh",
+    "lat": -8.571,
+    "lon": 122.6549
+  },
+  {
+    "name": "Ili Boleng",
+    "lat": -8.3430617,
+    "lon": 123.2529401
+  },
+  {
+    "name": "Ili Lewotobi Perempuan",
+    "lat": -8.5516928,
+    "lon": 122.7806473
+  },
+  {
+    "name": "Ili Lewotolok",
+    "lat": -8.2727646,
+    "lon": 123.5067385
+  },
+  {
+    "name": "Ili Mandiri",
+    "lat": -8.3127495,
+    "lon": 122.9675799
+  },
+  {
+    "name": "Ili Ujolewung",
+    "lat": -8.2135579,
+    "lon": 123.7757081
+  },
+  {
+    "name": "Ili Werung",
+    "lat": -8.5320499,
+    "lon": 123.5734584
+  },
+  {
+    "name": "Ilikedeka",
+    "lat": -8.3017219,
+    "lon": 122.9058413
+  },
+  {
+    "name": "Ililabalekan",
+    "lat": -8.5467747,
+    "lon": 123.3836049
+  },
+  {
+    "name": "Ilimuda",
+    "lat": -8.495148,
+    "lon": 122.6835313
+  },
+  {
+    "name": "Imun",
+    "lat": 2.158,
+    "lon": 98.93
+  },
+  {
+    "name": "Inerie",
+    "lat": -8.8782152,
+    "lon": 120.9557748
+  },
+  {
+    "name": "Iya",
+    "lat": -8.8918133,
+    "lon": 121.6410971
+  },
+  {
+    "name": "Jaboi",
+    "lat": 5.803789,
+    "lon": 95.3238481
+  },
+  {
+    "name": "Kailupa Cone",
+    "lat": 1.0393525,
+    "lon": 127.4212691
+  },
+  {
+    "name": "Kamojang, Kawah",
+    "lat": -7.125,
+    "lon": 107.8
+  },
+  {
+    "name": "Kawah Candradimuka",
+    "lat": -7.188865,
+    "lon": 109.8534932
+  },
+  {
+    "name": "Kawah Candradimuka Gunung Lawu",
+    "lat": -7.63776,
+    "lon": 111.1901818
+  },
+  {
+    "name": "Kawah Kopi Susu",
+    "lat": -5.239689,
+    "lon": 104.262807
+  },
+  {
+    "name": "Kawah Masigit",
+    "lat": -7.1442681,
+    "lon": 107.8401525
+  },
+  {
+    "name": "Kawah Panas",
+    "lat": -8.7490525,
+    "lon": 121.830131
+  },
+  {
+    "name": "Kawah Timbang",
+    "lat": -7.19758,
+    "lon": 109.8409613
+  },
+  {
+    "name": "Kembar",
+    "lat": 3.8540249,
+    "lon": 97.6638498
+  },
+  {
+    "name": "Kendang",
+    "lat": -7.23,
+    "lon": 107.72
+  },
+  {
+    "name": "Kezi Pui",
+    "lat": -8.862408,
+    "lon": 121.6558063
+  },
+  {
+    "name": "Klabat",
+    "lat": 1.454054,
+    "lon": 125.0307044
+  },
+  {
+    "name": "Lapindo",
+    "lat": -7.5269209,
+    "lon": 112.7114657
+  },
+  {
+    "name": "Laworkawra",
+    "lat": -6.7408892,
+    "lon": 129.5136471
+  },
+  {
+    "name": "Lewotobi laki laki",
+    "lat": -8.5374531,
+    "lon": 122.7675791
+  },
+  {
+    "name": "Liman",
+    "lat": -7.8243116,
+    "lon": 111.751492
+  },
+  {
+    "name": "Lokon-Empung",
+    "lat": 1.3696533,
+    "lon": 124.8010885
+  },
+  {
+    "name": "Lumpur Gunung Anyar",
+    "lat": -7.3372085,
+    "lon": 112.7823937
+  },
+  {
+    "name": "Lumut Balai, Bukit",
+    "lat": -4.22,
+    "lon": 103.62
+  },
+  {
+    "name": "Lurus",
+    "lat": -7.73,
+    "lon": 113.58
+  },
+  {
+    "name": "Makian",
+    "lat": 0.32,
+    "lon": 127.4
+  },
+  {
+    "name": "Malabar",
+    "lat": -7.1337903,
+    "lon": 107.6382673
+  },
+  {
+    "name": "Malang Plain",
+    "lat": -8.02,
+    "lon": 112.68
+  },
+  {
+    "name": "Malintang",
+    "lat": 0.47,
+    "lon": 99.67
+  },
+  {
+    "name": "Manuk",
+    "lat": -5.53,
+    "lon": 130.292
+  },
+  {
+    "name": "Mare",
+    "lat": 0.57,
+    "lon": 127.4
+  },
+  {
+    "name": "Moncong Lompobattang",
+    "lat": -5.3468257,
+    "lon": 119.9317864
+  },
+  {
+    "name": "Moti",
+    "lat": 0.45,
+    "lon": 127.4
+  },
+  {
+    "name": "Nieuwerkerk",
+    "lat": -6.6112376,
+    "lon": 124.6604918
+  },
+  {
+    "name": "Olet Sangenges",
+    "lat": -8.5803042,
+    "lon": 117.1224093
+  },
+  {
+    "name": "Paluweh",
+    "lat": -8.32,
+    "lon": 121.708
+  },
+  {
+    "name": "Papandayan",
+    "lat": -7.3253041,
+    "lon": 107.736412
+  },
+  {
+    "name": "Poco Leok",
+    "lat": -8.68,
+    "lon": 120.48
+  },
+  {
+    "name": "Poco Ngandonalu",
+    "lat": -8.6517091,
+    "lon": 120.4480023
+  },
+  {
+    "name": "Pulau Weh",
+    "lat": 5.821062,
+    "lon": 95.2933037
+  },
+  {
+    "name": "Rajabasa",
+    "lat": -5.780602,
+    "lon": 105.6312928
+  },
+  {
+    "name": "Ranau",
+    "lat": -4.83,
+    "lon": 103.92
+  },
+  {
+    "name": "Rano",
+    "lat": 1.254643,
+    "lon": 127.4823471
+  },
+  {
+    "name": "Raung",
+    "lat": -8.1255672,
+    "lon": 114.0466651
+  },
+  {
+    "name": "Rinjani",
+    "lat": -8.4117272,
+    "lon": 116.4581059
+  },
+  {
+    "name": "Sabale",
+    "lat": 0.7235224,
+    "lon": 127.4250854
+  },
+  {
+    "name": "Sangeang",
+    "lat": -8.1958638,
+    "lon": 119.0697891
+  },
+  {
+    "name": "Sarik-Gajah",
+    "lat": 0.08,
+    "lon": 100.2
+  },
+  {
+    "name": "Sekincau Belirang",
+    "lat": -5.0942656,
+    "lon": 104.3192231
+  },
+  {
+    "name": "Sibualbuali",
+    "lat": 1.556,
+    "lon": 99.255
+  },
+  {
+    "name": "Sukaria Caldera",
+    "lat": -8.792,
+    "lon": 121.77
+  },
+  {
+    "name": "Tambora",
+    "lat": -8.2479401,
+    "lon": 117.9951291
+  },
+  {
+    "name": "Tampomas",
+    "lat": -6.7644599,
+    "lon": 107.960407
+  },
+  {
+    "name": "Toba Supervolcano",
+    "lat": 2.58,
+    "lon": 98.83
+  },
+  {
+    "name": "Tondano Caldera",
+    "lat": 1.23,
+    "lon": 124.83
+  },
+  {
+    "name": "Wawomudha",
+    "lat": -8.7407093,
+    "lon": 120.9766806
+  },
+  {
+    "name": "Way Belerang Simpur",
+    "lat": -5.7519977,
+    "lon": 105.6344037
+  },
+  {
+    "name": "Wayang-Windu",
+    "lat": -7.2112783,
+    "lon": 107.6398169
+  },
+  {
+    "name": "Wolo Inelika",
+    "lat": -8.7223286,
+    "lon": 120.9756621
+  },
+  {
+    "name": "Wuarlapna",
+    "lat": -6.3123344,
+    "lon": 130.0170294
+  },
+  {
+    "name": "Yersey",
+    "lat": -7.5296593,
+    "lon": 123.9511442
+  }
+]

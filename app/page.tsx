@@ -6,6 +6,12 @@ export default function Home() {
       <p>
         Uji koneksi BMKG: <a href="/api/test-bmkg">/api/test-bmkg</a>
       </p>
+      <p>
+        Uji koneksi MAGMA ESDM: <a href="/api/test-magma">/api/test-magma</a>
+      </p>
+      <p>
+        Data gabungan (semua sumber, dinormalisasi): <a href="/api/debug">/api/debug</a>
+      </p>
     </main>
   );
 }
