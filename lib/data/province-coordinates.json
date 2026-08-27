@@ -1,0 +1,192 @@
+[
+  {
+    "name": "Aceh",
+    "lat": 4.3685491,
+    "lon": 97.0253024
+  },
+  {
+    "name": "Sumatera Utara",
+    "lat": 2.1923519,
+    "lon": 99.3812201
+  },
+  {
+    "name": "Sumatera Barat",
+    "lat": -0.5827529,
+    "lon": 100.6133379
+  },
+  {
+    "name": "Riau",
+    "lat": 1.0498079,
+    "lon": 101.6548433
+  },
+  {
+    "name": "Kepulauan Riau",
+    "lat": -0.1547846,
+    "lon": 104.5803745
+  },
+  {
+    "name": "Jambi",
+    "lat": -1.7069965,
+    "lon": 102.7140041
+  },
+  {
+    "name": "Bengkulu",
+    "lat": -4.0035183,
+    "lon": 101.8393474
+  },
+  {
+    "name": "Sumatera Selatan",
+    "lat": -3.2193103,
+    "lon": 104.4075059
+  },
+  {
+    "name": "Kepulauan Bangka Belitung",
+    "lat": -2.7052886,
+    "lon": 106.3585607
+  },
+  {
+    "name": "Lampung",
+    "lat": -4.8555039,
+    "lon": 105.0272986
+  },
+  {
+    "name": "DKI Jakarta",
+    "lat": -6.1754049,
+    "lon": 106.827168
+  },
+  {
+    "name": "Jawa Barat",
+    "lat": -6.8891904,
+    "lon": 107.6404716
+  },
+  {
+    "name": "Jawa Tengah",
+    "lat": -7.3032412,
+    "lon": 110.0044145
+  },
+  {
+    "name": "Daerah Istimewa Yogyakarta",
+    "lat": -7.7953473,
+    "lon": 110.3672845
+  },
+  {
+    "name": "Jawa Timur",
+    "lat": -7.6977397,
+    "lon": 112.4914199
+  },
+  {
+    "name": "Banten",
+    "lat": -6.4453801,
+    "lon": 106.1375586
+  },
+  {
+    "name": "Bali",
+    "lat": -8.2271303,
+    "lon": 115.1919203
+  },
+  {
+    "name": "Nusa Tenggara Barat",
+    "lat": -8.7892855,
+    "lon": 117.146169
+  },
+  {
+    "name": "Nusa Tenggara Timur",
+    "lat": -8.5656787,
+    "lon": 120.6978581
+  },
+  {
+    "name": "Kalimantan Barat",
+    "lat": -0.1322387,
+    "lon": 111.0968901
+  },
+  {
+    "name": "Kalimantan Tengah",
+    "lat": -1.499583,
+    "lon": 113.2903307
+  },
+  {
+    "name": "Kalimantan Selatan",
+    "lat": -2.9285686,
+    "lon": 115.3700718
+  },
+  {
+    "name": "Kalimantan Timur",
+    "lat": 0.7884397,
+    "lon": 116.2419977
+  },
+  {
+    "name": "Kalimantan Utara",
+    "lat": 3.0235817,
+    "lon": 116.2049306
+  },
+  {
+    "name": "Sulawesi Utara",
+    "lat": 0.6555692,
+    "lon": 124.090151
+  },
+  {
+    "name": "Sulawesi Tengah",
+    "lat": -1.6937786,
+    "lon": 120.8088555
+  },
+  {
+    "name": "Sulawesi Tenggara",
+    "lat": -3.5491199,
+    "lon": 121.7279646
+  },
+  {
+    "name": "Gorontalo",
+    "lat": 0.7186174,
+    "lon": 122.4555927
+  },
+  {
+    "name": "Sulawesi Barat",
+    "lat": -2.4974546,
+    "lon": 119.3918955
+  },
+  {
+    "name": "Maluku",
+    "lat": -3.118837,
+    "lon": 129.4207759
+  },
+  {
+    "name": "Maluku Utara",
+    "lat": 0.6301215,
+    "lon": 127.9720219
+  },
+  {
+    "name": "Papua",
+    "lat": -2.4749149,
+    "lon": 138.08485
+  },
+  {
+    "name": "Papua Barat",
+    "lat": -2.8553556,
+    "lon": 133.4738171
+  },
+  {
+    "name": "Papua Selatan",
+    "lat": -6.5008882,
+    "lon": 139.3835339
+  },
+  {
+    "name": "Papua Tengah",
+    "lat": -3.8642437,
+    "lon": 136.37328
+  },
+  {
+    "name": "Papua Pegunungan",
+    "lat": -4.2478013,
+    "lon": 139.3725476
+  },
+  {
+    "name": "Papua Barat Daya",
+    "lat": -1.09856,
+    "lon": 131.3525336
+  },
+  {
+    "name": "Sulawesi Selatan",
+    "lat": -3.6446718,
+    "lon": 119.9471906
+  }
+]
