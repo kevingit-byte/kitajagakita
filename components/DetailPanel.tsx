@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import type { DisasterEvent, NewsLink } from "@/lib/types";
-import { DISASTER_TYPE_LABEL, STATUS_LABEL } from "@/lib/labels";
+import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/labels";
 
 type NewsResponse = { news: NewsLink[]; query: string | null; note?: string; error?: string };
 
@@ -37,20 +37,31 @@ const STATUS_BADGE_CLASS: Record<string, string> = {
   "tidak-diketahui": "bg-neutral-800 text-neutral-500",
 };
 
+const SEVERITY_BADGE_CLASS: Record<number, string> = {
+  1: "bg-emerald-950 text-emerald-300",
+  2: "bg-yellow-950 text-yellow-300",
+  3: "bg-orange-950 text-orange-300",
+  4: "bg-red-950 text-red-300",
+  5: "bg-red-950 text-red-200 ring-1 ring-red-700",
+};
+
 export default function DetailPanel({ event, onClose }: { event: DisasterEvent; onClose: () => void }) {
   const { data: newsData, isLoading: newsLoading } = useSWR(buildNewsUrl(event), fetchNews);
 
   return (
-    <div className="absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 bg-neutral-900 border-t sm:border-t-0 sm:border-l border-neutral-800 flex flex-col max-h-[70vh] sm:max-h-none">
+    <div className="panel-slide-in absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 bg-neutral-900 border-t sm:border-t-0 sm:border-l border-neutral-800 flex flex-col max-h-[70vh] sm:max-h-none shadow-2xl">
       <div className="flex items-start justify-between p-4 border-b border-neutral-800">
         <div>
           <h2 className="font-semibold text-lg leading-tight">{event.title}</h2>
-          <p className="text-xs text-neutral-500 mt-1">{DISASTER_TYPE_LABEL[event.type]}</p>
+          <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
+            <span aria-hidden>{DISASTER_TYPE_ICON[event.type]}</span>
+            {DISASTER_TYPE_LABEL[event.type]}
+          </p>
         </div>
         <button
           onClick={onClose}
           aria-label="Tutup panel detail"
-          className="text-neutral-500 hover:text-neutral-300 text-sm shrink-0 ml-2"
+          className="text-neutral-500 hover:text-neutral-300 text-sm shrink-0 ml-2 w-7 h-7 flex items-center justify-center rounded-full hover:bg-neutral-800 transition-colors"
         >
           ✕
         </button>
@@ -61,7 +72,9 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_BADGE_CLASS[event.status]}`}>
             {STATUS_LABEL[event.status]}
           </span>
-          <span className="text-neutral-400 text-xs">Tingkat keparahan: {event.severityLabel}</span>
+          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${SEVERITY_BADGE_CLASS[event.severity]}`}>
+            {event.severityLabel}
+          </span>
         </div>
 
         <div>
@@ -88,7 +101,13 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
             Laporan eksternal dari media, belum diverifikasi oleh dashboard ini.
           </p>
 
-          {newsLoading && <p className="text-neutral-500 text-xs">Memuat berita...</p>}
+          {newsLoading && (
+            <div className="flex flex-col gap-2">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="h-10 rounded bg-neutral-800 animate-pulse" />
+              ))}
+            </div>
+          )}
 
           {!newsLoading && newsData?.news && newsData.news.length === 0 && (
             <p className="text-neutral-500 text-xs">

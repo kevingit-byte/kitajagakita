@@ -20,3 +20,31 @@ body {
 .leaflet-popup-content a {
   color: #60a5fa;
 }
+
+@keyframes slide-in-panel {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes slide-in-panel {
+    from {
+      transform: translateX(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+.panel-slide-in {
+  animation: slide-in-panel 180ms ease-out;
+}

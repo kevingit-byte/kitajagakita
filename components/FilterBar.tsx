@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import type { DisasterType, EventStatus, Severity } from "@/lib/types";
 import type { EventFilters, TimeRange } from "@/lib/filters";
-import { DISASTER_TYPE_LABEL, STATUS_LABEL } from "@/lib/labels";
+import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/labels";
 
 const ALL_TYPES: DisasterType[] = ["gempa", "karhutla", "gunungapi", "banjir", "longsor", "cuaca", "lainnya"];
 const ALL_STATUSES: EventStatus[] = ["aktif", "mereda", "selesai", "tidak-diketahui"];
@@ -16,93 +17,120 @@ function toggle<T>(list: T[], value: T): T[] {
   return list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 }
 
+function chipClass(active: boolean): string {
+  return `px-2.5 py-1 rounded-full border text-xs transition-colors ${
+    active
+      ? "bg-neutral-100 text-neutral-900 border-neutral-100"
+      : "bg-transparent text-neutral-500 border-neutral-700"
+  }`;
+}
+
 type FilterBarProps = {
   filters: EventFilters;
   onChange: (filters: EventFilters) => void;
 };
 
 export default function FilterBar({ filters, onChange }: FilterBarProps) {
+  const [expanded, setExpanded] = useState(false);
+  const activeFilterCount =
+    filters.types.length + filters.statuses.length + (filters.minSeverity > 1 ? 1 : 0);
+
   return (
-    <div className="flex flex-col gap-3 p-3 bg-neutral-900 border-b border-neutral-800 text-sm">
-      <div>
-        <div className="text-neutral-400 text-xs mb-1.5">Jenis Bencana</div>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_TYPES.map((type) => {
-            const active = filters.types.length === 0 || filters.types.includes(type);
-            return (
-              <button
-                key={type}
-                onClick={() => onChange({ ...filters, types: toggle(filters.types, type) })}
-                className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
-                  active
-                    ? "bg-neutral-100 text-neutral-900 border-neutral-100"
-                    : "bg-transparent text-neutral-500 border-neutral-700"
-                }`}
-              >
-                {DISASTER_TYPE_LABEL[type]}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+    <div className="bg-neutral-900 border-b border-neutral-800 text-sm">
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="w-full flex items-center justify-between px-3 py-2 text-xs text-neutral-300"
+        aria-expanded={expanded}
+      >
+        <span className="flex items-center gap-2">
+          <span aria-hidden>⚙️</span>
+          Filter
+          {activeFilterCount > 0 && (
+            <span className="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-900 text-[10px] font-semibold">
+              {activeFilterCount}
+            </span>
+          )}
+          <span className="text-neutral-500">
+            · {TIME_RANGES.find((t) => t.value === filters.timeRange)?.label}
+          </span>
+        </span>
+        <span aria-hidden>{expanded ? "▲" : "▼"}</span>
+      </button>
 
-      <div>
-        <div className="text-neutral-400 text-xs mb-1.5">Status</div>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_STATUSES.map((status) => {
-            const active = filters.statuses.length === 0 || filters.statuses.includes(status);
-            return (
-              <button
-                key={status}
-                onClick={() => onChange({ ...filters, statuses: toggle(filters.statuses, status) })}
-                className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
-                  active
-                    ? "bg-neutral-100 text-neutral-900 border-neutral-100"
-                    : "bg-transparent text-neutral-500 border-neutral-700"
-                }`}
-              >
-                {STATUS_LABEL[status]}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      {expanded && (
+        <div className="flex flex-col gap-3 px-3 pb-3">
+          <div>
+            <div className="text-neutral-400 text-xs mb-1.5">Jenis Bencana</div>
+            <div className="flex flex-wrap gap-1.5">
+              {ALL_TYPES.map((type) => {
+                const active = filters.types.length === 0 || filters.types.includes(type);
+                return (
+                  <button
+                    key={type}
+                    onClick={() => onChange({ ...filters, types: toggle(filters.types, type) })}
+                    className={chipClass(active)}
+                  >
+                    <span aria-hidden className="mr-1">
+                      {DISASTER_TYPE_ICON[type]}
+                    </span>
+                    {DISASTER_TYPE_LABEL[type]}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-      <div className="flex flex-wrap gap-4 items-end">
-        <div>
-          <div className="text-neutral-400 text-xs mb-1.5">Rentang Waktu</div>
-          <div className="flex gap-1.5">
-            {TIME_RANGES.map((tr) => (
-              <button
-                key={tr.value}
-                onClick={() => onChange({ ...filters, timeRange: tr.value })}
-                className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
-                  filters.timeRange === tr.value
-                    ? "bg-neutral-100 text-neutral-900 border-neutral-100"
-                    : "bg-transparent text-neutral-500 border-neutral-700"
-                }`}
-              >
-                {tr.label}
-              </button>
-            ))}
+          <div>
+            <div className="text-neutral-400 text-xs mb-1.5">Status</div>
+            <div className="flex flex-wrap gap-1.5">
+              {ALL_STATUSES.map((status) => {
+                const active = filters.statuses.length === 0 || filters.statuses.includes(status);
+                return (
+                  <button
+                    key={status}
+                    onClick={() => onChange({ ...filters, statuses: toggle(filters.statuses, status) })}
+                    className={chipClass(active)}
+                  >
+                    {STATUS_LABEL[status]}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 items-end">
+            <div>
+              <div className="text-neutral-400 text-xs mb-1.5">Rentang Waktu</div>
+              <div className="flex gap-1.5">
+                {TIME_RANGES.map((tr) => (
+                  <button
+                    key={tr.value}
+                    onClick={() => onChange({ ...filters, timeRange: tr.value })}
+                    className={chipClass(filters.timeRange === tr.value)}
+                  >
+                    {tr.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="min-severity" className="text-neutral-400 text-xs mb-1.5 block">
+                Tingkat Keparahan Minimum: {filters.minSeverity}
+              </label>
+              <input
+                id="min-severity"
+                type="range"
+                min={1}
+                max={5}
+                value={filters.minSeverity}
+                onChange={(e) => onChange({ ...filters, minSeverity: Number(e.target.value) as Severity })}
+                className="w-32 accent-orange-500"
+              />
+            </div>
           </div>
         </div>
-
-        <div>
-          <label htmlFor="min-severity" className="text-neutral-400 text-xs mb-1.5 block">
-            Tingkat Keparahan Minimum: {filters.minSeverity}
-          </label>
-          <input
-            id="min-severity"
-            type="range"
-            min={1}
-            max={5}
-            value={filters.minSeverity}
-            onChange={(e) => onChange({ ...filters, minSeverity: Number(e.target.value) as Severity })}
-            className="w-32 accent-orange-500"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
