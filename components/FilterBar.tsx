@@ -76,6 +76,11 @@ export default function FilterBar({ filters, onChange }: FilterBarProps) {
                     key={type}
                     onClick={() => onChange({ ...filters, types: toggle(filters.types, type) })}
                     className={chipClass(active)}
+                    title={
+                      type === "karhutla"
+                        ? "Titik panas adalah deteksi suhu tinggi dari satelit, belum tentu kebakaran. Perlu verifikasi lapangan."
+                        : undefined
+                    }
                   >
                     <span aria-hidden className="mr-1">
                       {DISASTER_TYPE_ICON[type]}

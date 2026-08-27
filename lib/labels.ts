@@ -2,7 +2,7 @@ import type { DisasterType, EventStatus } from "./types";
 
 export const DISASTER_TYPE_LABEL: Record<DisasterType, string> = {
   gempa: "Gempa Bumi",
-  karhutla: "Karhutla",
+  karhutla: "Titik Panas",
   gunungapi: "Gunung Api",
   banjir: "Banjir",
   longsor: "Tanah Longsor",

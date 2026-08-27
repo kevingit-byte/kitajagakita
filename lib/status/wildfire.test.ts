@@ -1,13 +1,34 @@
 import { describe, expect, it } from "vitest";
 import { classifyWildfireCluster, type WildfireCluster } from "./wildfire";
+import type { FirmsHotspot } from "../sources/firms";
 
 const NOW = new Date("2026-08-27T04:00:00Z");
 const TODAY = "2026-08-27";
 const YESTERDAY = "2026-08-26";
 const DAY_BEFORE = "2026-08-25";
 
+function makeHotspot(overrides: Partial<FirmsHotspot> = {}): FirmsHotspot {
+  return {
+    lat: -2,
+    lon: 113,
+    brightnessK: 330,
+    confidencePercent: 80,
+    acqDate: TODAY,
+    acqTime: "0000",
+    frp: 5,
+    satellite: "N20",
+    product: "VIIRS_NOAA20_NRT",
+    daynight: "D",
+    ...overrides,
+  };
+}
+
 function makeCluster(countsByDate: Record<string, number>, overrides: Partial<WildfireCluster> = {}): WildfireCluster {
   const pointCount = Object.values(countsByDate).reduce((a, b) => a + b, 0);
+  const points: FirmsHotspot[] = [];
+  for (const [date, count] of Object.entries(countsByDate)) {
+    for (let i = 0; i < count; i++) points.push(makeHotspot({ acqDate: date }));
+  }
   return {
     id: "test-cluster",
     centerLat: -2,
@@ -16,7 +37,7 @@ function makeCluster(countsByDate: Record<string, number>, overrides: Partial<Wi
     totalFrp: pointCount * 5,
     countsByDate,
     latestAcqDate: TODAY,
-    points: [],
+    points,
     ...overrides,
   };
 }
@@ -61,10 +82,115 @@ describe("classifyWildfireCluster - status", () => {
   });
 });
 
+// Point shape ({lat, lon}) and cluster shape ({centerLat, centerLon}) are
+// deliberately kept as separate constants below, not one object spread
+// into both - spreading a {centerLat, centerLon} object into a hotspot
+// (which needs {lat, lon}) silently no-ops and leaves the point at
+// makeHotspot's default coordinates instead. That exact mistake produced
+// a bogus 831km "spread" in an earlier version of these tests: the
+// cluster centroid said Jakarta, but every point silently defaulted to
+// (-2, 113) instead.
+const JAKARTA_POINT = { lat: -6.2, lon: 106.8 }; // not peat-prone
+const JAKARTA_CLUSTER = { centerLat: -6.2, centerLon: 106.8 };
+
 describe("classifyWildfireCluster - severity", () => {
-  it("scales severity up with point count and total FRP", () => {
-    const small = classifyWildfireCluster(makeCluster({ [TODAY]: 3 }, { totalFrp: 15 }), NOW);
-    const large = classifyWildfireCluster(makeCluster({ [TODAY]: 60 }, { totalFrp: 900 }), NOW);
-    expect(large.severity).toBeGreaterThan(small.severity);
+  it("does not scale severity from point count alone when FRP/spread/trend/peat are held flat", () => {
+    // Many low-FRP points clustered tightly vs a handful of the same
+    // low-FRP points, both outside any peat province, no growth trend -
+    // point count must not be the thing driving severity apart.
+    const fewPoints = makeCluster(
+      { [TODAY]: 2 },
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 4,
+        points: [makeHotspot({ ...JAKARTA_POINT, frp: 2 }), makeHotspot({ ...JAKARTA_POINT, frp: 2 })],
+      },
+    );
+    const manyPoints = makeCluster(
+      { [TODAY]: 40 },
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 4,
+        points: Array.from({ length: 40 }, () => makeHotspot({ ...JAKARTA_POINT, frp: 0.1 })),
+      },
+    );
+    expect(classifyWildfireCluster(manyPoints, NOW).severity).toBe(classifyWildfireCluster(fewPoints, NOW).severity);
+  });
+
+  it("scales severity up with total FRP", () => {
+    const low = makeCluster(
+      { [TODAY]: 1 },
+      { ...JAKARTA_CLUSTER, totalFrp: 3, points: [makeHotspot({ ...JAKARTA_POINT, frp: 3 })] },
+    );
+    const high = makeCluster(
+      { [TODAY]: 1 },
+      { ...JAKARTA_CLUSTER, totalFrp: 600, points: [makeHotspot({ ...JAKARTA_POINT, frp: 600 })] },
+    );
+    expect(classifyWildfireCluster(high, NOW).severity).toBeGreaterThan(classifyWildfireCluster(low, NOW).severity);
+  });
+
+  it("scales severity up with cluster spread", () => {
+    const tight = makeCluster(
+      { [TODAY]: 2 },
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 10,
+        points: [makeHotspot({ lat: -6.2, lon: 106.8 }), makeHotspot({ lat: -6.201, lon: 106.801 })],
+      },
+    );
+    const wide = makeCluster(
+      { [TODAY]: 2 },
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 10,
+        points: [makeHotspot({ lat: -6.2, lon: 106.8 }), makeHotspot({ lat: -6.3, lon: 106.9 })], // ~15km away
+      },
+    );
+    expect(classifyWildfireCluster(wide, NOW).severity).toBeGreaterThan(classifyWildfireCluster(tight, NOW).severity);
+  });
+
+  it("scales severity up when FRP is escalating over the 3-day window", () => {
+    const declining = makeCluster(
+      {},
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 60,
+        points: [
+          makeHotspot({ ...JAKARTA_POINT, acqDate: DAY_BEFORE, frp: 50 }),
+          makeHotspot({ ...JAKARTA_POINT, acqDate: TODAY, frp: 10 }),
+        ],
+      },
+    );
+    const escalating = makeCluster(
+      {},
+      {
+        ...JAKARTA_CLUSTER,
+        totalFrp: 60,
+        points: [
+          makeHotspot({ ...JAKARTA_POINT, acqDate: DAY_BEFORE, frp: 10 }),
+          makeHotspot({ ...JAKARTA_POINT, acqDate: TODAY, frp: 50 }),
+        ],
+      },
+    );
+    expect(classifyWildfireCluster(escalating, NOW).severity).toBeGreaterThan(
+      classifyWildfireCluster(declining, NOW).severity,
+    );
+  });
+
+  it("scales severity up for a cluster in a peat-prone province vs an identical one that isn't", () => {
+    const nonPeat = makeCluster(
+      { [TODAY]: 1 },
+      { ...JAKARTA_CLUSTER, totalFrp: 20, points: [makeHotspot({ ...JAKARTA_POINT, frp: 20 })] },
+    );
+    // -2, 113 falls inside multiple adjacent Kalimantan provinces' bounding
+    // boxes (they overlap - a known, documented limitation of the bbox
+    // fallback) - so this only asserts *a* peat province was matched, not
+    // which specific one.
+    const peat = makeCluster(
+      { [TODAY]: 1 },
+      { centerLat: -2, centerLon: 113, totalFrp: 20, points: [makeHotspot({ lat: -2, lon: 113, frp: 20 })] },
+    );
+    expect(classifyWildfireCluster(peat, NOW).severity).toBeGreaterThan(classifyWildfireCluster(nonPeat, NOW).severity);
+    expect(classifyWildfireCluster(peat, NOW).severityReason).toContain("gambut");
   });
 });

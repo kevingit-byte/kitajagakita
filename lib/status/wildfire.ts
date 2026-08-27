@@ -1,5 +1,7 @@
 import type { DisasterEvent, EventStatus, Severity, SeverityLabel } from "../types";
 import type { FirmsHotspot } from "../sources/firms";
+import { haversineDistanceKm } from "../geo";
+import { isInPeatProneProvince } from "../data/peat-prone-provinces";
 
 export type WildfireCluster = {
   id: string;
@@ -18,7 +20,7 @@ export type WildfireCluster = {
  * hotspot is a satellite heat signature, not confirmed fire on the ground.
  */
 export const WILDFIRE_CAVEAT =
-  "Titik panas adalah sinyal panas yang terdeteksi satelit, bukan konfirmasi kebakaran di lapangan. Lintasan satelit memiliki celah waktu dan tutupan awan dapat menyebabkan pembacaan 'padam' yang keliru.";
+  "Titik panas adalah deteksi suhu tinggi dari satelit, belum tentu kebakaran. Perlu verifikasi lapangan. Lintasan satelit memiliki celah waktu dan tutupan awan dapat menyebabkan pembacaan 'padam' yang keliru.";
 
 const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
   1: "Ringan",
@@ -78,18 +80,93 @@ function classifyStatus(
   };
 }
 
-function classifySeverity(cluster: WildfireCluster): { severity: Severity; severityReason: string } {
-  const score = cluster.pointCount + cluster.totalFrp / 20;
+/** Sum of FRP (fire radiative power, MW) for points detected on a given acq_date. */
+function frpOnDate(cluster: WildfireCluster, date: string): number {
+  return cluster.points.filter((p) => p.acqDate === date).reduce((sum, p) => sum + p.frp, 0);
+}
+
+/**
+ * Max distance from the cluster centroid to any of its points - a cheap
+ * (O(n), not O(n²) pairwise) proxy for how spread out the cluster is.
+ * Point count alone doesn't distinguish a small, dense, intense burn from
+ * a large, sparse complex - this does.
+ */
+function spreadRadiusKm(cluster: WildfireCluster): number {
+  let maxDistance = 0;
+  for (const point of cluster.points) {
+    const distance = haversineDistanceKm(cluster.centerLat, cluster.centerLon, point.lat, point.lon);
+    if (distance > maxDistance) maxDistance = distance;
+  }
+  return maxDistance;
+}
+
+/**
+ * Combines total cluster FRP, geographic spread, the 3-day FRP trend, and
+ * whether the cluster sits in a peat-prone province - point count is not
+ * used at all (per instruction: it must not be the main factor, and every
+ * other factor here already correlates with detection density without
+ * inheriting its bias toward simply "more satellite passes over the same
+ * spot" rather than "worse fire").
+ */
+function classifySeverity(
+  cluster: WildfireCluster,
+  now: Date,
+): { severity: Severity; severityReason: string } {
+  const reasonParts: string[] = [];
+  let points = 0;
+
+  // FRP (fire radiative power, MW) - direct measure of burn intensity.
+  if (cluster.totalFrp >= 500) points += 4;
+  else if (cluster.totalFrp >= 200) points += 3;
+  else if (cluster.totalFrp >= 50) points += 2;
+  else if (cluster.totalFrp >= 10) points += 1;
+  reasonParts.push(`total FRP klaster ${cluster.totalFrp.toFixed(1)} MW`);
+
+  // Spread - a wide cluster is a fire complex, not one small burn.
+  const radiusKm = spreadRadiusKm(cluster);
+  if (radiusKm >= 10) points += 3;
+  else if (radiusKm >= 5) points += 2;
+  else if (radiusKm >= 2) points += 1;
+  reasonParts.push(`sebaran klaster radius ${radiusKm.toFixed(1)} km`);
+
+  // 3-day FRP trend - is intensity escalating, not just detection count.
+  const today = isoDate(now);
+  const dayBeforeYesterday = isoDate(new Date(now.getTime() - 48 * 60 * 60 * 1000));
+  const todayFrp = frpOnDate(cluster, today);
+  const earlierFrp = frpOnDate(cluster, dayBeforeYesterday);
+  let trendLabel: string;
+  if (earlierFrp > 0 && todayFrp > earlierFrp * 2) {
+    points += 3;
+    trendLabel = "meningkat tajam";
+  } else if (todayFrp > earlierFrp) {
+    points += 2;
+    trendLabel = "meningkat";
+  } else if (todayFrp >= earlierFrp * 0.5) {
+    points += 1;
+    trendLabel = "relatif stabil";
+  } else {
+    trendLabel = "menurun";
+  }
+  reasonParts.push(`tren FRP 3 hari: ${trendLabel}`);
+
+  // Peatland - fires on peat burn deeper, spread underground, and produce
+  // far more smoke/haze than the same-size fire on mineral soil.
+  const peatProvince = isInPeatProneProvince(cluster.centerLat, cluster.centerLon);
+  if (peatProvince) {
+    points += 3;
+    reasonParts.push(`berada di provinsi rawan lahan gambut (${peatProvince.name})`);
+  }
+
   let severity: Severity;
-  if (score >= 100) severity = 5;
-  else if (score >= 50) severity = 4;
-  else if (score >= 20) severity = 3;
-  else if (score >= 8) severity = 2;
+  if (points >= 12) severity = 5;
+  else if (points >= 9) severity = 4;
+  else if (points >= 6) severity = 3;
+  else if (points >= 3) severity = 2;
   else severity = 1;
 
   return {
     severity,
-    severityReason: `Berdasarkan ${cluster.pointCount} titik deteksi dan total daya radiatif api (FRP) ${cluster.totalFrp.toFixed(1)} MW.`,
+    severityReason: `Berdasarkan ${reasonParts.join(", ")}.`,
   };
 }
 
@@ -104,7 +181,7 @@ export function classifyWildfireCluster(
   severityReason: string;
 } {
   const { status, statusReason } = classifyStatus(cluster, now);
-  const { severity, severityReason } = classifySeverity(cluster);
+  const { severity, severityReason } = classifySeverity(cluster, now);
   return { status, statusReason, severity, severityLabel: SEVERITY_LABEL_BY_LEVEL[severity], severityReason };
 }
 
