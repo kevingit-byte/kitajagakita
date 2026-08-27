@@ -1,6 +1,6 @@
 import Papa from "papaparse";
-import type { DisasterEvent } from "../types";
 import { clusterByDistance } from "../geo";
+import type { WildfireCluster } from "../status/wildfire";
 
 const BASE_URL = "https://firms.modaps.eosdis.nasa.gov/api/area/csv";
 // west,south,east,north - matches the spec's Indonesia bbox order.
@@ -93,26 +93,11 @@ export async function fetchAllFirmsHotspots(mapKey: string): Promise<FirmsHotspo
   return hotspots;
 }
 
-export type WildfireCluster = {
-  id: string;
-  centerLat: number;
-  centerLon: number;
-  pointCount: number;
-  totalFrp: number;
-  todayCount: number;
-  yesterdayCount: number;
-  latestAcqDate: string;
-  points: FirmsHotspot[];
-};
-
 const CLUSTER_EPSILON_KM = 5;
 const MIN_CLUSTER_POINTS = 2;
 
 export function clusterHotspots(hotspots: FirmsHotspot[]): WildfireCluster[] {
   const groups = clusterByDistance(hotspots, CLUSTER_EPSILON_KM, (h) => ({ lat: h.lat, lon: h.lon }));
-
-  const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
   return groups
     .filter((group) => group.length >= MIN_CLUSTER_POINTS)
@@ -120,8 +105,10 @@ export function clusterHotspots(hotspots: FirmsHotspot[]): WildfireCluster[] {
       const centerLat = group.reduce((sum, p) => sum + p.lat, 0) / group.length;
       const centerLon = group.reduce((sum, p) => sum + p.lon, 0) / group.length;
       const totalFrp = group.reduce((sum, p) => sum + p.frp, 0);
-      const todayCount = group.filter((p) => p.acqDate === today).length;
-      const yesterdayCount = group.filter((p) => p.acqDate === yesterday).length;
+      const countsByDate: Record<string, number> = {};
+      for (const p of group) {
+        countsByDate[p.acqDate] = (countsByDate[p.acqDate] ?? 0) + 1;
+      }
       const latestAcqDate = group.reduce((max, p) => (p.acqDate > max ? p.acqDate : max), group[0].acqDate);
 
       return {
@@ -130,51 +117,10 @@ export function clusterHotspots(hotspots: FirmsHotspot[]): WildfireCluster[] {
         centerLon,
         pointCount: group.length,
         totalFrp,
-        todayCount,
-        yesterdayCount,
+        countsByDate,
         latestAcqDate,
         points: group,
       };
     });
 }
 
-function provisionalSeverity(cluster: WildfireCluster): 1 | 2 | 3 | 4 | 5 {
-  // Placeholder combining point count and total FRP; the real aktif/mereda/
-  // selesai + severity rules land in the Phase 3 status engine.
-  const score = cluster.pointCount + cluster.totalFrp / 20;
-  if (score >= 100) return 5;
-  if (score >= 50) return 4;
-  if (score >= 20) return 3;
-  if (score >= 8) return 2;
-  return 1;
-}
-
-const SEVERITY_LABEL_BY_LEVEL = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
-} as const;
-
-export function wildfireClusterToEvent(cluster: WildfireCluster): DisasterEvent {
-  const severity = provisionalSeverity(cluster);
-  return {
-    id: cluster.id,
-    type: "karhutla",
-    title: `Titik Panas (${cluster.pointCount} deteksi) di ${cluster.centerLat.toFixed(2)}, ${cluster.centerLon.toFixed(2)}`,
-    lat: cluster.centerLat,
-    lon: cluster.centerLon,
-    province: null,
-    occurredAt: `${cluster.latestAcqDate}T00:00:00Z`,
-    lastUpdatedAt: new Date().toISOString(),
-    severity,
-    severityLabel: SEVERITY_LABEL_BY_LEVEL[severity],
-    status: "tidak-diketahui",
-    statusReason:
-      "Status karhutla (aktif/mereda/selesai) memerlukan perbandingan jumlah deteksi hari ini vs kemarin - belum diimplementasikan. Catatan: titik panas adalah sinyal panas satelit, bukan konfirmasi kebakaran.",
-    raw: { pointCount: cluster.pointCount, totalFrp: cluster.totalFrp, points: cluster.points.length },
-    sourceName: "NASA FIRMS",
-    sourceUrl: "https://firms.modaps.eosdis.nasa.gov/",
-  };
-}

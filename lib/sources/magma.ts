@@ -1,18 +1,12 @@
 import * as cheerio from "cheerio";
 import { findVolcanoCoordinates } from "../data/volcano-lookup";
-import type { DisasterEvent, Severity, SeverityLabel } from "../types";
+import type { DisasterEvent } from "../types";
+import { classifyVolcanoStatus, VOLCANO_LEVEL_LABEL, type VolcanoLevel } from "../status/volcano";
+
+export type { VolcanoLevel };
 
 const TINGKAT_AKTIVITAS_URL = "https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas";
 const USER_AGENT = "Mozilla/5.0 (compatible; KitaJagaKita/0.1; +https://github.com/kevingit-byte/kitajagakita)";
-
-export type VolcanoLevel = "I" | "II" | "III" | "IV";
-
-export const VOLCANO_LEVEL_LABEL: Record<VolcanoLevel, string> = {
-  I: "Level I (Normal)",
-  II: "Level II (Waspada)",
-  III: "Level III (Siaga)",
-  IV: "Level IV (Awas)",
-};
 
 export type MagmaVolcano = {
   name: string;
@@ -95,19 +89,10 @@ export async function fetchMagmaVolcanoes(): Promise<MagmaVolcano[]> {
   return volcanoes;
 }
 
-const SEVERITY_BY_LEVEL: Record<VolcanoLevel, Severity> = { I: 1, II: 2, III: 4, IV: 5 };
-const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
-};
-
 export function magmaVolcanoToEvent(volcano: MagmaVolcano): DisasterEvent | null {
   if (volcano.lat === null || volcano.lon === null) return null;
 
-  const severity = SEVERITY_BY_LEVEL[volcano.level];
+  const { status, statusReason, severity, severityLabel } = classifyVolcanoStatus(volcano.level);
   return {
     id: `magma-${volcano.name.toLowerCase().replace(/\s+/g, "-")}`,
     type: "gunungapi",
@@ -118,10 +103,9 @@ export function magmaVolcanoToEvent(volcano: MagmaVolcano): DisasterEvent | null
     occurredAt: new Date().toISOString(),
     lastUpdatedAt: new Date().toISOString(),
     severity,
-    severityLabel: SEVERITY_LABEL_BY_LEVEL[severity],
-    status: "tidak-diketahui",
-    statusReason:
-      "Status penuh (aktif/mereda/selesai) memerlukan riwayat perubahan level 30 hari - belum diimplementasikan.",
+    severityLabel,
+    status,
+    statusReason,
     raw: volcano,
     sourceName: "MAGMA ESDM (PVMBG)",
     sourceUrl: TINGKAT_AKTIVITAS_URL,

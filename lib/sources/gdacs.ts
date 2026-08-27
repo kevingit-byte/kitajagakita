@@ -1,4 +1,5 @@
-import type { DisasterEvent, DisasterType, Severity, SeverityLabel } from "../types";
+import type { DisasterEvent, DisasterType } from "../types";
+import { classifyGdacsEvent } from "../status/other";
 
 const BASE_URL = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH";
 
@@ -35,20 +36,6 @@ const EVENTTYPE_TO_DISASTER_TYPE: Record<string, DisasterType> = {
   VO: "gunungapi",
 };
 
-const ALERT_LEVEL_TO_SEVERITY: Record<string, Severity> = {
-  Green: 2,
-  Orange: 3,
-  Red: 5,
-};
-
-const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
-};
-
 export async function fetchGdacsIndonesiaEvents(fromDate: string, toDate: string): Promise<DisasterEvent[]> {
   const params = new URLSearchParams({ country: "Indonesia", fromDate, toDate });
   const res = await fetch(`${BASE_URL}?${params.toString()}`, { next: { revalidate: 1800 } });
@@ -62,8 +49,11 @@ export async function fetchGdacsIndonesiaEvents(fromDate: string, toDate: string
     const [lon, lat] = feature.geometry.coordinates;
     const p = feature.properties;
     const type = EVENTTYPE_TO_DISASTER_TYPE[p.eventtype] ?? "lainnya";
-    const severity = ALERT_LEVEL_TO_SEVERITY[p.alertlevel] ?? 2;
-    const isClosed = p.iscurrent === "false" || new Date(p.todate).getTime() < Date.now() - 24 * 60 * 60 * 1000;
+    const { status, statusReason, severity, severityLabel } = classifyGdacsEvent(
+      p.alertlevel,
+      p.iscurrent,
+      p.todate,
+    );
 
     return {
       id: `gdacs-${p.eventid}-${p.episodeid}`,
@@ -75,11 +65,9 @@ export async function fetchGdacsIndonesiaEvents(fromDate: string, toDate: string
       occurredAt: p.fromdate,
       lastUpdatedAt: p.datemodified,
       severity,
-      severityLabel: SEVERITY_LABEL_BY_LEVEL[severity],
-      status: isClosed ? "selesai" : "tidak-diketahui",
-      statusReason: isClosed
-        ? "GDACS menandai episode ini sudah berakhir (todate telah lewat)."
-        : "Status penuh (aktif/mereda) memerlukan mesin status GDACS - belum diimplementasikan.",
+      severityLabel,
+      status,
+      statusReason,
       raw: p as unknown as Record<string, unknown>,
       sourceName: "GDACS",
       sourceUrl: p.url.report,

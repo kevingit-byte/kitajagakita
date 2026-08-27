@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { fetchAllFirmsHotspots, clusterHotspots, wildfireClusterToEvent } from "@/lib/sources/firms";
+import { fetchAllFirmsHotspots, clusterHotspots } from "@/lib/sources/firms";
+import { wildfireClusterToEvent } from "@/lib/status/wildfire";
 
 export const revalidate = 900;
 
@@ -16,7 +17,10 @@ export async function GET() {
     const hotspots = await fetchAllFirmsHotspots(mapKey);
     const clusters = clusterHotspots(hotspots);
     return NextResponse.json({
-      events: clusters.map(wildfireClusterToEvent),
+      // NOT clusters.map(wildfireClusterToEvent) - Array.map passes
+      // (element, index, array), and index would land in the `now: Date`
+      // param, crashing on now.getTime(). Wrap explicitly.
+      events: clusters.map((cluster) => wildfireClusterToEvent(cluster)),
       rawHotspotCount: hotspots.length,
     });
   } catch (error) {

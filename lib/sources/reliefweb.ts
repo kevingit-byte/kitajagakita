@@ -1,4 +1,5 @@
-import type { DisasterEvent, DisasterType, Severity, SeverityLabel } from "../types";
+import type { DisasterEvent, DisasterType } from "../types";
+import { classifyReliefWebDisaster } from "../status/other";
 
 // v1 is decommissioned (confirmed HTTP 410 in Phase 0). v2 requires a
 // pre-approved appname as of Nov 2025 - a new ReliefWeb policy that
@@ -68,9 +69,7 @@ export async function fetchReliefWebIndonesiaDisasters(): Promise<DisasterEvent[
   return data.data.map((disaster) => {
     const typeName = disaster.fields.type?.[0]?.name ?? "";
     const type = TYPE_NAME_TO_DISASTER_TYPE[typeName] ?? "lainnya";
-    const isPast = disaster.fields.status === "past";
-    const severity: Severity = isPast ? 2 : 3;
-    const severityLabel: SeverityLabel = isPast ? "Sedang" : "Berat";
+    const { status, statusReason, severity, severityLabel } = classifyReliefWebDisaster(disaster.fields.status);
 
     return {
       id: `reliefweb-${disaster.id}`,
@@ -83,10 +82,8 @@ export async function fetchReliefWebIndonesiaDisasters(): Promise<DisasterEvent[
       lastUpdatedAt: disaster.fields.date.changed ?? disaster.fields.date.created,
       severity,
       severityLabel,
-      status: isPast ? "selesai" : "tidak-diketahui",
-      statusReason: isPast
-        ? "ReliefWeb menandai rekaman ini berstatus 'past' (sudah lampau)."
-        : "Status penuh memerlukan mesin status - belum diimplementasikan.",
+      status,
+      statusReason,
       raw: disaster.fields as unknown as Record<string, unknown>,
       sourceName: "ReliefWeb",
       sourceUrl: disaster.fields.url,

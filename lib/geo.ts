@@ -20,16 +20,12 @@ export function haversineDistanceKm(
 
 /**
  * Groups points into connected components where an edge exists between any
- * two points within `epsilonKm` of each other (graph/chain reachability,
- * not distance-to-a-single-anchor). This matters: two points can end up in
- * the same cluster by chaining through an intermediate point even if they
- * are individually more than epsilonKm apart from each other.
+ * two points that satisfy `shouldLink` (graph/chain reachability, not
+ * distance-to-a-single-anchor). This matters: two points can end up in the
+ * same cluster by chaining through an intermediate point even if they don't
+ * satisfy shouldLink with each other directly.
  */
-export function clusterByDistance<T>(
-  points: T[],
-  epsilonKm: number,
-  getCoords: (item: T) => { lat: number; lon: number },
-): T[][] {
+export function clusterByPredicate<T>(points: T[], shouldLink: (a: T, b: T) => boolean): T[][] {
   const n = points.length;
   const parent = Array.from({ length: n }, (_, i) => i);
 
@@ -47,11 +43,9 @@ export function clusterByDistance<T>(
     if (rootA !== rootB) parent[rootA] = rootB;
   }
 
-  const coords = points.map(getCoords);
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      const dist = haversineDistanceKm(coords[i].lat, coords[i].lon, coords[j].lat, coords[j].lon);
-      if (dist <= epsilonKm) union(i, j);
+      if (shouldLink(points[i], points[j])) union(i, j);
     }
   }
 
@@ -64,4 +58,40 @@ export function clusterByDistance<T>(
   }
 
   return Array.from(groups.values());
+}
+
+/** Links two points when they are within `epsilonKm` of each other. */
+export function clusterByDistance<T>(
+  points: T[],
+  epsilonKm: number,
+  getCoords: (item: T) => { lat: number; lon: number },
+): T[][] {
+  return clusterByPredicate(points, (a, b) => {
+    const ca = getCoords(a);
+    const cb = getCoords(b);
+    return haversineDistanceKm(ca.lat, ca.lon, cb.lat, cb.lon) <= epsilonKm;
+  });
+}
+
+/**
+ * Links two points when they are both within `epsilonKm` AND within
+ * `maxDaysApart` of each other. Used for earthquake sequence grouping
+ * (100km / 14 days), where a purely spatial epsilon would wrongly link
+ * unrelated quakes that happen to strike the same spot months apart.
+ */
+export function clusterByDistanceAndTime<T>(
+  points: T[],
+  epsilonKm: number,
+  maxDaysApart: number,
+  getCoords: (item: T) => { lat: number; lon: number },
+  getTimeMs: (item: T) => number,
+): T[][] {
+  const maxMsApart = maxDaysApart * 24 * 60 * 60 * 1000;
+  return clusterByPredicate(points, (a, b) => {
+    const ca = getCoords(a);
+    const cb = getCoords(b);
+    const withinDistance = haversineDistanceKm(ca.lat, ca.lon, cb.lat, cb.lon) <= epsilonKm;
+    const withinTime = Math.abs(getTimeMs(a) - getTimeMs(b)) <= maxMsApart;
+    return withinDistance && withinTime;
+  });
 }
