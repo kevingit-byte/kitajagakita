@@ -11,8 +11,9 @@ tanpa database, dan dirancang untuk dijalankan di tingkat gratis (free tier) Ver
 ## Stack
 
 - Next.js 15 (App Router) + TypeScript + Tailwind CSS
-- `react-leaflet` / Leaflet untuk peta, dengan basemap CARTO Dark Matter (gratis,
-  tanpa API key)
+- MapLibre GL JS (`react-map-gl`) untuk peta, dengan basemap vektor CARTO Dark
+  Matter (gratis, tanpa API key) - CARTO merekomendasikan basemap vektor
+  dibanding raster tiles yang lama
 - SWR untuk polling data di sisi klien
 - Vitest untuk unit test
 - Tanpa database - lihat "Desain Tanpa Database" di bawah
@@ -123,8 +124,15 @@ lib/data/       - data referensi statis (koordinat gunung api & provinsi,
                   aplikasi berjalan)
 app/api/        - Route Handler yang menggabungkan sources + status untuk
                   tiap kategori bahaya
-components/     - UI (peta, filter, panel detail, ringkasan nasional, cek lokasi)
+components/     - UI, disusun mengikuti 5 bagian navigasi bawah: Beranda,
+                  Sekitar Saya, Peta, Indonesia, Tentang
 ```
+
+Navigasi utama aplikasi ada di lima bagian (lihat `components/BottomNav.tsx`):
+Beranda (ringkasan + status lokasi singkat), Sekitar Saya (penilaian
+keselamatan lokasi lengkap - lihat `lib/status/composite-score.ts`), Peta
+(peta interaktif MapLibre), Indonesia (ringkasan nasional per wilayah), dan
+Tentang (metodologi + tautan ke Sumber Data).
 
 Lihat `/sumber-data` di aplikasi untuk daftar lengkap setiap API, operator,
 interval refresh, dan lisensi/atribusinya.
