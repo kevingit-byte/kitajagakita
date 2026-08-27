@@ -1,4 +1,4 @@
-import type { EventStatus, Severity, SeverityLabel } from "../types";
+import type { EventStatus, Tindakan } from "../types";
 
 export type VolcanoLevel = "I" | "II" | "III" | "IV";
 
@@ -9,13 +9,16 @@ export const VOLCANO_LEVEL_LABEL: Record<VolcanoLevel, string> = {
   IV: "Level IV (Awas)",
 };
 
-const SEVERITY_BY_LEVEL: Record<VolcanoLevel, Severity> = { I: 1, II: 2, III: 4, IV: 5 };
-const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
+/**
+ * PVMBG's own level names ARE normal/waspada/siaga/awas - a direct,
+ * official 1:1 mapping onto `tindakan`, not an inference like the other
+ * hazard types need.
+ */
+const TINDAKAN_BY_LEVEL: Record<VolcanoLevel, Tindakan> = {
+  I: "normal",
+  II: "waspada",
+  III: "siaga",
+  IV: "awas",
 };
 
 /**
@@ -31,18 +34,18 @@ const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
 export function classifyVolcanoStatus(level: VolcanoLevel): {
   status: EventStatus;
   statusReason: string;
-  severity: Severity;
-  severityLabel: SeverityLabel;
+  intensitas: string;
+  tindakan: Tindakan;
 } {
-  const severity = SEVERITY_BY_LEVEL[level];
-  const severityLabel = SEVERITY_LABEL_BY_LEVEL[severity];
+  const intensitas = `${VOLCANO_LEVEL_LABEL[level]} (PVMBG)`;
+  const tindakan = TINDAKAN_BY_LEVEL[level];
 
   if (level === "III" || level === "IV") {
     return {
       status: "aktif",
       statusReason: `Berada pada ${VOLCANO_LEVEL_LABEL[level]} menurut MAGMA ESDM/PVMBG.`,
-      severity,
-      severityLabel,
+      intensitas,
+      tindakan,
     };
   }
 
@@ -50,15 +53,15 @@ export function classifyVolcanoStatus(level: VolcanoLevel): {
     return {
       status: "selesai",
       statusReason: `Berada pada ${VOLCANO_LEVEL_LABEL[level]} tanpa indikasi peningkatan aktivitas.`,
-      severity,
-      severityLabel,
+      intensitas,
+      tindakan,
     };
   }
 
   return {
     status: "tidak-diketahui",
     statusReason: `Berada pada ${VOLCANO_LEVEL_LABEL[level]} - status aktif/mereda tidak dapat dipastikan tanpa riwayat perubahan level (aplikasi ini tidak menyimpan data historis).`,
-    severity,
-    severityLabel,
+    intensitas,
+    tindakan,
   };
 }

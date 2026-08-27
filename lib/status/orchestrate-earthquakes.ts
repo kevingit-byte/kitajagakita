@@ -1,9 +1,9 @@
 import { fetchAllBmkgQuakes, type BmkgQuake } from "../sources/bmkg";
 import { fetchUsgsQuakes, type UsgsQuake } from "../sources/usgs";
 import { buildQuakeSequences, type QuakeInput, type QuakeSequence } from "./earthquake";
-import { parseMaxMmi } from "./mmi";
+import { parseRegionSig } from "./mmi";
 import { haversineDistanceKm } from "../geo";
-import type { DisasterEvent } from "../types";
+import type { DisasterEvent, RegionIntensity, Tindakan } from "../types";
 
 const SAME_EVENT_DISTANCE_KM = 15;
 const SAME_EVENT_TIME_MS = 5 * 60 * 1000;
@@ -17,8 +17,28 @@ function bmkgToQuakeInput(q: BmkgQuake): QuakeInput {
     lon: q.lon,
     depthKm: q.depthKm,
     place: q.wilayah,
-    dirasakanMmi: parseMaxMmi(q.dirasakan),
+    dirasakan: q.dirasakan,
   };
+}
+
+/**
+ * `tindakan` is this app's own cross-hazard urgency signal, not an official
+ * reading - unlike `intensitas` (which must never be estimated), deriving
+ * it from magnitude when nobody has reported feeling the quake yet is a
+ * legitimate rules-based fallback, not a fabricated government figure.
+ */
+function tindakanFromMagnitude(magnitude: number): Tindakan {
+  if (magnitude >= 6) return "siaga";
+  if (magnitude >= 5) return "waspada";
+  return "normal";
+}
+
+function tindakanFromMaxSig(regions: RegionIntensity[]): Tindakan {
+  const maxSig = Math.max(...regions.map((r) => r.sig));
+  if (maxSig >= 5) return "awas";
+  if (maxSig >= 4) return "siaga";
+  if (maxSig >= 3) return "waspada";
+  return "normal";
 }
 
 function usgsToQuakeInput(q: UsgsQuake): QuakeInput {
@@ -70,8 +90,8 @@ function findSequenceFor(quakeId: string, sequences: QuakeSequence[]): QuakeSequ
 /**
  * BMKG stays the display source of truth (title, wilayah, source
  * attribution) per the spec; USGS's 30-day window only feeds sequence
- * detection so status/severity reflect the whole aftershock sequence, not
- * just a single reading.
+ * detection so status reflects the whole aftershock sequence, not just a
+ * single reading.
  */
 export function bmkgQuakeToSequencedEvent(quake: BmkgQuake, sequences: QuakeSequence[]): DisasterEvent {
   const input = bmkgToQuakeInput(quake);
@@ -81,10 +101,11 @@ export function bmkgQuakeToSequencedEvent(quake: BmkgQuake, sequences: QuakeSequ
   const statusReason =
     sequence?.statusReason ??
     "Gempa ini tidak ditemukan dalam data USGS 30 hari untuk analisis rangkaian - status tidak dapat dipastikan.";
-  const severity = sequence?.severity ?? (input.magnitude >= 5 ? 3 : 2);
-  const severityLabel = sequence?.severityLabel ?? (severity >= 3 ? "Berat" : "Sedang");
   const isMainshock = sequence?.mainshock.id === quake.id;
   const aftershockCount = sequence?.aftershocks.length ?? 0;
+
+  const regionIntensities = parseRegionSig(quake.dirasakan);
+  const tindakan = regionIntensities ? tindakanFromMaxSig(regionIntensities) : tindakanFromMagnitude(input.magnitude);
 
   return {
     id: quake.id,
@@ -95,8 +116,11 @@ export function bmkgQuakeToSequencedEvent(quake: BmkgQuake, sequences: QuakeSequ
     province: null,
     occurredAt: quake.dateTime,
     lastUpdatedAt: quake.dateTime,
-    severity,
-    severityLabel,
+    // Felt intensity is per-region, not per-event - see regionIntensities.
+    // Never a single number here, and never estimated from magnitude.
+    intensitas: null,
+    tindakan,
+    regionIntensities,
     status,
     statusReason:
       aftershockCount > 0

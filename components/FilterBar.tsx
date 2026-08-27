@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { DisasterType, EventStatus, Severity } from "@/lib/types";
-import type { EventFilters, TimeRange } from "@/lib/filters";
+import type { DisasterType, EventStatus } from "@/lib/types";
+import type { EventFilters, TimeRange, UrgencyFilter } from "@/lib/filters";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/labels";
 
 const ALL_TYPES: DisasterType[] = ["gempa", "karhutla", "gunungapi", "banjir", "longsor", "cuaca", "lainnya"];
@@ -12,6 +12,11 @@ const TIME_RANGES: { value: TimeRange; label: string }[] = [
   { value: "3d", label: "3 hari" },
   { value: "7d", label: "7 hari" },
   { value: "30d", label: "30 hari" },
+];
+const URGENCY_OPTIONS: { value: UrgencyFilter; label: string }[] = [
+  { value: "semua", label: "Semua" },
+  { value: "perlu-perhatian", label: "Perlu perhatian" },
+  { value: "darurat", label: "Hanya darurat" },
 ];
 
 function toggle<T>(list: T[], value: T): T[] {
@@ -34,7 +39,7 @@ type FilterBarProps = {
 export default function FilterBar({ filters, onChange }: FilterBarProps) {
   const [expanded, setExpanded] = useState(false);
   const activeFilterCount =
-    filters.types.length + filters.statuses.length + (filters.minSeverity > 1 ? 1 : 0);
+    filters.types.length + filters.statuses.length + (filters.urgency !== "semua" ? 1 : 0);
 
   return (
     <div className="bg-neutral-900 border-b border-neutral-800 text-sm">
@@ -116,35 +121,33 @@ export default function FilterBar({ filters, onChange }: FilterBarProps) {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 items-end">
-            <div>
-              <div className="text-neutral-400 text-xs mb-1.5">🗓️ Waktu</div>
-              <div className="flex gap-1.5">
-                {TIME_RANGES.map((tr) => (
-                  <button
-                    key={tr.value}
-                    onClick={() => onChange({ ...filters, timeRange: tr.value })}
-                    className={chipClass(filters.timeRange === tr.value)}
-                  >
-                    {tr.label}
-                  </button>
-                ))}
-              </div>
+          <div>
+            <div className="text-neutral-400 text-xs mb-1.5">🗓️ Waktu</div>
+            <div className="flex gap-1.5">
+              {TIME_RANGES.map((tr) => (
+                <button
+                  key={tr.value}
+                  onClick={() => onChange({ ...filters, timeRange: tr.value })}
+                  className={chipClass(filters.timeRange === tr.value)}
+                >
+                  {tr.label}
+                </button>
+              ))}
             </div>
+          </div>
 
-            <div>
-              <label htmlFor="min-severity" className="text-neutral-400 text-xs mb-1.5 block">
-                Tingkat Keparahan Minimum: {filters.minSeverity}
-              </label>
-              <input
-                id="min-severity"
-                type="range"
-                min={1}
-                max={5}
-                value={filters.minSeverity}
-                onChange={(e) => onChange({ ...filters, minSeverity: Number(e.target.value) as Severity })}
-                className="w-32 accent-orange-500"
-              />
+          <div>
+            <div className="text-neutral-400 text-xs mb-1.5">Tingkat urgensi</div>
+            <div className="flex flex-wrap gap-1.5">
+              {URGENCY_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => onChange({ ...filters, urgency: opt.value })}
+                  className={chipClass(filters.urgency === opt.value)}
+                >
+                  {opt.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>

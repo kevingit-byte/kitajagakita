@@ -67,10 +67,11 @@ export function gvpReportToEvent(report: GvpReport): DisasterEvent | null {
     province: null,
     occurredAt: report.pubDate,
     lastUpdatedAt: report.pubDate,
-    // GVP doesn't carry PVMBG's I-IV terminology - severity/status stay
-    // provisional here, this is a fallback source only (MAGMA is primary).
-    severity: 3,
-    severityLabel: "Berat",
+    // GVP doesn't carry PVMBG's I-IV terminology, so there is no official
+    // reading to show - intensitas/tindakan stay provisional here, this is
+    // a fallback source only (MAGMA is primary).
+    intensitas: null,
+    tindakan: "waspada",
     status: "tidak-diketahui",
     statusReason: "Sumber cadangan (MAGMA ESDM tidak tersedia) - status penuh belum diimplementasikan.",
     raw: report,

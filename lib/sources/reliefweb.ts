@@ -69,7 +69,7 @@ export async function fetchReliefWebIndonesiaDisasters(): Promise<DisasterEvent[
   return data.data.map((disaster) => {
     const typeName = disaster.fields.type?.[0]?.name ?? "";
     const type = TYPE_NAME_TO_DISASTER_TYPE[typeName] ?? "lainnya";
-    const { status, statusReason, severity, severityLabel } = classifyReliefWebDisaster(disaster.fields.status);
+    const { status, statusReason, intensitas, tindakan } = classifyReliefWebDisaster(disaster.fields.status);
 
     return {
       id: `reliefweb-${disaster.id}`,
@@ -80,8 +80,8 @@ export async function fetchReliefWebIndonesiaDisasters(): Promise<DisasterEvent[
       province: disaster.fields.primary_country?.name ?? null,
       occurredAt: disaster.fields.date.created,
       lastUpdatedAt: disaster.fields.date.changed ?? disaster.fields.date.created,
-      severity,
-      severityLabel,
+      intensitas,
+      tindakan,
       status,
       statusReason,
       raw: disaster.fields as unknown as Record<string, unknown>,

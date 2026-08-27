@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { levelFromEventSeverity, levelFromSafetyLevel } from "./human-severity";
+import { levelFromTindakan, levelFromSafetyLevel } from "./human-severity";
 
 describe("levelFromSafetyLevel", () => {
   it("maps each composite score level directly", () => {
@@ -10,16 +10,15 @@ describe("levelFromSafetyLevel", () => {
   });
 });
 
-describe("levelFromEventSeverity", () => {
-  it("scales severity 1-5 into the 4-level language", () => {
-    expect(levelFromEventSeverity(1, "aktif").level).toBe("aman");
-    expect(levelFromEventSeverity(2, "aktif").level).toBe("waspada");
-    expect(levelFromEventSeverity(3, "aktif").level).toBe("siaga");
-    expect(levelFromEventSeverity(4, "aktif").level).toBe("bahaya");
-    expect(levelFromEventSeverity(5, "aktif").level).toBe("bahaya");
+describe("levelFromTindakan", () => {
+  it("maps each tindakan value into the 4-level language", () => {
+    expect(levelFromTindakan("normal", "aktif").level).toBe("aman");
+    expect(levelFromTindakan("waspada", "aktif").level).toBe("waspada");
+    expect(levelFromTindakan("siaga", "aktif").level).toBe("siaga");
+    expect(levelFromTindakan("awas", "aktif").level).toBe("bahaya");
   });
 
-  it("always reads as calm once an event is selesai, regardless of severity", () => {
-    expect(levelFromEventSeverity(5, "selesai").level).toBe("aman");
+  it("always reads as calm once an event is selesai, regardless of tindakan", () => {
+    expect(levelFromTindakan("awas", "selesai").level).toBe("aman");
   });
 });

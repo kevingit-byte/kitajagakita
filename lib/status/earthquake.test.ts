@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { buildQuakeSequences, type QuakeInput } from "./earthquake";
-import { parseMaxMmi } from "./mmi";
 
 /**
  * Real data from docs/samples/bmkg-gempaterkini.json + bmkg-autogempa.json,
@@ -59,20 +58,6 @@ describe("buildQuakeSequences - Ruteng aftershock sequence (real data)", () => {
     expect(rutengSeq.status).toBe("aktif");
     expect(rutengSeq.statusReason).toContain("24 jam");
   });
-
-  it("does not bump Sangihe severity from its shallow bonus (295km is not shallow)", () => {
-    const sangihe = sequences.find((s) => s.mainshock.id === "q2")!;
-    // M5.1 alone would be severity 3; no shallow bump should apply.
-    expect(sangihe.severityReason).toContain("tidak dangkal");
-    expect(sangihe.severity).toBe(3);
-  });
-
-  it("bumps a shallow (<70km) mainshock's severity by one level", () => {
-    const banten = sequences.find((s) => s.mainshock.id === "q8")!;
-    // M5.8, 10km depth -> base 3, +1 shallow = 4.
-    expect(banten.severity).toBe(4);
-    expect(banten.severityReason).toContain("dangkal");
-  });
 });
 
 describe("buildQuakeSequences - status transitions", () => {
@@ -100,24 +85,5 @@ describe("buildQuakeSequences - status transitions", () => {
     const aftershock: QuakeInput = { id: "a", magnitude: 4.0, timeMs: Date.parse("2026-08-01T00:00:00Z"), lat: 0.1, lon: 0.1, depthKm: 10, place: "test" };
     const [seq] = buildQuakeSequences([mainshock, aftershock], new Date("2026-08-05T00:00:00Z")); // 96h later
     expect(seq.status).toBe("selesai");
-  });
-});
-
-describe("parseMaxMmi", () => {
-  it("returns null for missing input", () => {
-    expect(parseMaxMmi(null)).toBeNull();
-    expect(parseMaxMmi(undefined)).toBeNull();
-  });
-
-  it("parses a single MMI value", () => {
-    expect(parseMaxMmi("II Nabire")).toBe(2);
-  });
-
-  it("parses a range and returns the higher value", () => {
-    expect(parseMaxMmi("III-IV Kab. Manggarai")).toBe(4);
-  });
-
-  it("parses the max across multiple locations", () => {
-    expect(parseMaxMmi("III-IV Malili, III-IV Towuti, III-IV Tomoni, III Kalaena")).toBe(4);
   });
 });

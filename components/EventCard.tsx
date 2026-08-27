@@ -2,11 +2,11 @@
 
 import type { DisasterEvent } from "@/lib/types";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON } from "@/lib/labels";
-import { levelFromEventSeverity } from "@/lib/human-severity";
+import { levelFromTindakan } from "@/lib/human-severity";
 import { formatRelativeTime, shortPlaceName, keyStatLine } from "@/lib/format";
 
 export default function EventCard({ event, onSelect }: { event: DisasterEvent; onSelect: (event: DisasterEvent) => void }) {
-  const level = levelFromEventSeverity(event.severity, event.status);
+  const level = levelFromTindakan(event.tindakan, event.status);
   const place = shortPlaceName(event);
 
   return (

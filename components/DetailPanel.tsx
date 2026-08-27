@@ -4,8 +4,8 @@ import { useState } from "react";
 import useSWR from "swr";
 import type { DisasterEvent, NewsLink } from "@/lib/types";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON, STATUS_LABEL } from "@/lib/labels";
-import { levelFromEventSeverity } from "@/lib/human-severity";
-import { shortPlaceName, keyStatLine, formatRelativeTime } from "@/lib/format";
+import { levelFromTindakan } from "@/lib/human-severity";
+import { shortPlaceName, keyStatLine, formatRelativeTime, intensitasLines } from "@/lib/format";
 import { GUIDANCE, OFFICIAL_SOURCES_URL } from "@/lib/guidance";
 
 type NewsResponse = { news: NewsLink[]; query: string | null; note?: string; error?: string };
@@ -45,7 +45,7 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
   const { data: newsData, isLoading: newsLoading } = useSWR(buildNewsUrl(event), fetchNews);
   const [showTechnical, setShowTechnical] = useState(false);
 
-  const level = levelFromEventSeverity(event.severity, event.status);
+  const level = levelFromTindakan(event.tindakan, event.status);
   const isOngoing = event.status === "aktif" || event.status === "mereda";
 
   return (
@@ -79,6 +79,17 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_BADGE_CLASS[event.status]}`}>
             {STATUS_LABEL[event.status]}
           </span>
+        </div>
+
+        <div>
+          <div className="text-neutral-500 text-xs mb-1">Intensitas resmi</div>
+          <ul className="flex flex-col gap-0.5">
+            {intensitasLines(event).map((line, i) => (
+              <li key={i} className="text-neutral-200 text-sm">
+                {line}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
@@ -128,8 +139,8 @@ export default function DetailPanel({ event, onClose }: { event: DisasterEvent; 
               <dd className="text-neutral-400">
                 {event.lat.toFixed(4)}, {event.lon.toFixed(4)}
               </dd>
-              <dt>Tingkat</dt>
-              <dd className="text-neutral-400">{event.severity} dari 5 ({event.severityLabel})</dd>
+              <dt>Tindakan</dt>
+              <dd className="text-neutral-400">{event.tindakan}</dd>
               <dt>Terjadi</dt>
               <dd className="text-neutral-400">{new Date(event.occurredAt).toLocaleString("id-ID")}</dd>
               <dt>Diperbarui</dt>

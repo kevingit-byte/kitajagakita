@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatRelativeTime, shortPlaceName, keyStatLine } from "./format";
+import { formatRelativeTime, shortPlaceName, keyStatLine, intensitasLines, regionIntensityForLocation } from "./format";
 import type { DisasterEvent } from "./types";
 
 const NOW = new Date("2026-08-27T12:00:00Z");
@@ -23,8 +23,8 @@ function makeEvent(overrides: Partial<DisasterEvent>): DisasterEvent {
     province: null,
     occurredAt: NOW.toISOString(),
     lastUpdatedAt: NOW.toISOString(),
-    severity: 3,
-    severityLabel: "Berat",
+    intensitas: null,
+    tindakan: "siaga",
     status: "aktif",
     statusReason: "test",
     raw: {},
@@ -69,7 +69,64 @@ describe("keyStatLine", () => {
     expect(keyStatLine(makeEvent({ type: "gunungapi", raw: { level: "III" } }))).toBe("Level III");
   });
 
-  it("falls back to severity label for other types", () => {
-    expect(keyStatLine(makeEvent({ type: "lainnya", severityLabel: "Sedang" }))).toBe("Sedang");
+  it("falls back to intensitas for other types", () => {
+    expect(keyStatLine(makeEvent({ type: "lainnya", intensitas: "Tingkat peringatan Orange (GDACS)" }))).toBe(
+      "Tingkat peringatan Orange (GDACS)",
+    );
+  });
+
+  it("falls back to a no-report message when intensitas is null", () => {
+    expect(keyStatLine(makeEvent({ type: "lainnya", intensitas: null }))).toBe("Belum ada laporan");
+  });
+});
+
+describe("intensitasLines", () => {
+  it("shows 'Belum ada laporan dirasakan' for a gempa with no regionIntensities", () => {
+    expect(intensitasLines(makeEvent({ type: "gempa", regionIntensities: null }))).toEqual([
+      "Belum ada laporan dirasakan",
+    ]);
+  });
+
+  it("lists every region's SIG-BMKG reading for a gempa, naming the scale and source", () => {
+    const event = makeEvent({
+      type: "gempa",
+      regionIntensities: [
+        { wilayah: "Kab. Manggarai", sig: 2, sigLabel: "SIG II" },
+        { wilayah: "Kab. Ende", sig: 1, sigLabel: "SIG I" },
+      ],
+    });
+    expect(intensitasLines(event)).toEqual(["Kab. Manggarai: SIG II (BMKG)", "Kab. Ende: SIG I (BMKG)"]);
+  });
+
+  it("shows the plain intensitas string for non-gempa types", () => {
+    expect(intensitasLines(makeEvent({ type: "gunungapi", intensitas: "Level III (Siaga) (PVMBG)" }))).toEqual([
+      "Level III (Siaga) (PVMBG)",
+    ]);
+  });
+});
+
+describe("regionIntensityForLocation", () => {
+  const event = makeEvent({
+    type: "gempa",
+    regionIntensities: [
+      { wilayah: "Kab. Manggarai", sig: 2, sigLabel: "SIG II" },
+      { wilayah: "Nagekeo", sig: 3, sigLabel: "SIG III" },
+    ],
+  });
+
+  it("matches a region name ignoring the 'Kab.' prefix and case", () => {
+    expect(regionIntensityForLocation(event, "manggarai")?.sigLabel).toBe("SIG II");
+  });
+
+  it("matches a plain region name against a bare Dirasakan entry", () => {
+    expect(regionIntensityForLocation(event, "Nagekeo")?.sigLabel).toBe("SIG III");
+  });
+
+  it("returns null when no region matches - never falls back to the max", () => {
+    expect(regionIntensityForLocation(event, "Jakarta")).toBeNull();
+  });
+
+  it("returns null when the event has no regionIntensities at all", () => {
+    expect(regionIntensityForLocation(makeEvent({ type: "gempa", regionIntensities: null }), "Manggarai")).toBeNull();
   });
 });

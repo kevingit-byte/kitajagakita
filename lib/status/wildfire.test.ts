@@ -93,11 +93,14 @@ describe("classifyWildfireCluster - status", () => {
 const JAKARTA_POINT = { lat: -6.2, lon: 106.8 }; // not peat-prone
 const JAKARTA_CLUSTER = { centerLat: -6.2, centerLon: 106.8 };
 
-describe("classifyWildfireCluster - severity", () => {
-  it("does not scale severity from point count alone when FRP/spread/trend/peat are held flat", () => {
+/** Maps tindakan to a comparable ordinal for "greater than" assertions below. */
+const TINDAKAN_RANK: Record<string, number> = { normal: 0, waspada: 1, siaga: 2, awas: 3 };
+
+describe("classifyWildfireCluster - tindakan", () => {
+  it("does not scale tindakan from point count alone when FRP/spread/trend/peat are held flat", () => {
     // Many low-FRP points clustered tightly vs a handful of the same
     // low-FRP points, both outside any peat province, no growth trend -
-    // point count must not be the thing driving severity apart.
+    // point count must not be the thing driving tindakan apart.
     const fewPoints = makeCluster(
       { [TODAY]: 2 },
       {
@@ -114,10 +117,10 @@ describe("classifyWildfireCluster - severity", () => {
         points: Array.from({ length: 40 }, () => makeHotspot({ ...JAKARTA_POINT, frp: 0.1 })),
       },
     );
-    expect(classifyWildfireCluster(manyPoints, NOW).severity).toBe(classifyWildfireCluster(fewPoints, NOW).severity);
+    expect(classifyWildfireCluster(manyPoints, NOW).tindakan).toBe(classifyWildfireCluster(fewPoints, NOW).tindakan);
   });
 
-  it("scales severity up with total FRP", () => {
+  it("scales tindakan up with total FRP", () => {
     const low = makeCluster(
       { [TODAY]: 1 },
       { ...JAKARTA_CLUSTER, totalFrp: 3, points: [makeHotspot({ ...JAKARTA_POINT, frp: 3 })] },
@@ -126,10 +129,12 @@ describe("classifyWildfireCluster - severity", () => {
       { [TODAY]: 1 },
       { ...JAKARTA_CLUSTER, totalFrp: 600, points: [makeHotspot({ ...JAKARTA_POINT, frp: 600 })] },
     );
-    expect(classifyWildfireCluster(high, NOW).severity).toBeGreaterThan(classifyWildfireCluster(low, NOW).severity);
+    expect(TINDAKAN_RANK[classifyWildfireCluster(high, NOW).tindakan]).toBeGreaterThan(
+      TINDAKAN_RANK[classifyWildfireCluster(low, NOW).tindakan],
+    );
   });
 
-  it("scales severity up with cluster spread", () => {
+  it("scales tindakan up with cluster spread", () => {
     const tight = makeCluster(
       { [TODAY]: 2 },
       {
@@ -146,10 +151,12 @@ describe("classifyWildfireCluster - severity", () => {
         points: [makeHotspot({ lat: -6.2, lon: 106.8 }), makeHotspot({ lat: -6.3, lon: 106.9 })], // ~15km away
       },
     );
-    expect(classifyWildfireCluster(wide, NOW).severity).toBeGreaterThan(classifyWildfireCluster(tight, NOW).severity);
+    expect(TINDAKAN_RANK[classifyWildfireCluster(wide, NOW).tindakan]).toBeGreaterThan(
+      TINDAKAN_RANK[classifyWildfireCluster(tight, NOW).tindakan],
+    );
   });
 
-  it("scales severity up when FRP is escalating over the 3-day window", () => {
+  it("scales tindakan up when FRP is escalating over the 3-day window", () => {
     const declining = makeCluster(
       {},
       {
@@ -172,12 +179,12 @@ describe("classifyWildfireCluster - severity", () => {
         ],
       },
     );
-    expect(classifyWildfireCluster(escalating, NOW).severity).toBeGreaterThan(
-      classifyWildfireCluster(declining, NOW).severity,
+    expect(TINDAKAN_RANK[classifyWildfireCluster(escalating, NOW).tindakan]).toBeGreaterThan(
+      TINDAKAN_RANK[classifyWildfireCluster(declining, NOW).tindakan],
     );
   });
 
-  it("scales severity up for a cluster in a peat-prone province vs an identical one that isn't", () => {
+  it("scales tindakan up for a cluster in a peat-prone province vs an identical one that isn't", () => {
     const nonPeat = makeCluster(
       { [TODAY]: 1 },
       { ...JAKARTA_CLUSTER, totalFrp: 20, points: [makeHotspot({ ...JAKARTA_POINT, frp: 20 })] },
@@ -190,7 +197,24 @@ describe("classifyWildfireCluster - severity", () => {
       { [TODAY]: 1 },
       { centerLat: -2, centerLon: 113, totalFrp: 20, points: [makeHotspot({ lat: -2, lon: 113, frp: 20 })] },
     );
-    expect(classifyWildfireCluster(peat, NOW).severity).toBeGreaterThan(classifyWildfireCluster(nonPeat, NOW).severity);
-    expect(classifyWildfireCluster(peat, NOW).severityReason).toContain("gambut");
+    expect(TINDAKAN_RANK[classifyWildfireCluster(peat, NOW).tindakan]).toBeGreaterThan(
+      TINDAKAN_RANK[classifyWildfireCluster(nonPeat, NOW).tindakan],
+    );
+    expect(classifyWildfireCluster(peat, NOW).tindakanReason).toContain("gambut");
+  });
+});
+
+describe("classifyWildfireCluster - intensitas", () => {
+  it("is null when no nearby AQI reading is available - never estimated", () => {
+    const cluster = makeCluster({ [TODAY]: 1 });
+    expect(classifyWildfireCluster(cluster, NOW, null).intensitas).toBeNull();
+  });
+
+  it("names its scale honestly as AQI, not ISPU, since ISPU's breakpoints could not be verified", () => {
+    const cluster = makeCluster({ [TODAY]: 1 });
+    const result = classifyWildfireCluster(cluster, NOW, 187);
+    expect(result.intensitas).toContain("AQI 187");
+    expect(result.intensitas).not.toContain("ISPU 187");
+    expect(result.intensitas).toContain("proksi");
   });
 });

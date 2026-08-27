@@ -1,6 +1,6 @@
 "use client";
 
-import type { DisasterEvent } from "@/lib/types";
+import type { DisasterEvent, Tindakan } from "@/lib/types";
 import type { LocationOption } from "@/lib/data/locations";
 import { buildProvinceSummaries } from "@/lib/status/national-overview";
 import { HUMAN_LEVEL } from "@/lib/human-severity";
@@ -16,9 +16,9 @@ type BerandaProps = {
   onSelectEvent: (event: DisasterEvent) => void;
 };
 
-function bucketProvince(highestActiveSeverity: number | null): "perlu-perhatian" | "waspada" | "normal" {
-  if (highestActiveSeverity === null || highestActiveSeverity <= 1) return "normal";
-  if (highestActiveSeverity === 2) return "waspada";
+function bucketProvince(mostUrgentActiveTindakan: Tindakan | null): "perlu-perhatian" | "waspada" | "normal" {
+  if (mostUrgentActiveTindakan === null || mostUrgentActiveTindakan === "normal") return "normal";
+  if (mostUrgentActiveTindakan === "waspada") return "waspada";
   return "perlu-perhatian";
 }
 
@@ -27,7 +27,7 @@ export default function Beranda({ events, isLoading, location, onNavigate, onSel
   const activeCount = events.filter((e) => e.status === "aktif").length;
   const weekCutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const weekCount = events.filter((e) => new Date(e.occurredAt).getTime() >= weekCutoff).length;
-  const perluPerhatianCount = provinces.filter((p) => bucketProvince(p.highestActiveSeverity) === "perlu-perhatian").length;
+  const perluPerhatianCount = provinces.filter((p) => bucketProvince(p.mostUrgentActiveTindakan) === "perlu-perhatian").length;
 
   const recentEvents = [...events]
     .filter((e) => e.status === "aktif" || e.status === "mereda")

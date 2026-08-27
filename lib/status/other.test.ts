@@ -17,10 +17,16 @@ describe("classifyGdacsEvent", () => {
     expect(result.status).toBe("selesai");
   });
 
-  it("maps alert level to severity", () => {
-    expect(classifyGdacsEvent("Green", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).severity).toBe(2);
-    expect(classifyGdacsEvent("Orange", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).severity).toBe(3);
-    expect(classifyGdacsEvent("Red", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).severity).toBe(5);
+  it("maps alert level to tindakan", () => {
+    expect(classifyGdacsEvent("Green", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).tindakan).toBe("waspada");
+    expect(classifyGdacsEvent("Orange", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).tindakan).toBe("siaga");
+    expect(classifyGdacsEvent("Red", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z")).tindakan).toBe("awas");
+  });
+
+  it("labels intensitas honestly as a GDACS proxy, not BMKG", () => {
+    const result = classifyGdacsEvent("Orange", "true", "2026-08-27T00:00:00Z", new Date("2026-08-27T00:00:00Z"));
+    expect(result.intensitas).toContain("GDACS");
+    expect(result.intensitas).toContain("proksi");
   });
 });
 

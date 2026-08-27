@@ -92,7 +92,7 @@ export async function fetchMagmaVolcanoes(): Promise<MagmaVolcano[]> {
 export function magmaVolcanoToEvent(volcano: MagmaVolcano): DisasterEvent | null {
   if (volcano.lat === null || volcano.lon === null) return null;
 
-  const { status, statusReason, severity, severityLabel } = classifyVolcanoStatus(volcano.level);
+  const { status, statusReason, intensitas, tindakan } = classifyVolcanoStatus(volcano.level);
   return {
     id: `magma-${volcano.name.toLowerCase().replace(/\s+/g, "-")}`,
     type: "gunungapi",
@@ -102,8 +102,8 @@ export function magmaVolcanoToEvent(volcano: MagmaVolcano): DisasterEvent | null
     province: volcano.province,
     occurredAt: new Date().toISOString(),
     lastUpdatedAt: new Date().toISOString(),
-    severity,
-    severityLabel,
+    intensitas,
+    tindakan,
     status,
     statusReason,
     raw: volcano,

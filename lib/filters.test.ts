@@ -12,8 +12,8 @@ function makeEvent(overrides: Partial<DisasterEvent>): DisasterEvent {
     province: null,
     occurredAt: new Date().toISOString(),
     lastUpdatedAt: new Date().toISOString(),
-    severity: 3,
-    severityLabel: "Berat",
+    intensitas: null,
+    tindakan: "siaga",
     status: "aktif",
     statusReason: "test",
     raw: {},
@@ -41,5 +41,28 @@ describe("filterEvents - timeRange", () => {
 
     const result = filterEvents([within, outside], { ...DEFAULT_FILTERS, timeRange: "3d" }, NOW);
     expect(result.map((e) => e.id)).toEqual(["test"]);
+  });
+});
+
+describe("filterEvents - urgency", () => {
+  const normal = makeEvent({ id: "normal", tindakan: "normal" });
+  const waspada = makeEvent({ id: "waspada", tindakan: "waspada" });
+  const siaga = makeEvent({ id: "siaga", tindakan: "siaga" });
+  const awas = makeEvent({ id: "awas", tindakan: "awas" });
+  const all = [normal, waspada, siaga, awas];
+
+  it("'semua' includes every tindakan level", () => {
+    const result = filterEvents(all, { ...DEFAULT_FILTERS, urgency: "semua" });
+    expect(result.map((e) => e.id)).toEqual(["normal", "waspada", "siaga", "awas"]);
+  });
+
+  it("'perlu-perhatian' keeps only siaga and awas", () => {
+    const result = filterEvents(all, { ...DEFAULT_FILTERS, urgency: "perlu-perhatian" });
+    expect(result.map((e) => e.id)).toEqual(["siaga", "awas"]);
+  });
+
+  it("'darurat' keeps only awas", () => {
+    const result = filterEvents(all, { ...DEFAULT_FILTERS, urgency: "darurat" });
+    expect(result.map((e) => e.id)).toEqual(["awas"]);
   });
 });

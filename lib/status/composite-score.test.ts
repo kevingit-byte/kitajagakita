@@ -12,8 +12,8 @@ function makeEvent(overrides: Partial<DisasterEvent>): DisasterEvent {
     province: null,
     occurredAt: new Date().toISOString(),
     lastUpdatedAt: new Date().toISOString(),
-    severity: 3,
-    severityLabel: "Berat",
+    intensitas: null,
+    tindakan: "siaga",
     status: "aktif",
     statusReason: "test",
     raw: {},
@@ -34,15 +34,15 @@ describe("computeCompositeScore", () => {
   });
 
   it("ignores non-aktif events entirely, even if severe and close", () => {
-    const event = makeEvent({ lat: -6.21, lon: 106.82, severity: 5, status: "selesai" });
+    const event = makeEvent({ lat: -6.21, lon: 106.82, tindakan: "awas", status: "selesai" });
     const result = computeCompositeScore(JAKARTA, [event], null);
     expect(result.level).toBe("AMAN");
     expect(result.nearestActiveEvent).toBeNull();
   });
 
-  it("reaches BAHAYA from distance+severity alone on a very close, very severe active event", () => {
-    // ~1km from Jakarta, severity 5, aktif, no AQI data, no other events.
-    const event = makeEvent({ lat: -6.209, lon: 106.8167, severity: 5, severityLabel: "Kritis", status: "aktif" });
+  it("reaches BAHAYA from distance+tindakan alone on a very close, very severe active event", () => {
+    // ~1km from Jakarta, tindakan awas, aktif, no AQI data, no other events.
+    const event = makeEvent({ lat: -6.209, lon: 106.8167, tindakan: "awas", status: "aktif" });
     const result = computeCompositeScore(JAKARTA, [event], null);
     expect(result.level).toBe("BAHAYA");
     expect(result.nearestActiveDistanceKm).toBeLessThan(5);

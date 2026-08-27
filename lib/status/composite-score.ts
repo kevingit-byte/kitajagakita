@@ -1,4 +1,4 @@
-import type { DisasterEvent } from "../types";
+import type { DisasterEvent, Tindakan } from "../types";
 import { haversineDistanceKm } from "../geo";
 
 export type SafetyLevel = "AMAN" | "WASPADA" | "SIAGA" | "BAHAYA";
@@ -50,6 +50,15 @@ function aqiPoints(usAqi: number | null): number {
   return 0;
 }
 
+/**
+ * `tindakan` replaced the old 1-5 `severity` field, so this factor is now
+ * keyed on it instead - normal/waspada/siaga/awas map onto roughly the
+ * same 1-5 point range the old severity did, keeping the BAHAYA threshold
+ * calibration (a very close, very severe active event alone should still
+ * reach BAHAYA) intact.
+ */
+const TINDAKAN_POINTS: Record<Tindakan, number> = { normal: 1, waspada: 2, siaga: 4, awas: 5 };
+
 function countPoints(count: number): number {
   if (count >= 5) return 2;
   if (count >= 2) return 1;
@@ -85,7 +94,7 @@ export function computeCompositeScore(
   ).length;
 
   const distPts = distancePoints(nearestActiveDistanceKm);
-  const sevPts = nearestActiveEvent ? nearestActiveEvent.severity : 0;
+  const sevPts = nearestActiveEvent ? TINDAKAN_POINTS[nearestActiveEvent.tindakan] : 0;
   const aqiPts = aqiPoints(usAqi);
   const countPts = countPoints(activeEventsWithin100km);
   const totalPoints = distPts + sevPts + aqiPts + countPts;
@@ -101,7 +110,7 @@ export function computeCompositeScore(
     {
       label: "Tingkat keparahan kejadian terdekat",
       detail: nearestActiveEvent
-        ? `${nearestActiveEvent.severityLabel} (tingkat ${nearestActiveEvent.severity} dari 5).`
+        ? `Tindakan: ${nearestActiveEvent.tindakan}${nearestActiveEvent.intensitas ? ` (${nearestActiveEvent.intensitas})` : ""}.`
         : "Tidak berlaku - tidak ada kejadian aktif.",
       points: sevPts,
     },

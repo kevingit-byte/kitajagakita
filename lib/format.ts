@@ -1,5 +1,38 @@
-import type { DisasterEvent } from "./types";
+import type { DisasterEvent, RegionIntensity } from "./types";
 import { extractPlaceName } from "./status/news-query";
+
+/** Strips common administrative prefixes so "Kab. Manggarai" and "Manggarai" compare equal. */
+function normalizeWilayahName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/^(kab\.|kabupaten|kota)\s+/, "")
+    .replace(/\s+\(kota\)$/, "")
+    .trim();
+}
+
+/**
+ * Looks up the felt-intensity reading for the viewer's own region, per
+ * instruction: "Sekitar Saya" must show the value for the user's region,
+ * never the event-wide max. Matching is a best-effort substring compare
+ * against BMKG's free-text region names (Kabupaten/Kecamatan level) - this
+ * app has no Kabupaten<->province/city geocoding, so a province-level
+ * location selection will often not match a Kabupaten-level Dirasakan
+ * entry. When that happens this returns null and the caller must show
+ * "no matching report", never silently fall back to the event's max.
+ */
+export function regionIntensityForLocation(
+  event: DisasterEvent,
+  locationLabel: string,
+): RegionIntensity | null {
+  if (!event.regionIntensities) return null;
+  const target = normalizeWilayahName(locationLabel);
+  return (
+    event.regionIntensities.find((r) => {
+      const wilayah = normalizeWilayahName(r.wilayah);
+      return wilayah.includes(target) || target.includes(wilayah);
+    }) ?? null
+  );
+}
 
 /** "2 jam yang lalu" style relative time, Indonesian. */
 export function formatRelativeTime(isoString: string, now: Date = new Date()): string {
@@ -35,6 +68,22 @@ export function shortPlaceName(event: DisasterEvent): string {
   return `${event.lat.toFixed(2)}, ${event.lon.toFixed(2)}`;
 }
 
+/**
+ * Display lines for an event's official intensity reading(s). Gempa is
+ * special-cased: intensity is per-region (see DisasterEvent.regionIntensities),
+ * never a single event-wide value, and BMKG's Dirasakan field is often
+ * simply empty - that must read as "no report", never an estimate.
+ */
+export function intensitasLines(event: DisasterEvent): string[] {
+  if (event.type === "gempa") {
+    if (!event.regionIntensities || event.regionIntensities.length === 0) {
+      return ["Belum ada laporan dirasakan"];
+    }
+    return event.regionIntensities.map((r) => `${r.wilayah}: ${r.sigLabel} (BMKG)`);
+  }
+  return [event.intensitas ?? "Data belum tersedia"];
+}
+
 /** Short key-stat line for a card, e.g. "M 5,2" or "12 titik panas terdeteksi". */
 export function keyStatLine(event: DisasterEvent): string {
   const raw = event.raw as Record<string, unknown>;
@@ -48,5 +97,5 @@ export function keyStatLine(event: DisasterEvent): string {
   if (event.type === "gunungapi" && typeof raw.level === "string") {
     return `Level ${raw.level}`;
   }
-  return event.severityLabel;
+  return event.intensitas ?? "Belum ada laporan";
 }

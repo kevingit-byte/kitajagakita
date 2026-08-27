@@ -1,7 +1,8 @@
-import type { DisasterEvent, EventStatus, Severity, SeverityLabel } from "../types";
+import type { DisasterEvent, EventStatus, Tindakan } from "../types";
 import type { FirmsHotspot } from "../sources/firms";
 import { haversineDistanceKm } from "../geo";
 import { isInPeatProneProvince } from "../data/peat-prone-provinces";
+import { classifyAqi } from "../labels";
 
 export type WildfireCluster = {
   id: string;
@@ -21,14 +22,6 @@ export type WildfireCluster = {
  */
 export const WILDFIRE_CAVEAT =
   "Titik panas adalah deteksi suhu tinggi dari satelit, belum tentu kebakaran. Perlu verifikasi lapangan. Lintasan satelit memiliki celah waktu dan tutupan awan dapat menyebabkan pembacaan 'padam' yang keliru.";
-
-const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
-};
 
 function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -102,16 +95,13 @@ function spreadRadiusKm(cluster: WildfireCluster): number {
 
 /**
  * Combines total cluster FRP, geographic spread, the 3-day FRP trend, and
- * whether the cluster sits in a peat-prone province - point count is not
- * used at all (per instruction: it must not be the main factor, and every
- * other factor here already correlates with detection density without
- * inheriting its bias toward simply "more satellite passes over the same
- * spot" rather than "worse fire").
+ * whether the cluster sits in a peat-prone province into a 0-4 `tindakan`
+ * urgency level - point count is not used at all (per instruction: it must
+ * not be the main factor, and every other factor here already correlates
+ * with detection density without inheriting its bias toward simply "more
+ * satellite passes over the same spot" rather than "worse fire").
  */
-function classifySeverity(
-  cluster: WildfireCluster,
-  now: Date,
-): { severity: Severity; severityReason: string } {
+function classifyTindakan(cluster: WildfireCluster, now: Date): { tindakan: Tindakan; tindakanReason: string } {
   const reasonParts: string[] = [];
   let points = 0;
 
@@ -157,36 +147,59 @@ function classifySeverity(
     reasonParts.push(`berada di provinsi rawan lahan gambut (${peatProvince.name})`);
   }
 
-  let severity: Severity;
-  if (points >= 12) severity = 5;
-  else if (points >= 9) severity = 4;
-  else if (points >= 6) severity = 3;
-  else if (points >= 3) severity = 2;
-  else severity = 1;
+  let tindakan: Tindakan;
+  if (points >= 9) tindakan = "awas";
+  else if (points >= 6) tindakan = "siaga";
+  else if (points >= 3) tindakan = "waspada";
+  else tindakan = "normal";
 
   return {
-    severity,
-    severityReason: `Berdasarkan ${reasonParts.join(", ")}.`,
+    tindakan,
+    tindakanReason: `Berdasarkan ${reasonParts.join(", ")}.`,
   };
+}
+
+/**
+ * The spec calls for karhutla intensitas to be an ISPU (Indonesia's own air
+ * quality standard) category from the nearest air-quality reading - not
+ * hotspot count. This app could not verify ISPU's official breakpoint
+ * table this session (KLHK's ISPU portal and Permen LHK 14/2020's text are
+ * both on domains this sandbox's network egress blocked outright), so
+ * rather than guess concentration breakpoints and mislabel them as the
+ * official Indonesian standard, this uses the already-implemented US EPA
+ * AQI (via Open-Meteo, see lib/labels.ts classifyAqi) and labels it
+ * honestly as AQI, not ISPU. Worth swapping for real ISPU once a reachable
+ * source for its breakpoints is confirmed.
+ */
+function intensitasFromAirQuality(usAqi: number | null): string | null {
+  if (usAqi === null) return null;
+  const category = classifyAqi(usAqi);
+  return `AQI ${usAqi} - ${category.label} (AS/EPA via Open-Meteo, proksi - ISPU resmi KLHK belum tersedia)`;
 }
 
 export function classifyWildfireCluster(
   cluster: WildfireCluster,
   now: Date = new Date(),
+  nearestUsAqi: number | null = null,
 ): {
   status: EventStatus;
   statusReason: string;
-  severity: Severity;
-  severityLabel: SeverityLabel;
-  severityReason: string;
+  tindakan: Tindakan;
+  tindakanReason: string;
+  intensitas: string | null;
 } {
   const { status, statusReason } = classifyStatus(cluster, now);
-  const { severity, severityReason } = classifySeverity(cluster, now);
-  return { status, statusReason, severity, severityLabel: SEVERITY_LABEL_BY_LEVEL[severity], severityReason };
+  const { tindakan, tindakanReason } = classifyTindakan(cluster, now);
+  const intensitas = intensitasFromAirQuality(nearestUsAqi);
+  return { status, statusReason, tindakan, tindakanReason, intensitas };
 }
 
-export function wildfireClusterToEvent(cluster: WildfireCluster, now: Date = new Date()): DisasterEvent {
-  const { status, statusReason, severity, severityLabel } = classifyWildfireCluster(cluster, now);
+export function wildfireClusterToEvent(
+  cluster: WildfireCluster,
+  now: Date = new Date(),
+  nearestUsAqi: number | null = null,
+): DisasterEvent {
+  const { status, statusReason, tindakan, intensitas } = classifyWildfireCluster(cluster, now, nearestUsAqi);
 
   return {
     id: cluster.id,
@@ -197,8 +210,8 @@ export function wildfireClusterToEvent(cluster: WildfireCluster, now: Date = new
     province: null,
     occurredAt: `${cluster.latestAcqDate}T00:00:00Z`,
     lastUpdatedAt: now.toISOString(),
-    severity,
-    severityLabel,
+    intensitas,
+    tindakan,
     status,
     statusReason: `${statusReason} ${WILDFIRE_CAVEAT}`,
     raw: { pointCount: cluster.pointCount, totalFrp: cluster.totalFrp, points: cluster.points.length },

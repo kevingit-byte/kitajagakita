@@ -1,19 +1,27 @@
-import type { DisasterEvent, DisasterType, EventStatus, Severity } from "./types";
+import type { DisasterEvent, DisasterType, EventStatus } from "./types";
 
 export type TimeRange = "today" | "3d" | "7d" | "30d";
+
+/**
+ * Replaces the old numeric minSeverity slider, which implied a false
+ * cross-hazard comparability. This filters on `tindakan` instead:
+ * "semua" shows everything, "perlu-perhatian" keeps siaga+awas, "darurat"
+ * keeps only awas.
+ */
+export type UrgencyFilter = "semua" | "perlu-perhatian" | "darurat";
 
 export type EventFilters = {
   types: DisasterType[]; // empty = all types
   statuses: EventStatus[]; // empty = all statuses
   timeRange: TimeRange;
-  minSeverity: Severity;
+  urgency: UrgencyFilter;
 };
 
 export const DEFAULT_FILTERS: EventFilters = {
   types: [],
   statuses: [],
   timeRange: "7d",
-  minSeverity: 1,
+  urgency: "semua",
 };
 
 /** "today" is the start of the current calendar day (local time), not a rolling 24h window. */
@@ -27,13 +35,19 @@ function cutoffForRange(range: TimeRange, now: Date): number {
   return now.getTime() - days * 24 * 60 * 60 * 1000;
 }
 
+function passesUrgency(event: DisasterEvent, urgency: UrgencyFilter): boolean {
+  if (urgency === "semua") return true;
+  if (urgency === "darurat") return event.tindakan === "awas";
+  return event.tindakan === "siaga" || event.tindakan === "awas";
+}
+
 export function filterEvents(events: DisasterEvent[], filters: EventFilters, now: Date = new Date()): DisasterEvent[] {
   const cutoff = cutoffForRange(filters.timeRange, now);
 
   return events.filter((event) => {
     if (filters.types.length > 0 && !filters.types.includes(event.type)) return false;
     if (filters.statuses.length > 0 && !filters.statuses.includes(event.status)) return false;
-    if (event.severity < filters.minSeverity) return false;
+    if (!passesUrgency(event, filters.urgency)) return false;
 
     const occurredMs = new Date(event.occurredAt).getTime();
     if (Number.isFinite(occurredMs) && occurredMs < cutoff) return false;

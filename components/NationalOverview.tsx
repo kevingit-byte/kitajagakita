@@ -1,27 +1,29 @@
 "use client";
 
-import type { DisasterEvent, DisasterType } from "@/lib/types";
+import type { DisasterEvent, DisasterType, Tindakan } from "@/lib/types";
 import { buildProvinceSummaries, buildTypeCounts } from "@/lib/status/national-overview";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_COLOR, DISASTER_TYPE_ICON } from "@/lib/labels";
-import { HUMAN_LEVEL, levelFromEventSeverity } from "@/lib/human-severity";
+import { HUMAN_LEVEL, levelFromTindakan } from "@/lib/human-severity";
 import AqiPanel from "./AqiPanel";
+
+const TINDAKAN_RANK: Record<Tindakan, number> = { normal: 0, waspada: 1, siaga: 2, awas: 3 };
 
 // Provinces bucket into 3 groups for the at-a-glance summary (matching the
 // spec's example numbers exactly), even though individual province badges
-// below use the full 4-level language - severity 3 (Siaga) folds into the
-// "perlu perhatian" bucket alongside 4-5 (Bahaya) for a quick top-line read.
-function bucketProvince(highestActiveSeverity: number | null): "perlu-perhatian" | "waspada" | "normal" {
-  if (highestActiveSeverity === null || highestActiveSeverity <= 1) return "normal";
-  if (highestActiveSeverity === 2) return "waspada";
+// below use the full 4-level language - siaga folds into the
+// "perlu perhatian" bucket alongside awas for a quick top-line read.
+function bucketProvince(mostUrgentActiveTindakan: Tindakan | null): "perlu-perhatian" | "waspada" | "normal" {
+  if (mostUrgentActiveTindakan === null || mostUrgentActiveTindakan === "normal") return "normal";
+  if (mostUrgentActiveTindakan === "waspada") return "waspada";
   return "perlu-perhatian";
 }
 
 export default function NationalOverview({ events }: { events: DisasterEvent[] }) {
   const typeCounts = buildTypeCounts(events);
   const provinces = buildProvinceSummaries(events).sort((a, b) => {
-    const sevA = a.highestActiveSeverity ?? -1;
-    const sevB = b.highestActiveSeverity ?? -1;
-    if (sevA !== sevB) return sevB - sevA;
+    const rankA = a.mostUrgentActiveTindakan ? TINDAKAN_RANK[a.mostUrgentActiveTindakan] : -1;
+    const rankB = b.mostUrgentActiveTindakan ? TINDAKAN_RANK[b.mostUrgentActiveTindakan] : -1;
+    if (rankA !== rankB) return rankB - rankA;
     return b.totalEvents - a.totalEvents;
   });
 
@@ -30,7 +32,7 @@ export default function NationalOverview({ events }: { events: DisasterEvent[] }
   const weekCount = events.filter((e) => new Date(e.occurredAt).getTime() >= weekCutoff).length;
 
   const buckets = { "perlu-perhatian": 0, waspada: 0, normal: 0 };
-  for (const p of provinces) buckets[bucketProvince(p.highestActiveSeverity)] += 1;
+  for (const p of provinces) buckets[bucketProvince(p.mostUrgentActiveTindakan)] += 1;
 
   return (
     <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-5">
@@ -101,15 +103,15 @@ export default function NationalOverview({ events }: { events: DisasterEvent[] }
         <div className="flex flex-col gap-2">
           {provinces.map((p) => {
             const level =
-              p.highestActiveSeverity !== null
-                ? levelFromEventSeverity(p.highestActiveSeverity, "aktif")
+              p.mostUrgentActiveTindakan !== null
+                ? levelFromTindakan(p.mostUrgentActiveTindakan, "aktif")
                 : HUMAN_LEVEL.aman;
             return (
               <div key={p.province} className="p-3 bg-neutral-900 border border-neutral-800 rounded-lg">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium text-sm">{p.province}</span>
                   <span className={`shrink-0 px-2 py-0.5 rounded-full text-xs border ${level.badgeClass}`}>
-                    {level.icon} {p.highestActiveSeverity !== null ? level.shortLabel : "Tidak ada yang aktif"}
+                    {level.icon} {p.mostUrgentActiveTindakan !== null ? level.shortLabel : "Tidak ada yang aktif"}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-neutral-500 mt-1.5">

@@ -7,7 +7,7 @@ import { computeCompositeScore, summarizeNearbyEvents } from "@/lib/status/compo
 import { LOCATION_OPTIONS, type LocationOption } from "@/lib/data/locations";
 import { levelFromSafetyLevel } from "@/lib/human-severity";
 import { DISASTER_TYPE_LABEL, DISASTER_TYPE_ICON } from "@/lib/labels";
-import { formatRelativeTime } from "@/lib/format";
+import { formatRelativeTime, regionIntensityForLocation } from "@/lib/format";
 import { GUIDANCE, OFFICIAL_SOURCES_URL } from "@/lib/guidance";
 
 type AqiResponse = { aqi: { usAqi: number } | null };
@@ -154,6 +154,29 @@ export default function LocationCheck({ events, location, onLocationChange }: Lo
               )}
             </p>
           </div>
+
+          {result.nearestActiveEvent?.type === "gempa" && (
+            <div className="bg-neutral-800/50 border border-neutral-800 rounded-lg p-3">
+              <div className="text-neutral-200 font-medium text-sm mb-1">Intensitas dirasakan di wilayahmu</div>
+              {(() => {
+                const regionMatch = regionIntensityForLocation(result.nearestActiveEvent!, location!.label);
+                if (regionMatch) {
+                  return (
+                    <p className="text-neutral-300 text-sm">
+                      {regionMatch.sigLabel} (BMKG) di {regionMatch.wilayah}.
+                    </p>
+                  );
+                }
+                return (
+                  <p className="text-neutral-500 text-xs">
+                    {result.nearestActiveEvent!.regionIntensities && result.nearestActiveEvent!.regionIntensities!.length > 0
+                      ? `Tidak ditemukan laporan dirasakan yang cocok dengan "${location!.label}" - lihat detail kejadian untuk daftar lengkap per wilayah.`
+                      : "Belum ada laporan dirasakan"}
+                  </p>
+                );
+              })()}
+            </div>
+          )}
 
           {result.nearestActiveEvent && (
             <div className="bg-neutral-800/50 border border-neutral-800 rounded-lg p-3">

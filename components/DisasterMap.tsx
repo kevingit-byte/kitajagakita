@@ -12,8 +12,26 @@ import MapGL, {
 } from "react-map-gl/maplibre";
 import type { CircleLayerSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import type { DisasterEvent } from "@/lib/types";
+import type { DisasterEvent, Tindakan } from "@/lib/types";
 import { DISASTER_TYPE_COLOR } from "@/lib/labels";
+import { SIG_COLOR } from "@/lib/status/mmi";
+
+const TINDAKAN_RANK: Record<Tindakan, number> = { normal: 0, waspada: 1, siaga: 2, awas: 3 };
+
+/**
+ * Per BMKG's own color convention (SIG II hijau, III kuning, IV jingga, V
+ * merah), gempa markers use the max felt SIG-BMKG reading across regions
+ * instead of the fixed per-type color every other hazard uses - a neutral
+ * gray stands in when there is no felt report at all (never a guessed color).
+ */
+function markerColor(event: DisasterEvent): string {
+  if (event.type === "gempa") {
+    if (!event.regionIntensities || event.regionIntensities.length === 0) return "#737373";
+    const maxSig = Math.max(...event.regionIntensities.map((r) => r.sig)) as 1 | 2 | 3 | 4 | 5;
+    return SIG_COLOR[maxSig];
+  }
+  return DISASTER_TYPE_COLOR[event.type];
+}
 
 // CARTO's free vector basemap style (MapLibre GL, no API key) - replaces the
 // old raster-tile approach. CARTO themselves recommend vector basemaps over
@@ -37,7 +55,8 @@ function toFeatureCollection(events: DisasterEvent[]): GeoJSON.FeatureCollection
       properties: {
         id: event.id,
         type: event.type,
-        severity: event.severity,
+        color: markerColor(event),
+        tindakanRank: TINDAKAN_RANK[event.tindakan],
         faded: event.status === "selesai" ? 1 : 0,
       },
     })),
@@ -53,24 +72,8 @@ const circleLayer: CircleLayerSpecification = {
   type: "circle",
   source: "events",
   paint: {
-    "circle-color": [
-      "match",
-      ["get", "type"],
-      "gempa",
-      DISASTER_TYPE_COLOR.gempa,
-      "karhutla",
-      DISASTER_TYPE_COLOR.karhutla,
-      "gunungapi",
-      DISASTER_TYPE_COLOR.gunungapi,
-      "banjir",
-      DISASTER_TYPE_COLOR.banjir,
-      "longsor",
-      DISASTER_TYPE_COLOR.longsor,
-      "cuaca",
-      DISASTER_TYPE_COLOR.cuaca,
-      DISASTER_TYPE_COLOR.lainnya,
-    ],
-    "circle-radius": ["+", 5, ["*", ["get", "severity"], 2.2]],
+    "circle-color": ["get", "color"],
+    "circle-radius": ["+", 7, ["*", ["get", "tindakanRank"], 3]],
     "circle-opacity": ["case", ["==", ["get", "faded"], 1], 0.25, 0.8],
     "circle-stroke-width": 1.2,
     "circle-stroke-color": "#0b0f14",

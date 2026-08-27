@@ -1,4 +1,4 @@
-import type { EventStatus, Severity, SeverityLabel } from "../types";
+import type { EventStatus } from "../types";
 import { clusterByDistanceAndTime } from "../geo";
 
 export type QuakeInput = {
@@ -9,8 +9,8 @@ export type QuakeInput = {
   lon: number;
   depthKm: number;
   place: string;
-  /** Highest MMI value from BMKG's Dirasakan field, if a matching BMKG record was found. */
-  dirasakanMmi?: number | null;
+  /** Raw BMKG `Dirasakan` text, if a matching BMKG record was found - converted to SIG-BMKG per-region elsewhere (lib/status/mmi.ts), not here. */
+  dirasakan?: string | null;
 };
 
 export type QuakeSequence = {
@@ -18,9 +18,6 @@ export type QuakeSequence = {
   aftershocks: QuakeInput[];
   status: EventStatus;
   statusReason: string;
-  severity: Severity;
-  severityLabel: SeverityLabel;
-  severityReason: string;
 };
 
 const SEQUENCE_EPSILON_KM = 100;
@@ -28,14 +25,6 @@ const SEQUENCE_MAX_DAYS_APART = 14;
 const AFTERSHOCK_MIN_MAGNITUDE = 3.5;
 const AKTIF_WINDOW_HOURS = 24;
 const MEREDA_WINDOW_HOURS = 72;
-
-const SEVERITY_LABEL_BY_LEVEL: Record<Severity, SeverityLabel> = {
-  1: "Ringan",
-  2: "Sedang",
-  3: "Berat",
-  4: "Sangat Berat",
-  5: "Kritis",
-};
 
 function pickMainshock(cluster: QuakeInput[]): QuakeInput {
   return cluster.reduce((best, quake) => {
@@ -80,36 +69,11 @@ function classifySequenceStatus(
   };
 }
 
-function classifySeverity(mainshock: QuakeInput): { severity: Severity; reasonParts: string[] } {
-  let level: number;
-  if (mainshock.magnitude >= 7) level = 5;
-  else if (mainshock.magnitude >= 6) level = 4;
-  else if (mainshock.magnitude >= 5) level = 3;
-  else if (mainshock.magnitude >= 4) level = 2;
-  else level = 1;
-
-  const reasonParts = [`magnitudo M${mainshock.magnitude}`];
-
-  if (mainshock.depthKm < 70) {
-    level += 1;
-    reasonParts.push(`dangkal (${mainshock.depthKm} km, <70 km sehingga dirasakan lebih kuat di permukaan)`);
-  } else {
-    reasonParts.push(`kedalaman ${mainshock.depthKm} km (tidak dangkal, tidak ada penambahan tingkat)`);
-  }
-
-  if (mainshock.dirasakanMmi != null && mainshock.dirasakanMmi >= 5) {
-    level += 1;
-    reasonParts.push(`dirasakan hingga MMI ${mainshock.dirasakanMmi}`);
-  }
-
-  const severity = Math.min(5, Math.max(1, level)) as Severity;
-  return { severity, reasonParts };
-}
-
 /**
  * Groups quakes into sequences (100km / 14 days, graph-chained - not just
- * distance-to-mainshock) and classifies each sequence's status/severity.
- * Validated against the real Ruteng/Manggarai aftershock sequence sample:
+ * distance-to-mainshock) and classifies each sequence's status (whether
+ * aftershocks are still ongoing). Validated against the real Ruteng/
+ * Manggarai aftershock sequence sample:
  * reproduces the expected 9-of-15 grouping with isolated events (Sangihe,
  * Maluku, Banten, Sulawesi Tengah, Sulut) correctly excluded.
  */
@@ -127,16 +91,7 @@ export function buildQuakeSequences(quakes: QuakeInput[], now: Date = new Date()
     const aftershocks = cluster.filter((q) => q.id !== mainshock.id);
 
     const { status, statusReason } = classifySequenceStatus(aftershocks, now);
-    const { severity, reasonParts } = classifySeverity(mainshock);
 
-    return {
-      mainshock,
-      aftershocks,
-      status,
-      statusReason,
-      severity,
-      severityLabel: SEVERITY_LABEL_BY_LEVEL[severity],
-      severityReason: `Tingkat keparahan dari ${reasonParts.join(", ")}.`,
-    };
+    return { mainshock, aftershocks, status, statusReason };
   });
 }

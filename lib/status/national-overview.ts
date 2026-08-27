@@ -1,9 +1,11 @@
-import type { DisasterEvent, DisasterType, Severity } from "../types";
+import type { DisasterEvent, DisasterType, Tindakan } from "../types";
 import { haversineDistanceKm } from "../geo";
 import provinceCoordinates from "../data/province-coordinates.json";
 
 type ProvinceCoordinate = { name: string; lat: number; lon: number };
 const PROVINCES = provinceCoordinates as ProvinceCoordinate[];
+
+const TINDAKAN_RANK: Record<Tindakan, number> = { normal: 0, waspada: 1, siaga: 2, awas: 3 };
 
 export type ProvinceSummary = {
   province: string;
@@ -11,8 +13,8 @@ export type ProvinceSummary = {
   lon: number;
   totalEvents: number;
   activeEvents: number;
-  /** Highest severity among this province's ACTIVE events; null when it has none. */
-  highestActiveSeverity: Severity | null;
+  /** Most urgent tindakan among this province's ACTIVE events; null when it has none. */
+  mostUrgentActiveTindakan: Tindakan | null;
   countsByType: Partial<Record<DisasterType, number>>;
 };
 
@@ -41,7 +43,7 @@ export function buildProvinceSummaries(events: DisasterEvent[]): ProvinceSummary
       lon: province.lon,
       totalEvents: 0,
       activeEvents: 0,
-      highestActiveSeverity: null,
+      mostUrgentActiveTindakan: null,
       countsByType: {},
     });
   }
@@ -55,8 +57,11 @@ export function buildProvinceSummaries(events: DisasterEvent[]): ProvinceSummary
 
     if (event.status === "aktif") {
       summary.activeEvents += 1;
-      if (summary.highestActiveSeverity === null || event.severity > summary.highestActiveSeverity) {
-        summary.highestActiveSeverity = event.severity;
+      if (
+        summary.mostUrgentActiveTindakan === null ||
+        TINDAKAN_RANK[event.tindakan] > TINDAKAN_RANK[summary.mostUrgentActiveTindakan]
+      ) {
+        summary.mostUrgentActiveTindakan = event.tindakan;
       }
     }
   }

@@ -49,7 +49,7 @@ export async function fetchGdacsIndonesiaEvents(fromDate: string, toDate: string
     const [lon, lat] = feature.geometry.coordinates;
     const p = feature.properties;
     const type = EVENTTYPE_TO_DISASTER_TYPE[p.eventtype] ?? "lainnya";
-    const { status, statusReason, severity, severityLabel } = classifyGdacsEvent(
+    const { status, statusReason, intensitas, tindakan } = classifyGdacsEvent(
       p.alertlevel,
       p.iscurrent,
       p.todate,
@@ -64,8 +64,8 @@ export async function fetchGdacsIndonesiaEvents(fromDate: string, toDate: string
       province: null,
       occurredAt: p.fromdate,
       lastUpdatedAt: p.datemodified,
-      severity,
-      severityLabel,
+      intensitas,
+      tindakan,
       status,
       statusReason,
       raw: p as unknown as Record<string, unknown>,

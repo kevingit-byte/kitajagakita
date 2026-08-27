@@ -1,4 +1,4 @@
-import type { Severity, EventStatus } from "./types";
+import type { Tindakan, EventStatus } from "./types";
 import type { SafetyLevel } from "./status/composite-score";
 
 export type HumanLevel = "aman" | "waspada" | "siaga" | "bahaya";
@@ -58,17 +58,20 @@ export function levelFromSafetyLevel(safetyLevel: SafetyLevel): HumanLevelPresen
   return HUMAN_LEVEL[safetyLevel.toLowerCase() as HumanLevel];
 }
 
-/**
- * A single event's severity (1-5: Ringan..Kritis) collapses to the same
- * 4-level language for consistent card badges. selesai events always read
- * as calm/neutral regardless of what severity they were while active - a
- * resolved M7 earthquake shouldn't still look alarming on a card.
- */
-export function levelFromEventSeverity(severity: Severity, status: EventStatus): HumanLevelPresentation {
-  if (status === "selesai") return HUMAN_LEVEL.aman;
+const HUMAN_LEVEL_BY_TINDAKAN: Record<Tindakan, HumanLevel> = {
+  normal: "aman",
+  waspada: "waspada",
+  siaga: "siaga",
+  awas: "bahaya",
+};
 
-  if (severity <= 1) return HUMAN_LEVEL.aman;
-  if (severity === 2) return HUMAN_LEVEL.waspada;
-  if (severity === 3) return HUMAN_LEVEL.siaga;
-  return HUMAN_LEVEL.bahaya;
+/**
+ * A single event's `tindakan` (normal/waspada/siaga/awas) collapses to the
+ * same 4-level language for consistent card badges. selesai events always
+ * read as calm/neutral regardless of what tindakan they were while active -
+ * a resolved M7 earthquake shouldn't still look alarming on a card.
+ */
+export function levelFromTindakan(tindakan: Tindakan, status: EventStatus): HumanLevelPresentation {
+  if (status === "selesai") return HUMAN_LEVEL.aman;
+  return HUMAN_LEVEL[HUMAN_LEVEL_BY_TINDAKAN[tindakan]];
 }
