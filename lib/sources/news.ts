@@ -3,9 +3,26 @@ import type { NewsLink } from "../types";
 
 const BASE_URL = "https://news.google.com/rss/search";
 
-// Ranked ahead of other outlets in the results; matched against the source
-// name Google News appends to each title (e.g. "... - Kompas.com").
-const TRUSTED_OUTLETS = ["Kompas", "Antara", "Detik", "Tempo", "CNN Indonesia", "BBC Indonesia"];
+/**
+ * Ranked ahead of other outlets in the results; matched against the source
+ * name Google News appends to each title (e.g. "... - Kompas.com"). Caught
+ * a real false-positive testing this against live results: a naive
+ * substring check on "Kompas" also matched "Kompasiana.com" (a different,
+ * lower-editorial-bar platform) and "kompas1net" (looks like a copycat/spam
+ * site) - neither should rank as the trusted outlet. Word-boundary regex
+ * fixes both without excluding legitimate regional bureaus like "ANTARA
+ * News Banten". Detik is a special case: its own branding concatenates
+ * without a space ("detikcom", "detikNews", "detikFinance"), so it needs a
+ * prefix match instead of a word-boundary one.
+ */
+const TRUSTED_OUTLET_PATTERNS: [string, RegExp][] = [
+  ["Kompas", /\bkompas\b/i],
+  ["Antara", /\bantara\b/i],
+  ["Detik", /^detik/i],
+  ["Tempo", /\btempo\b/i],
+  ["CNN Indonesia", /\bcnn indonesia\b/i],
+  ["BBC Indonesia", /\bbbc\b/i],
+];
 
 type NewsItem = { title: string; link: string; pubDate: string };
 
@@ -23,10 +40,8 @@ function parseTitleAndSource(rawTitle: string): { title: string; sourceName: str
 }
 
 function outletRank(sourceName: string): number {
-  const index = TRUSTED_OUTLETS.findIndex((outlet) =>
-    sourceName.toLowerCase().includes(outlet.toLowerCase()),
-  );
-  return index === -1 ? TRUSTED_OUTLETS.length : index;
+  const index = TRUSTED_OUTLET_PATTERNS.findIndex(([, pattern]) => pattern.test(sourceName));
+  return index === -1 ? TRUSTED_OUTLET_PATTERNS.length : index;
 }
 
 export async function fetchNewsForQuery(query: string, maxResults = 5): Promise<NewsLink[]> {

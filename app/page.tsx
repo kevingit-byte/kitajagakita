@@ -5,6 +5,7 @@ import MapView from "@/components/MapView";
 import FilterBar from "@/components/FilterBar";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import SourceStatusNotice from "@/components/SourceStatusNotice";
+import DetailPanel from "@/components/DetailPanel";
 import { useDisasterEvents } from "@/lib/hooks/useDisasterEvents";
 import { DEFAULT_FILTERS, filterEvents } from "@/lib/filters";
 import type { DisasterEvent } from "@/lib/types";
@@ -33,27 +34,7 @@ export default function Home() {
         <MapView events={visibleEvents} onSelectEvent={setSelectedEvent} />
       </div>
 
-      {selectedEvent && (
-        <div className="absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 bg-neutral-900 border-t sm:border-t-0 sm:border-l border-neutral-800 p-4 max-h-[60vh] sm:max-h-none overflow-y-auto">
-          <button
-            onClick={() => setSelectedEvent(null)}
-            className="text-neutral-500 text-sm float-right"
-            aria-label="Tutup"
-          >
-            Tutup
-          </button>
-          <h2 className="font-semibold text-lg mb-2">{selectedEvent.title}</h2>
-          <p className="text-sm text-neutral-400 mb-1">Status: {selectedEvent.status}</p>
-          <p className="text-sm text-neutral-400 mb-1">Tingkat keparahan: {selectedEvent.severityLabel}</p>
-          <p className="text-sm text-neutral-300 mb-3">{selectedEvent.statusReason}</p>
-          <p className="text-xs text-neutral-500">
-            Sumber: {selectedEvent.sourceName} -{" "}
-            <a href={selectedEvent.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
-              tautan
-            </a>
-          </p>
-        </div>
-      )}
+      {selectedEvent && <DetailPanel event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
     </main>
   );
 }
